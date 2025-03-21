@@ -8,7 +8,7 @@ export default function NavBarMobile() {
   return (
     <div className='h-full w-full'>
       <div className='w-full xl:hidden'>
-        <div className='w-[90%] px-2 h-[3.4rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
+        <div className='w-[90%] px-4 h-[3.4rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
           <div className='text-black text-lg font-bold'>Logo</div>
           <motion.div
             onClick={() => setIsOpen(!isOpen)}
@@ -16,8 +16,8 @@ export default function NavBarMobile() {
             className='cursor-pointer'
           >
             <div className='flex items-center gap-2'>
-              <IoSearch size={25} color='black' />
-              <RxHamburgerMenu size={25} color='black' />
+              <IoSearch size={22} color='black' />
+              <RxHamburgerMenu size={22} color='black' />
             </div>
           </motion.div>
         </div>

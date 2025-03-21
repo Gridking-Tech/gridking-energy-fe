@@ -9,7 +9,7 @@ export default function NavBarDesktop() {
     return (
         <div className='h-full w-full'>
             <div className='w-full hidden xl:flex'>
-                <div className='w-[90%] px-4 h-[3.4rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
+                <div className='w-[90%] px-4 h-[3.5rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
                     <div className='text-black text-lg font-bold'>Logo</div>
                     <motion.div
                         onClick={() => setIsOpen(!isOpen)}

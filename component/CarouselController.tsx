@@ -1,21 +1,18 @@
-import { FaCircle } from "react-icons/fa";
-
-const CarouselControls = ({ currentIndex, setCurrentIndex, images }:any) => {
+const CarouselControls = ({ currentIndex, setCurrentIndex, images }: any) => {
   return (
-    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3">
-      {images.map((_:any, index:any) => (
-        <button
+    <div className="absolute bottom-4 z-50 left-1/2 transform -translate-x-1/2 flex gap-3">
+      {images.map((_: any, index: any) => (
+        <div
           key={index}
           onClick={() => setCurrentIndex(index)}
-          className="focus:outline-none"
+          onMouseOver={() => setCurrentIndex(index)}
+          className="focus:outline-none "
         >
-          <FaCircle
-            size={12}
-            className={`transition-colors duration-300 ${
-              index === currentIndex ? 'text-red-500' : 'text-gray-400 hover:text-red-300'
-            }`}
+          <div
+            className={`transition-colors cursor-pointer transition-all w-[3.8rem] h-[2.1px] rounded-[20rem] duration-500 
+              ${index === currentIndex ? 'bg-white' : 'bg-gray-400 hover:bg-white'}`}
           />
-        </button>
+        </div>
       ))}
     </div>
   );

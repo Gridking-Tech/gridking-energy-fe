@@ -9,7 +9,7 @@ import NavBarDesktop from './NavBarDesktop';
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className='w-full h-full  mt-5'>
+    <div className='w-full h-full  z-50 relative mt-5'>
       <div>
         <NavBarMobile />
       </div>

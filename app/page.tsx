@@ -4,7 +4,7 @@ import NavBar from "@/component/NavBar/NavBar";
 
 export default function HeroCarousel() {
   return (
-    <div className="relative overflow-hidden w-full h-[500px]">
+    <div className="relative overflow-hidden w-screen h-screen">
       <Carousel/>
     </div>
   );

@@ -11,7 +11,6 @@ export const navLinks = [
   { name: 'About Us', href: '/about' },
   { name: 'Product', href: '/product' },
   { name: 'Solution & Cases', href: '/solutions' },
-  { name: 'Intelligent System', href: '/intelligent-system' },
   { name: 'Support & Service', href: '/support' },
   { name: 'Contact Us', href: '/contact' }
 ];
