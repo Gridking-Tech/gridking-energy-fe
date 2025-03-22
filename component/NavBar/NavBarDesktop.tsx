@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { CgProfile } from 'react-icons/cg'
 import { FaGlobe } from 'react-icons/fa'
+import { IoSearch } from 'react-icons/io5';
 
 export default function NavBarDesktop() {
     const [isOpen, setIsOpen] = React.useState(false)
@@ -24,7 +25,8 @@ export default function NavBarDesktop() {
                             }
                         </ul>
                     </motion.div>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center gap-4'>
+                        <IoSearch size={25} color='black' className='cursor-pointer'/>
                         <CgProfile size={25} color='black' className='cursor-pointer'/>
                         <FaGlobe size={25} color='black' className='cursor-pointer'/>
                     </div>
