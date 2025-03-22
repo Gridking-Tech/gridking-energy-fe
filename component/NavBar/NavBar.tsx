@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavBarMobile from './NavBarMobile';
 import { AnimatePresence, motion } from 'framer-motion';
-import { navLinks } from '@/constant/imageArrayts';
+import { navLinks } from '@/constant/constants';
 import { CgProfile } from 'react-icons/cg';
 import { FaGlobe } from 'react-icons/fa';
 import NavBarDesktop from './NavBarDesktop';

@@ -1,4 +1,4 @@
-import { imagesArr } from '@/constant/imageArrayts'
+import { imagesArr } from '@/constant/constants'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import React, { useState, useEffect } from 'react'
 import CarouselControls from './CarouselController'
@@ -17,34 +17,32 @@ function Carousel() {
   }, []);
 
   const controls = useAnimation();
-  const [lastScrollY, setLastScrollY] = useState(0);
   
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 15) {
         controls.start({ 
           width: "100%", 
           top: 0, 
-          transition: { duration: 0.2 } 
+          borderRadius: 0,
+          transition: { duration: 0.4, ease: "easeIn" } 
         });
       } else {
         controls.start({ 
           width: "90%", 
           top: "10px", 
-          transition: { duration: 0.2 } 
+          borderRadius: "0.7rem",
+          transition: { duration: 0.4, ease: "easeOut" } 
         });
       }
-      setLastScrollY(window.scrollY);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY, controls]);
-
-
+  }, [controls, window.scrollY]);
 
   return (
-    <div className='relative w-full h-[70%]'>
+    <div className='relative w-full h-[100%]'>
       <AnimatePresence>
         {imagesArr.map((src, index) => (
           index === currentIndex && (
@@ -59,11 +57,12 @@ function Carousel() {
               <Image
                 src={src}
                 alt={`Image ${index}`}
+                priority={true}
                 layout="fill"
                 objectFit="cover"
                 className="absolute h-full w-full z-10"
               />
-              <div className="absolute w-full h-full bg-black/40 "></div>
+              <div className="absolute w-full h-full bg-black/40"></div>
               <CarouselControls
                 currentIndex={currentIndex}
                 setCurrentIndex={setCurrentIndex}
@@ -74,14 +73,14 @@ function Carousel() {
         ))}
       </AnimatePresence>
 
-      {/* NavBar should stay on top */}
+      {/* Navbar Animation */}
       <motion.div 
-      className="fixed left-1/2 transform -translate-x-1/2 z-20 bg-white shadow-lg rounded-lg"
-      initial={{ width: "90%", top: "10px" }}
-      animate={controls}
-    >
-      <NavBar />
-    </motion.div>
+        className="fixed left-1/2 transform -translate-x-1/2 z-20 bg-white shadow-lg "
+        initial={{ width: "90%", top: "10px",borderRadius: "0.5rem" }}
+        animate={controls}
+      >
+        <NavBar />
+      </motion.div>
     </div>
   )
 }

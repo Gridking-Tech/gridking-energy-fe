@@ -1,4 +1,4 @@
-import { navLinks } from '@/constant/imageArrayts'
+import { navLinks } from '@/constant/constants'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { CgProfile } from 'react-icons/cg'
@@ -9,7 +9,7 @@ export default function NavBarDesktop() {
     const [isOpen, setIsOpen] = React.useState(false)
     return (
         <div className='h-fullw-full justify-center hidden xl:flex'>
-                <div className='w-[90%] px-4 h-[3.5rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
+                <div className='w-full md:px-4 h-[3.5rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
                     <div className='text-black text-lg font-bold'>Logo</div>
                     <motion.div
                         onClick={() => setIsOpen(!isOpen)}

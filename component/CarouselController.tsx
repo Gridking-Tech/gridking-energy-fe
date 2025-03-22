@@ -10,7 +10,7 @@ const CarouselControls = ({ currentIndex, setCurrentIndex, images }: any) => {
         >
           <div
             className={`transition-colors cursor-pointer transition-all w-[3.8rem] h-[2.1px] rounded-[20rem] duration-500 
-              ${index === currentIndex ? 'bg-white' : 'bg-gray-200 hover:bg-white'}`}
+              ${index === currentIndex ? 'bg-white' : 'bg-gray-300 hover:bg-white'}`}
           />
         </div>
       ))}

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { motion, AnimatePresence } from 'framer-motion';
-import { navLinks } from '@/constant/imageArrayts';
+import { navLinks } from '@/constant/constants';
 import { IoSearch } from 'react-icons/io5';
 export default function NavBarMobile() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className='h-full w-full'>
       <div className='w-full xl:hidden'>
-        <div className='w-[90%] px-4 h-[3.4rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
+        <div className='w-full px-4 h-[3.4rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
           <div className='text-black text-lg font-bold'>Logo</div>
           <motion.div
             onClick={() => setIsOpen(!isOpen)}
