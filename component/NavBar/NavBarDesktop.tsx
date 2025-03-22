@@ -13,7 +13,7 @@ export default function NavBarDesktop() {
     return (
         <div className='h-full w-full flex-col justify-center hidden xl:flex'>
             <div className='w-full md:px-4 h-[3.5rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
-                <div className='text-black text-lg font-bold'>Logo</div>
+                <div className='text-black text-lg font-bold'>GridKing</div>
                 <motion.div>
                     <ul className='text-black  flex gap-10  '>
                         {

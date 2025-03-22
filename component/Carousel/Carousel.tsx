@@ -3,7 +3,8 @@ import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import React, { useState, useEffect } from 'react'
 import CarouselControls from './CarouselController'
 import Image from 'next/image'
-import NavBar from './NavBar/NavBar'
+import NavBar from '../NavBar/NavBar'
+
 
 function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -17,22 +18,22 @@ function Carousel() {
   }, []);
 
   const controls = useAnimation();
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 15) {
-        controls.start({ 
-          width: "100%", 
-          top: 0, 
+        controls.start({
+          width: "100%",
+          top: 0,
           borderRadius: 0,
-          transition: { duration: 0.4, ease: "easeIn" } 
+          transition: { duration: 0.4, ease: "easeIn" }
         });
       } else {
-        controls.start({ 
-          width: "90%", 
-          top: "10px", 
+        controls.start({
+          width: "90%",
+          top: "10px",
           borderRadius: "0.7rem",
-          transition: { duration: 0.4, ease: "easeOut" } 
+          transition: { duration: 0.4, ease: "easeOut" }
         });
       }
     };
@@ -73,9 +74,9 @@ function Carousel() {
         ))}
       </AnimatePresence>
 
-      <motion.div 
+      <motion.div
         className="fixed left-1/2 transform -translate-x-1/2 z-20 bg-white shadow-lg "
-        initial={{ width: "90%", top: "10px",borderRadius: "0.5rem" }}
+        initial={{ width: "90%", top: "10px", borderRadius: "0.5rem" }}
         animate={controls}
       >
         <NavBar />
