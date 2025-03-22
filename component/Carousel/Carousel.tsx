@@ -39,7 +39,7 @@ function Carousel() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [controls, window.scrollY]);
+  }, [controls]);
 
   return (
     <div className='relative w-full h-[100%]'>
@@ -73,7 +73,6 @@ function Carousel() {
         ))}
       </AnimatePresence>
 
-      {/* Navbar Animation */}
       <motion.div 
         className="fixed left-1/2 transform -translate-x-1/2 z-20 bg-white shadow-lg "
         initial={{ width: "90%", top: "10px",borderRadius: "0.5rem" }}

@@ -1,6 +1,5 @@
 'use client';
-import Carousel from "@/component/Carousel";
-import NavBar from "@/component/NavBar/NavBar";
+import Carousel from "@/component/Carousel/Carousel";
 
 export default function HeroCarousel() {
   return (
