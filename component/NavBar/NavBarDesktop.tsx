@@ -8,8 +8,7 @@ import { IoSearch } from 'react-icons/io5';
 export default function NavBarDesktop() {
     const [isOpen, setIsOpen] = React.useState(false)
     return (
-        <div className='h-full w-full'>
-            <div className='w-full hidden xl:flex'>
+        <div className='h-fullw-full justify-center hidden xl:flex'>
                 <div className='w-[90%] px-4 h-[3.5rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
                     <div className='text-black text-lg font-bold'>Logo</div>
                     <motion.div
@@ -31,8 +30,6 @@ export default function NavBarDesktop() {
                         <FaGlobe size={25} color='black' className='cursor-pointer'/>
                     </div>
                 </div>
-
-            </div>
         </div>
     )
 }

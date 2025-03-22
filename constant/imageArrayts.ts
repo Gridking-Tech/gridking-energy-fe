@@ -1,11 +1,9 @@
 export const imagesArr = [
   '/assets/images/pexels-jakubzerdzicki-24194071.jpg',
   '/assets/images/pexels-vlada-karpovich-4050323.jpg',
-  // '/assets/images/pexels-karolina-grabowska-5650017.jpg',
+
   '/assets/images/pexels-ekaterina-bolovtsova-4049876.jpg',
-  // '/assets/images/pexels-darlene-alderson-7971695.jpg',
-  // '/assets/images/pexels-picjumbo-com-55570-196647.jpg',
-  // '/assets/images/pexels-cottonbro-3944396.jpg',
+
   '/assets/images/pexels-goumbik-317377.jpg'
 ];
 
