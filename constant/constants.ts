@@ -71,10 +71,10 @@ export const navLinks = [
 
 
 export const products = [
-  { id: 1, name: 'IVGM10048', desc: '48V 10KW Solar Inverter', image: '/images/inverter1.png' },
-  { id: 2, name: 'FLA24100', desc: '24V 100AH LiFePO4 battery', image: '/images/battery1.png' },
-  { id: 3, name: 'MPPT4820', desc: 'MPPT Solar Charge Controller', image: '/images/controller1.png' },
-  { id: 4, name: 'SPM400', desc: '400W Solar Panel', image: '/images/solar1.png' }
+  { id: 1, name: 'IVGM10048', desc: '48V 10KW Solar Inverter', image: '/assets/images/pexels-alexander-mass-748453803-31243092.jpg' },
+  { id: 2, name: 'FLA24100', desc: '24V 100AH LiFePO4 battery', image: '/assets/images/pexels-diva-31265845.jpg' },
+  { id: 3, name: 'MPPT4820', desc: 'MPPT Solar Charge Controller', image: '/assets/images/pexels-kseniachernaya-3965534.jpg' },
+  { id: 4, name: 'SPM400', desc: '400W Solar Panel', image: '/assets/images/pexels-vlada-karpovich-4050323.jpg' }
 ];
 
 

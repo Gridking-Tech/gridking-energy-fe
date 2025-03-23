@@ -7,17 +7,18 @@ function NewArrivals() {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+
+  
   useEffect(() => {
     if (isPaused) return;
-
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % products.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  const handleChange = (direction:any) => {
+
+  const handleChange = (direction: any) => {
     setIsPaused(true);
     setTimeout(() => {
       setIndex((prev) =>

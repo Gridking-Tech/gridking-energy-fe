@@ -29,7 +29,7 @@ export default function NavBarDesktop() {
                     <FaGlobe size={25} color='black' className='cursor-pointer' />
                 </div>
             </div>
-            <div className='w-full  h-full'>
+            <div className='w-full  flex  justify-center  h-full'>
                 {
                     isCategories && (
                         <motion.div
@@ -37,7 +37,7 @@ export default function NavBarDesktop() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
-                            className='w-full h-[20rem] rounded-[2rem]  mt-5 bg-black fixed z-50 flex justify-center items-center shadow-lg'
+                            className='w-[97%] mx-auto h-[20rem] rounded-[2rem]  mt-5 bg-black fixed z-50 flex justify-center items-center shadow-lg'
                         >
                             <ul className=' z-50 space-y-2'>
                                 {
