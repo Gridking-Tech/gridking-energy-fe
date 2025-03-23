@@ -9,7 +9,7 @@ export default function NavBarMobile() {
     <div className='h-full w-full'>
       <div className='w-full xl:hidden'>
         <div className='w-full px-4 h-[3.4rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
-          <div className='text-black text-lg font-bold'>Logo</div>
+          <div className='text-black text-lg font-bold'>GridKing</div>
           <motion.div
             onClick={() => setIsOpen(!isOpen)}
             whileTap={{ scale: 0.8 }}
@@ -22,25 +22,6 @@ export default function NavBarMobile() {
           </motion.div>
         </div>
       </div>
-      <AnimatePresence >
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.3 }}
-            className='w-full h-full bg-white flex justify-center items-center shadow-lg'
-          >
-            <ul className='text-black space-y-2'>
-              {
-                navLinks.map(({ link, index }: any) => (
-                  <li key={index} className='text-2xl text-black'>{link}</li>
-                ))
-              }
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }

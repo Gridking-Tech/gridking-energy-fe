@@ -9,7 +9,7 @@ import { IoSearch } from 'react-icons/io5';
 export default function NavBarDesktop() {
     const [isOpen, setIsOpen] = React.useState(false)
     const [isCategories, setIscategories] = useState(false)
-    const [categories,setCategories] = useState([])
+    const [categories, setCategories] = useState([])
     return (
         <div className='h-full w-full flex-col justify-center hidden xl:flex'>
             <div className='w-full md:px-4 h-[3.5rem]  bg-white flex mx-auto justify-between items-center rounded-[0.7rem] shadow'>
@@ -37,19 +37,19 @@ export default function NavBarDesktop() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
-                            className='w-full h-[20rem]  mt-5 bg-black fixed z-50 flex justify-center items-center shadow-lg'
+                            className='w-full h-[20rem] rounded-[2rem]  mt-5 bg-black fixed z-50 flex justify-center items-center shadow-lg'
                         >
                             <ul className=' z-50 space-y-2'>
                                 {
                                     navLinks.map(({ link, index }: any) => (
-                                      <div>
-                                          <li key={index} className='text-2xl w-[10rem] h-[20rem]  text-white'>{link?.name}</li>
-                                          {
-                                            link?.constant.map((item: any, index: any) => (
-                                                <li key={index} className='text-2xl  text-white'>{item}</li>
-                                            ))
-                                          }
-                                      </div>
+                                        <div>
+                                            <li key={index} className='text-2xl text-white'>{link?.name}</li>
+                                            {
+                                                link?.constant.map((item: any, index: any) => (
+                                                    <li key={index} className='text-2xl text-white'>{item}</li>
+                                                ))
+                                            }
+                                        </div>
                                     ))
                                 }
                             </ul>
