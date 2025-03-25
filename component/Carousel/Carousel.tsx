@@ -8,75 +8,50 @@ import NavBar from '../NavBar/NavBar'
 
 function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [screenWidth, setScreenWidth] = useState(0);
+useEffect(() => {
+  setScreenWidth(window.innerWidth);
+  const handleResize = () => setScreenWidth(window.innerWidth);
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % imagesArr.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const controls = useAnimation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 15) {
-        controls.start({
-          width: "100%",
-          top: 0,
-          borderRadius: 0,
-          transition: { duration: 0.4, ease: "easeIn" }
-        });
-      } else {
-        controls.start({
-          width: "90%",
-          top: "10px",
-          borderRadius: "0.7rem",
-          transition: { duration: 0.4, ease: "easeOut" }
-        });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [controls]);
 
   return (
-    <div className='relative w-full h-[60%] md:h-[85%]'>
-      <AnimatePresence>
-        {imagesArr.map((src, index) => (
-          index === currentIndex && (
+    <div className='relative w-full h-[60%] overflow-hidden flex flex-col md:h-[85%]'>
+     <AnimatePresence mode="wait">
+        {imagesArr.map((src, index) =>
+          index === currentIndex ? (
             <motion.div
               key={src}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 1 }}
-              className="absolute w-full h-full"
+               className="absolute w-full z-10 h-full overflow-hidden pointer-events-none"
             >
-              <Image
-              src={src}
-              alt={`Image ${index}`}
-              priority={true}
-              layout="fill"
-              objectFit="cover"
-              className="absolute h-full w-full z-10"
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src={src}
+                  alt={`Image ${index}`}
+                  priority={true}
+                  layout="fill"
+                  objectFit="cover"
+                  className="absolute min-w-full  min-h-full"
+                />
+              </div>
               <div className="absolute w-full h-full bg-black/40"></div>
               <CarouselControls
-              currentIndex={currentIndex}
-              setCurrentIndex={setCurrentIndex}
-              images={imagesArr}
+                currentIndex={currentIndex}
+                setCurrentIndex={setCurrentIndex}
+                images={imagesArr}
               />
             </motion.div>
-          )
-        ))}
+          ) : null
+        )}
       </AnimatePresence>
       <motion.div
-        className="fixed left-1/2 transform -translate-x-1/2 z-20 bg-white shadow-lg "
-        initial={{ width: "90%", top: "17px", borderRadius: "0.5rem" }}
-        animate={controls}
+        className=""
       >
         <NavBar />
       </motion.div>

@@ -35,7 +35,7 @@ function NewArrivals() {
       <div className="w-[80%] flex flex-col md:flex-row justify-between items-center">
         <div className="w-full md:w-[40%] h-auto md:h-[450px] flex flex-col items-center md:items-start text-center md:text-left space-y-4">
           <h2 className="text-black text-4xl font-extrabold">NEW ARRIVAL</h2>
-          <div className="h-[4rem] md:h-[10rem] w-[3px] bg-orange-500"></div>
+          <div className="h-[4rem] md:h-[10rem] w-[3px]  bg-orange-500"></div>
           <p className="text-black text-lg font-medium">
             GridKing focuses on the "PV+Energy Storage" industry chain, specializing in LiFePO4 batteries, solar inverters, MPPT controllers, and solar panels.
           </p>
@@ -55,7 +55,7 @@ function NewArrivals() {
             </button>
           </div>
         </div>
-        <div className="relative w-full md:w-[45%] h-[130px] md:h-[400px] mt-5 xl:mt-0 flex items-center overflow-hidden">
+        <div className="relative w-full md:w-[45%] h-[160px] md:h-[400px] mt-5 xl:mt-0 flex items-center overflow-hidden">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={index}
@@ -67,13 +67,13 @@ function NewArrivals() {
             >
               {[
                 products[index],
-                ...(window.innerWidth >= 768
+                ...(window?.innerWidth >= 768
                   ? [products[(index + 1) % products.length]]
                   : []),
               ].map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center justify-between bg-orange-500 h-[160px] md:h-[200px] p-6 rounded-lg w-full shadow-md"
+                  className="flex items-center justify-between rounded-[0.6rem] bg-orange-500 h-[160px] md:h-[200px] p-6 rounded-lg w-full shadow-md"
                 >
                   <div className="text-white">
                     <h3 className="text-2xl font-bold">{product.name}</h3>

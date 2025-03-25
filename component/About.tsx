@@ -2,12 +2,12 @@ import React from 'react';
 
 function About() {
   return (
-    <div className="mt-20">
-      <div className="text-black font-black text-3xl  md:text-3xl text-center mb-10">
+    <div className="mt-20 w-full h-[80%] flex  flex-col justify-center">
+      <div className="text-black font-black text-3xl  md:text-5xl text-center mb-10">
         About GridKing
       </div>
 
-      <div className="bg-black w-[100%] md:w-[80%] mx-auto p-4 md:py-6 ">
+      <div className="bg- w-[100%]  md:w-[80%] mx-auto p-4 md:py-6 ">
         <iframe
           width="100%"
           height="500px"
