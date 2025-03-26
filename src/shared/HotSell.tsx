@@ -1,11 +1,11 @@
 "use client"; // Ensure this is at the top if in a client component
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { productTabs } from '@/constant/constants';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { productTabs } from "@/src/constants/constants";
+import { motion } from "framer-motion";
 import { RxDoubleArrowRight } from "react-icons/rx";
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from "next/navigation";
 
 const ProductShowcase = () => {
   const [selectedProduct, setSelectedProduct] = useState(productTabs[0]);
@@ -16,7 +16,6 @@ const ProductShowcase = () => {
     console.log("Tab Clicked:", product.name);
     setSelectedProduct(product);
     setImageIndex(0);
-    
   };
 
   useEffect(() => {
@@ -33,22 +32,29 @@ const ProductShowcase = () => {
       </div>
       <div className="flex xl:flex-nowrap flex-wrap justify-center md:space-x-6 mb-6 border-b pb-3">
         {productTabs.map((product) => (
-         <div className='flex items-center relative flex-col '>
-           <button
-            key={product.name}
-            className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 cursor-pointer ${
-              selectedProduct.name === product.name
-                ? 'text-orange-500 border-b2 border-orange-500'
-                : 'text-gray-700 border-b-transparent'
-            }`}
-            onClick={() => handleTabClick(product)}
-          >
-            <div>{product.name}</div>
-            <div><RxDoubleArrowRight size={20} /></div>
-           
-          </button>
-           <div onClick={() => router.push(`/collections/${product.name}`)} className='text-[0.78rem] absolute  px-2 rounded-[3px] py-[0.6px] bg-black text-white right-2 cursor-pointer '> More</div>
-         </div>
+          <div className="flex items-center relative flex-col ">
+            <button
+              key={product.name}
+              className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 cursor-pointer ${
+                selectedProduct.name === product.name
+                  ? "text-orange-500 border-b2 border-orange-500"
+                  : "text-gray-700 border-b-transparent"
+              }`}
+              onClick={() => handleTabClick(product)}
+            >
+              <div>{product.name}</div>
+              <div>
+                <RxDoubleArrowRight size={20} />
+              </div>
+            </button>
+            <div
+              onClick={() => router.push(`/collections/${product.name}`)}
+              className="text-[0.78rem] absolute  px-2 rounded-[3px] py-[0.6px] bg-black text-white right-2 cursor-pointer "
+            >
+              {" "}
+              More
+            </div>
+          </div>
         ))}
       </div>
       <div className="relative w-full md:w-[90%] h-[250px] md:h-[450px] flex justify-center items-center bg-transparent rounded-lg overflow-hidden">

@@ -1,16 +1,20 @@
-import { ProductsLinks, SupportServiceLinks, ContactLinks } from '@/constant/constants';
-import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState } from 'react';
-import { CgProfile } from 'react-icons/cg';
-import { FaGlobe } from 'react-icons/fa';
-import { IoMdClose } from 'react-icons/io';
-import { MdKeyboardArrowRight } from 'react-icons/md';
-import { navLinks } from '@/constant/constants';
-import { useRouter } from 'next/navigation';
+import {
+  ProductsLinks,
+  SupportServiceLinks,
+  ContactLinks,
+} from "@/src/constants/constants";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useState } from "react";
+import { CgProfile } from "react-icons/cg";
+import { FaGlobe } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { navLinks } from "@/src/constants/constants";
+import { useRouter } from "next/navigation";
 
 const SideBar = ({ isOpen, setIsOpen }: any) => {
   const [expanded, setExpanded] = useState<string | null>(null);
-  const routes = useRouter()
+  const routes = useRouter();
 
   const handleToggle = (category: any) => {
     setExpanded(expanded === category ? null : category);
@@ -30,29 +34,46 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
 
           <motion.div
             className="fixed top-0 right-0 h-full w-[85%] max-w-[400px] bg-white shadow-lg z-50 flex flex-col"
-            initial={{ x: '100%' }}
+            initial={{ x: "100%" }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <div className="flex justify-end p-4">
-              <button className="text-black text-2xl" onClick={() => setIsOpen(false)}>
+              <button
+                className="text-black text-2xl"
+                onClick={() => setIsOpen(false)}
+              >
                 <IoMdClose />
               </button>
             </div>
 
             <div className="flex items-center px-6 py-4 border-b space-x-3">
               <CgProfile size={24} className="text-gray-600" />
-              <span className="text-sm font-medium text-gray-800">Sign In or Sign Up</span>
+              <span className="text-sm font-medium text-gray-800">
+                Sign In or Sign Up
+              </span>
             </div>
 
             <motion.ul className="flex flex-col p-4 space-y-4">
               {navLinks.map((navItem) => (
                 <div key={navItem.name}>
-                  <li className="flex justify-between items-center text-lg text-black font-medium my-2 cursor-pointer" onClick={() => handleToggle(navItem.name)}>
-                    <span  onClick={() => { routes.push(`/collections/${navItem.name}`); setIsOpen(false); }}>{navItem.name}</span>
+                  <li
+                    className="flex justify-between items-center text-lg text-black font-medium my-2 cursor-pointer"
+                    onClick={() => handleToggle(navItem.name)}
+                  >
+                    <span
+                      onClick={() => {
+                        routes.push(`/collections/${navItem.name}`);
+                        setIsOpen(false);
+                      }}
+                    >
+                      {navItem.name}
+                    </span>
                     {navItem.constant && (
-                      <motion.div animate={{ rotate: expanded === navItem.name ? 90 : 0 }}>
+                      <motion.div
+                        animate={{ rotate: expanded === navItem.name ? 90 : 0 }}
+                      >
                         <MdKeyboardArrowRight />
                       </motion.div>
                     )}
@@ -67,8 +88,8 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
                         variants={{
                           hidden: {},
                           visible: {
-                            transition: { staggerChildren: 0.15 } 
-                          }
+                            transition: { staggerChildren: 0.15 },
+                          },
                         }}
                       >
                         {navItem.constant.map((link) => (
@@ -76,10 +97,17 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
                             key={link.name}
                             className="text-gray-600 my-4 text-base"
                             variants={{
-                              hidden: { opacity: 0, x: -20 }, 
-                              visible: { opacity: 1, x: 0, transition: { ease: "easeOut", duration: 0.3 } } 
+                              hidden: { opacity: 0, x: -20 },
+                              visible: {
+                                opacity: 1,
+                                x: 0,
+                                transition: { ease: "easeOut", duration: 0.3 },
+                              },
                             }}
-                            onClick={() => { routes.push(`${link.name}`); setIsOpen(false); }}
+                            onClick={() => {
+                              routes.push(`${link.name}`);
+                              setIsOpen(false);
+                            }}
                           >
                             {link.name}
                           </motion.li>
@@ -87,7 +115,6 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
                       </motion.ul>
                     )}
                   </AnimatePresence>
-
                 </div>
               ))}
             </motion.ul>

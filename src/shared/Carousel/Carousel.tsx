@@ -1,25 +1,23 @@
-import { imagesArr } from '@/constant/constants'
-import { AnimatePresence, motion, useAnimation } from 'framer-motion'
-import React, { useState, useEffect } from 'react'
-import CarouselControls from './CarouselController'
-import Image from 'next/image'
-import NavBar from '../NavBar/NavBar'
-
+import { imagesArr } from "@/src/constants/constants";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import CarouselControls from "./CarouselController";
+import Image from "next/image";
+import NavBar from "../NavBar/NavBar";
 
 function Carousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [screenWidth, setScreenWidth] = useState(0);
-useEffect(() => {
-  setScreenWidth(window.innerWidth);
-  const handleResize = () => setScreenWidth(window.innerWidth);
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
-
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className='relative w-full h-[60%] overflow-hidden flex flex-col md:h-[85%]'>
-     <AnimatePresence mode="wait">
+    <div className="relative w-full h-[60%] overflow-hidden flex flex-col md:h-[85%]">
+      <AnimatePresence mode="wait">
         {imagesArr.map((src, index) =>
           index === currentIndex ? (
             <motion.div
@@ -28,7 +26,7 @@ useEffect(() => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 1 }}
-               className="absolute w-full z-10 h-full overflow-hidden pointer-events-none"
+              className="absolute w-full z-10 h-full overflow-hidden pointer-events-none"
             >
               <div className="relative w-full h-full">
                 <Image
@@ -50,13 +48,11 @@ useEffect(() => {
           ) : null
         )}
       </AnimatePresence>
-      <motion.div
-        className=""
-      >
+      <motion.div className="">
         <NavBar />
       </motion.div>
     </div>
-  )
+  );
 }
 
 export default Carousel;

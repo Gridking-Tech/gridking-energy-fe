@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { newsItems } from '@/constant/constants';
+import React, { useState } from "react";
+import Image from "next/image";
+import { newsItems } from "@/src/constants/constants";
 
 const NewsShowcase = () => {
   const [activeNews, setActiveNews] = useState(newsItems[0]);
@@ -28,7 +28,9 @@ const NewsShowcase = () => {
             <div
               key={item.id}
               className={`w-[80%] md:w-[85%] h-[100px] md:h-[130px] cursor-pointer rounded-lg overflow-hidden shadow-md border ${
-                activeNews.id === item.id ? 'border-orange-500' : 'border-transparent'
+                activeNews.id === item.id
+                  ? "border-orange-500"
+                  : "border-transparent"
               }`}
               onClick={() => setActiveNews(item)}
             >

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { products } from "@/constant/constants";
+import { products } from "@/src/constants/constants";
 
 function NewArrivals() {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-
-  
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
@@ -16,7 +14,6 @@ function NewArrivals() {
     }, 3000);
     return () => clearInterval(interval);
   }, [isPaused]);
-
 
   const handleChange = (direction: any) => {
     setIsPaused(true);
@@ -37,7 +34,9 @@ function NewArrivals() {
           <h2 className="text-black text-4xl font-extrabold">NEW ARRIVAL</h2>
           <div className="h-[4rem] md:h-[10rem] w-[3px]  bg-orange-500"></div>
           <p className="text-black text-lg font-medium">
-            GridKing focuses on the "PV+Energy Storage" industry chain, specializing in LiFePO4 batteries, solar inverters, MPPT controllers, and solar panels.
+            GridKing focuses on the "PV+Energy Storage" industry chain,
+            specializing in LiFePO4 batteries, solar inverters, MPPT
+            controllers, and solar panels.
           </p>
 
           <div className="flex space-x-4">

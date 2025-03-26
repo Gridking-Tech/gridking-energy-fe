@@ -4,7 +4,7 @@ import NavBar from "@/src/shared/NavBar/NavBar";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { ProductsLinks } from "@/constant/constants";
+import { ProductsLinks } from "@/src/constants/constants";
 import { motion, AnimatePresence } from "framer-motion";
 
 function ProductsPage() {
