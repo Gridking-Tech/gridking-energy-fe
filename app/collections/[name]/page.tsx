@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { ProductsLinks } from '@/constant/constants';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function ProductsPage() {
   const { name } = useParams();
@@ -16,14 +17,13 @@ function ProductsPage() {
     let foundParent: string | null = null;
     let foundSubcategory: string | null = null;
 
-    // Find if the current "name" is a parent category or a subcategory
     ProductsLinks.forEach((category) => {
-      if (category.name.toLowerCase() === name?.toLowerCase()) {
+      if (category.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase())) {
         foundParent = category.name;
       }
 
       category.subcategories?.forEach((sub) => {
-        if (sub.name.toLowerCase() === name?.toLowerCase()) {
+        if (sub.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase())) {
           foundParent = category.name; // Store the parent category
           foundSubcategory = sub.name;
         }
@@ -72,7 +72,7 @@ function ProductsPage() {
       <div className="flex px-10 py-8">
         {/* Sidebar Navigation */}
         <div className="w-1/4 pr-6 border-r">
-          <h3 className="font-bold text-xl mb-4">CATEGORIES</h3>
+          <h3 className="font-bold text-xl text-black mb-4">CATEGORIES</h3>
           <ul>
             {ProductsLinks.map((category) => (
               <li key={category.name} className="mb-3">
@@ -94,33 +94,43 @@ function ProductsPage() {
                     </button>
                   )}
                 </div>
-                {category.subcategories && expandedCategory === category.name && (
-                  <ul className="ml-4 mt-2">
-                    {category.subcategories.map((sub) => (
-                      <li key={sub.name} className="mb-2">
-                        <button
-                          onClick={() => handleNavigation(`/collections/${sub.name}`, true)}
-                          className={`text-sm ${
-                            activeSubcategory === sub.name ? 'text-orange-500 font-semibold' : 'text-gray-600'
-                          }`}
-                        >
-                          {sub.name}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+
+                {/* Animated Expandable Subcategories */}
+                <AnimatePresence>
+                  {category.subcategories && expandedCategory === category.name && (
+                    <motion.ul
+                      className="ml-4 mt-2 overflow-hidden"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      {category.subcategories.map((sub) => (
+                        <li key={sub.name} className="mb-2">
+                          <button
+                            onClick={() => handleNavigation(`/collections/${sub.name}`, true)}
+                            className={`text-sm ${
+                              activeSubcategory === sub.name ? 'text-orange-500 font-semibold' : 'text-gray-600'
+                            }`}
+                          >
+                            {sub.name}
+                          </button>
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Products Grid */}
+        {/* Products Section */}
         <div className="w-3/4">
-          <h2 className="text-2xl font-bold mb-6">{name?.toUpperCase()}</h2>
+          <h2 className="text-2xl text-bold text-black font-bold mb-6">{name}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ProductsLinks.find(cat => cat.name.toLowerCase() === name?.toLowerCase())?.subcategories?.length ? (
-              ProductsLinks.find(cat => cat.name.toLowerCase() === name?.toLowerCase())?.subcategories?.map((subcategory) => (
+            {ProductsLinks.find(cat => cat.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase()))?.subcategories?.length ? (
+              ProductsLinks.find(cat => cat.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase()))?.subcategories?.map((subcategory) => (
                 <div key={subcategory.name} className="border p-4 rounded-lg">
                   <h3 className="text-lg font-semibold mb-2">{subcategory.name}</h3>
                   {subcategory.images && subcategory.images.length > 0 ? (
