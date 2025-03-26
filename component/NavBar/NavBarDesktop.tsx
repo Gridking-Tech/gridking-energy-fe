@@ -49,11 +49,10 @@ export default function NavBarDesktop() {
     return (
         <div className=''>
             <motion.div
-              animate={controls}
-              initial={{ width: "90%", borderRadius: "0.5rem", top: '17px' }}
+                animate={controls}
+                initial={{ width: "90%", borderRadius: "0.5rem", top: '17px' }}
                 className="  flex-col justify-center flex fixed left-1/2  transform -translate-x-1/2 z-[100] bg-transparent ">
                 <motion.div
-                  
                     className="w-full md:px-7 h-[3.5rem] bg-white rounded-[0.5rem]   flex mx-auto justify-between items-center shadow">
                     <div className="text-black text-lg font-bold">GridKing</div>
                     <motion.div>
@@ -74,7 +73,7 @@ export default function NavBarDesktop() {
                                                 setIscategories(false);
                                             }
                                         }}
-                                        onMouseLeave={() => setIscategories(false)}
+
                                     >
                                         {link.name}
                                     </li>
@@ -102,10 +101,16 @@ export default function NavBarDesktop() {
                             <ul className={`w-full flex  justify-between ${activeCategory.length > 4 ? 'flex-wrap' : 'flex-col'}`}>
                                 {activeCategory?.map((category: any, index: any) => (
                                     <div key={index} className="flex flex-col items-start">
-                                        <li className="text-black text-[1.04rem] font-black">{category.name}</li>
+                                        <li
+                                            className="text-black text-[1.04rem] cursor-pointer font-black"
+                                            onClick={() => routes.push(`/collections/${category.name}`)}
+                                        >
+                                            {category.name}
+                                        </li>
+
                                         {category.subcategories &&
                                             category.subcategories.map((sub: any, subIndex: any) => (
-                                                <li key={subIndex} className="my-2 text-[0.9rem] cursor-pointer text-gray-800">
+                                                <li key={subIndex} className="my-2 text-[0.9rem] cursor-pointer text-gray-800" onClick={() => routes.push(`${sub.href}`)}>
                                                     {sub.name}
                                                 </li>
                                             ))}
@@ -119,7 +124,7 @@ export default function NavBarDesktop() {
 
             </motion.div>
             <div className=''>
-                <SearchModals showSearch={showSearch} setShowSearch={setShowSearch}/>
+                <SearchModals showSearch={showSearch} setShowSearch={setShowSearch} />
             </div>
         </div>
     );

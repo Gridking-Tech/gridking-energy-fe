@@ -4,61 +4,113 @@ export const imagesArr = [
   '/assets/images/pexels-ekaterina-bolovtsova-4049876.jpg',
   '/assets/images/pexels-goumbik-317377.jpg'
 ];
-
 export const ProductsLinks = [
   {
     name: 'Battery',
-    href: '/battery',
+    href: '/collections/battery',
     subcategories: [
-      { name: 'Lithium Battery', href: '/battery/lithium' },
-      { name: 'Gel Battery', href: '/battery/gel' },
-      { name: 'Front Terminal Telecom Battery', href: '/battery/front-terminal' },
-      { name: 'OPZV Battery', href: '/battery/opzv' }
+      { 
+        name: 'Lithium Battery', 
+        href: '/collections/lithium',
+        images: ['/assets/images/pexels-diva-31265845.jpg', '/assets/images/pexels-valeriya-kobzar-42371713-7407771.jpg']
+      },
+      { 
+        name: 'Gel Battery', 
+        href: '/collections/gel',
+        images: ['/assets/images/pexels-alexander-mass-748453803-31243092.jpg', '/assets/images/pexels-maksgelatin-4352247.jpg']
+      },
+      { 
+        name: 'Front Terminal Telecom Battery', 
+        href: '/collections/front-terminal',
+        images: ['/assets/images/pexels-karolina-grabowska-8092506.jpg', '/assets/images/pexels-maksgelatin-4352247.jpg']
+      },
+      { 
+        name: 'OPZV Battery', 
+        href: '/collections/opzv',
+        images: ['/assets/images/pexels-kseniachernaya-3965534.jpg', '/assets/images/pexels-vlada-karpovich-4050323.jpg']
+      }
     ]
   },
   {
     name: 'Inverter',
-    href: '/inverter',
+    href: '/collections/inverter',
     subcategories: [
-      { name: 'Hybrid Inverter', href: '/inverter/hybrid' },
-      { name: 'Off-Grid Inverter', href: '/inverter/off-grid' }
+      { 
+        name: 'Hybrid Inverter', 
+        href: '/collections/hybrid',
+        images: ['/assets/images/pexels-maksgelatin-4352247.jpg', '/assets/images/pexels-alexander-mass-748453803-31243092.jpg']
+      },
+      { 
+        name: 'Off-Grid Inverter', 
+        href: '/collections/off-grid',
+        images: ['/assets/images/pexels-valeriya-kobzar-42371713-7407771.jpg', '/assets/images/pexels-maksgelatin-4352247.jpg']
+      }
     ]
   },
   {
     name: 'Solar Panel',
-    href: '/solar-panel'
+    href: '/collections/solar-panel',
+    images: ['/assets/images/pexels-kseniachernaya-3965534.jpg', '/assets/images/pexels-maksgelatin-4352247 (1).jpg']
   },
   {
     name: 'Solar Light',
-    href: '/solar-light',
+    href: '/collections/solarlight',
     subcategories: [
-      { name: 'All-in-One Solar Street Light', href: '/solar-light/street-light' },
-      { name: 'Flood Light', href: '/solar-light/flood-light' }
+      { 
+        name: 'All-in-One Solar Street Light', 
+        href: '/collections/street-light',
+        images: ['/assets/images/pexels-maksgelatin-4352247 (1).jpg', '/assets/images/pexels-maksgelatin-4352247 (2).jpg']
+      },
+      { 
+        name: 'Flood Light', 
+        href: '/collections/flood-light',
+        images: ['/assets/images/pexels-maksgelatin-4352247.jpg', '/assets/images/pexels-vlada-karpovich-4050323.jpg']
+      }
     ]
   },
   {
     name: 'Accessories',
-    href: '/accessories',
+    href: '/collections/accessories',
     subcategories: [
-      { name: 'Car Charger', href: '/accessories/car-charger' },
-      { name: 'WiFi Module', href: '/accessories/wifi-module' },
-      { name: 'Combiner Box', href: '/accessories/combiner-box' }
+      { 
+        name: 'Car Charger', 
+        href: '/collections/car-charger',
+        images: ['/assets/images/pexels-karolina-grabowska-8092506.jpg', '/assets/images/pexels-vlada-karpovich-4050323.jpg']
+      },
+      { 
+        name: 'WiFi Module', 
+        href: '/collectionss/wifi-module',
+        images: ['/assets/images/pexels-alexander-mass-748453803-31243092.jpg', '/assets/images/pexels-kseniachernaya-3965534.jpg']
+      },
+      { 
+        name: 'Combiner Box', 
+        href: '/collections/combiner-box',
+        images: ['/assets/images/pexels-maksgelatin-4352247.jpg', '/assets/images/pexels-valeriya-kobzar-42371713-7407771.jpg']
+      }
     ]
   },
   {
     name: 'MPPT Charge Controller',
-    href: '/mppt-charge-controller'
+    href: '/collections/mppt-charge-controller',
+    images: ['/assets/images/pexels-karolina-grabowska-8092506.jpg', '/assets/images/pexels-maksgelatin-4352247.jpg']
   },
   {
     name: 'All-in-One ESS',
-    href: '/all-in-one-ess',
+    href: '/collections/all-in-one-ess',
     subcategories: [
-      { name: 'Liquid Cooling System', href: '/all-in-one-ess/liquid-cooling' },
-      { name: 'Air Cooling System', href: '/all-in-one-ess/air-cooling' }
+      { 
+        name: 'Liquid Cooling System', 
+        href: 'collections/all-in-one-ess/liquid-cooling',
+        images: ['/assets/images/pexels-diva-31265845.jpg', '/assets/images/pexels-maksgelatin-4352247 (1).jpg']
+      },
+      { 
+        name: 'Air Cooling System', 
+        href: 'collection/all-in-one-ess/air-cooling',
+        images: ['/assets/images/pexels-kseniachernaya-3965534.jpg', '/assets/images/pexels-valeriya-kobzar-42371713-7407771.jpg']
+      }
     ]
   }
 ];
-
 
 export const SupportServiceLinks = [
   { name: 'Blog', href: '/blog' },
@@ -100,7 +152,7 @@ export const productTabs = [
     images: ["/assets/images/pexels-alexander-mass-748453803-31243092.jpg", "/assets/images/pexels-maksgelatin-4352247.jpg", "/assets/images/pexels-vlada-karpovich-4050323.jpg"],
   },
   {
-    name: "Lithium-Battery",
+    name: "Battery",
     id: 2,
     images: ["/assets/images/pexels-diva-31265845.jpg", "/assets/images/pexels-valeriya-kobzar-42371713-7407771.jpg", "/assets/images/pexels-valeriya-kobzar-42371713-7407771.jpg"],
   },
