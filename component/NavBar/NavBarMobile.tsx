@@ -25,9 +25,9 @@ export default function NavBarMobile() {
 
       {/* Sidebar & Search Modal */}
       <AnimatePresence>
-        {isOpen && <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />}
         {showSearch && <SearchModals showSearch={showSearch} setShowSearch={setShowSearch} />}
       </AnimatePresence>
+      {isOpen && <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />}
     </div>
   );
 }

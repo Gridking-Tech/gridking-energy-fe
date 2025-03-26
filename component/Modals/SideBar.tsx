@@ -6,9 +6,11 @@ import { FaGlobe } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { navLinks } from '@/constant/constants';
+import { useRouter } from 'next/navigation';
 
 const SideBar = ({ isOpen, setIsOpen }: any) => {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const routes = useRouter()
 
   const handleToggle = (category: any) => {
     setExpanded(expanded === category ? null : category);
@@ -48,7 +50,7 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
               {navLinks.map((navItem) => (
                 <div key={navItem.name}>
                   <li className="flex justify-between items-center text-lg text-black font-medium my-2 cursor-pointer" onClick={() => handleToggle(navItem.name)}>
-                    <span>{navItem.name}</span>
+                    <span  onClick={() => { routes.push(`/collections/${navItem.name}`); setIsOpen(false); }}>{navItem.name}</span>
                     {navItem.constant && (
                       <motion.div animate={{ rotate: expanded === navItem.name ? 90 : 0 }}>
                         <MdKeyboardArrowRight />
@@ -77,6 +79,7 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
                               hidden: { opacity: 0, x: -20 }, 
                               visible: { opacity: 1, x: 0, transition: { ease: "easeOut", duration: 0.3 } } 
                             }}
+                            onClick={() => { routes.push(`${link.name}`); setIsOpen(false); }}
                           >
                             {link.name}
                           </motion.li>

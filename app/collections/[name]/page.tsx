@@ -11,6 +11,7 @@ function ProductsPage() {
   const { name } = useParams();
   const router = useRouter();
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [expandedSubcategory, setExpandedSubcategory] = useState<string | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function ProductsPage() {
 
       category.subcategories?.forEach((sub) => {
         if (sub.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase())) {
-          foundParent = category.name; // Store the parent category
+          foundParent = category.name;
           foundSubcategory = sub.name;
         }
       });
@@ -40,6 +41,10 @@ function ProductsPage() {
 
   const toggleCategory = (categoryName: string) => {
     setExpandedCategory((prev) => (prev === categoryName ? null : categoryName));
+  };
+
+  const toggleSubcategory = (subcategoryName: string) => {
+    setExpandedSubcategory((prev) => (prev === subcategoryName ? null : subcategoryName));
   };
 
   const handleNavigation = (path: string, isSubcategory = false) => {
@@ -69,9 +74,9 @@ function ProductsPage() {
         </div>
       </div>
 
-      <div className="flex px-10 py-8">
+      <div className="flex flex-col md:flex-row px-4 md:px-10 py-8">
         {/* Sidebar Navigation */}
-        <div className="w-1/4 pr-6 border-r">
+        <div className="w-full md:w-1/4 pr-6 border-r md:block">
           <h3 className="font-bold text-xl text-black mb-4">CATEGORIES</h3>
           <ul>
             {ProductsLinks.map((category) => (
@@ -79,9 +84,7 @@ function ProductsPage() {
                 <div className="flex justify-between items-center">
                   <button
                     onClick={() => handleNavigation(`/collections/${category.name}`)}
-                    className={`block font-semibold ${
-                      category.name === name ? 'text-orange-500' : 'text-gray-700'
-                    }`}
+                    className={`block font-semibold ${category.name === name ? 'text-orange-500' : 'text-gray-700'}`}
                   >
                     {category.name}
                   </button>
@@ -107,14 +110,20 @@ function ProductsPage() {
                     >
                       {category.subcategories.map((sub) => (
                         <li key={sub.name} className="mb-2">
-                          <button
-                            onClick={() => handleNavigation(`/collections/${sub.name}`, true)}
-                            className={`text-sm ${
-                              activeSubcategory === sub.name ? 'text-orange-500 font-semibold' : 'text-gray-600'
-                            }`}
-                          >
-                            {sub.name}
-                          </button>
+                          <div className="flex justify-between items-center">
+                            <button
+                              onClick={() => handleNavigation(`/collections/${sub.name}`, true)}
+                              className={`text-sm ${activeSubcategory === sub.name ? 'text-orange-500 font-semibold' : 'text-gray-600'}`}
+                            >
+                              {sub.name}
+                            </button>
+                            <button
+                              className="text-gray-500 text-[0.8rem] cursor-pointer focus:outline-none"
+                              onClick={() => toggleSubcategory(sub.name)}
+                            >
+                              {expandedSubcategory === sub.name ? '-' : '+'}
+                            </button>
+                          </div>
                         </li>
                       ))}
                     </motion.ul>
@@ -126,7 +135,7 @@ function ProductsPage() {
         </div>
 
         {/* Products Section */}
-        <div className="w-3/4">
+        <div className="w-full md:w-3/4">
           <h2 className="text-2xl text-bold text-black font-bold mb-6">{name}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {ProductsLinks.find(cat => cat.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase()))?.subcategories?.length ? (
