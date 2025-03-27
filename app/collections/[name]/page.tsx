@@ -132,7 +132,7 @@ function ProductsPage() {
 
         {/* Products Section */}
         <div className="w-full md:w-3/4">
-          <h2 className="text-2xl text-bold text-black font-bold mb-6">{name}</h2>
+          <h2 className="text-2xl text-bold text-black font-bold mb-6">{decodeURIComponent(name)}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {ProductsLinks.find(cat => cat.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase()))?.subcategories?.length ? (
               ProductsLinks.find(cat => cat.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase()))?.subcategories?.map((subcategory) => (
