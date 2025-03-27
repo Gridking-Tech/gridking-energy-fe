@@ -50,7 +50,10 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
               {navLinks.map((navItem) => (
                 <div key={navItem.name}>
                   <li className="flex justify-between items-center text-lg text-black font-medium my-2 cursor-pointer" onClick={() => handleToggle(navItem.name)}>
-                    <span  onClick={() => { routes.push(`/collections/${navItem.name}`); setIsOpen(false); }}>{navItem.name}</span>
+                    <span className='items-center flex gap-3' onClick={() => { routes.push(`/collections/${navItem.name}`); setIsOpen(false); }}>
+                    <div>{navItem.icon}</div>
+                      {navItem.name} 
+                    </span>
                     {navItem.constant && (
                       <motion.div animate={{ rotate: expanded === navItem.name ? 90 : 0 }}>
                         <MdKeyboardArrowRight />
@@ -74,13 +77,14 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
                         {navItem.constant.map((link) => (
                           <motion.li
                             key={link.name}
-                            className="text-gray-600 my-4 text-base"
+                            className="text-gray-600 flex items-center gap-2 my-4 text-base"
                             variants={{
                               hidden: { opacity: 0, x: -20 }, 
                               visible: { opacity: 1, x: 0, transition: { ease: "easeOut", duration: 0.3 } } 
                             }}
                             onClick={() => { routes.push(`${link.name}`); setIsOpen(false); }}
                           >
+                            <div>{link.icon}</div>
                             {link.name}
                           </motion.li>
                         ))}

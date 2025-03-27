@@ -1,13 +1,22 @@
+import { BiHome, BiInfoCircle, BiBox, BiBriefcase,  BiPhone } from "react-icons/bi";
+import { BiBattery, BiSun, BiPlug, BiPackage, BiChip, BiSupport, BiDownload, BiBook, BiShield, BiBuilding, BiHomeAlt, BiCart, BiNetworkChart } from "react-icons/bi";
+import { CgToolbox } from "react-icons/cg";
+import { FaLightbulb } from "react-icons/fa";
+
+
 export const imagesArr = [
   '/assets/images/pexels-jakubzerdzicki-24194071.jpg',
   '/assets/images/pexels-vlada-karpovich-4050323.jpg',
   '/assets/images/pexels-ekaterina-bolovtsova-4049876.jpg',
   '/assets/images/pexels-goumbik-317377.jpg'
 ];
+
+
 export const ProductsLinks = [
   {
     name: 'Battery',
     href: '/collections/battery',
+    icon: <BiBattery size={20} />,
     subcategories: [
       { 
         name: 'Lithium Battery', 
@@ -34,6 +43,7 @@ export const ProductsLinks = [
   {
     name: 'Inverter',
     href: '/collections/inverter',
+    icon: <CgToolbox />,
     subcategories: [
       { 
         name: 'Hybrid Inverter', 
@@ -50,11 +60,13 @@ export const ProductsLinks = [
   {
     name: 'Solar Panel',
     href: '/collections/solar-panel',
+    icon: <BiSun size={20} />,
     images: ['/assets/images/pexels-kseniachernaya-3965534.jpg', '/assets/images/pexels-maksgelatin-4352247 (1).jpg']
   },
   {
     name: 'Solar Light',
     href: '/collections/solarlight',
+     icon: <FaLightbulb />,
     subcategories: [
       { 
         name: 'All-in-One Solar Street Light', 
@@ -71,6 +83,7 @@ export const ProductsLinks = [
   {
     name: 'Accessories',
     href: '/collections/accessories',
+    icon: <BiPlug size={20} />,
     subcategories: [
       { 
         name: 'Car Charger', 
@@ -92,11 +105,13 @@ export const ProductsLinks = [
   {
     name: 'MPPT Charge Controller',
     href: '/collections/mppt-charge-controller',
+    icon: <BiChip size={20} />,
     images: ['/assets/images/pexels-karolina-grabowska-8092506.jpg', '/assets/images/pexels-maksgelatin-4352247.jpg']
   },
   {
     name: 'All-in-One ESS',
     href: '/collections/all-in-one-ess',
+    icon: <BiPackage size={20} />,
     subcategories: [
       { 
         name: 'Liquid Cooling System', 
@@ -113,25 +128,28 @@ export const ProductsLinks = [
 ];
 
 export const SupportServiceLinks = [
-  { name: 'Blog', href: '/blog' },
-  { name: 'Download', href: '/download' },
-  { name: 'Technical Support', href: '/Technoical supprt' },
-  { name: 'Anti-counterfieting Verify', href: '/anti-counterfieting verify' }
-]
+  { name: 'Blog', href: '/blog', icon: <BiBook size={20} /> },
+  { name: 'Download', href: '/download', icon: <BiDownload size={20} /> },
+  { name: 'Technical Support', href: '/Technoical supprt', icon: <BiSupport size={20} /> },
+  { name: 'Anti-counterfeiting Verify', href: '/anti-counterfieting verify', icon: <BiShield size={20} /> }
+];
 
 export const ContactLinks = [
-  { name: 'Branch Info', href: '/branch' },
-  { name: 'Host Office', href: '/host-office' }
-]
+  { name: 'Branch Info', href: '/branch', icon: <BiBuilding size={20} /> },
+  { name: 'Host Office', href: '/host-office', icon: <BiHomeAlt size={20} /> }
+];
+
+
 
 export const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About Us', href: '/about' },
-  { name: 'Product', href: '/product', constant: ProductsLinks },
-  { name: 'Solution & Cases', href: '/solutions', },
-  { name: 'Support & Service', href: '/support', constant: SupportServiceLinks },
-  { name: 'Contact Us', href: '/contact', constant: ContactLinks }
+  { name: 'Home', href: '/', icon: <BiHome size={20} /> },
+  { name: 'About Us', href: '/about', icon: <BiInfoCircle size={20} /> },
+  { name: 'Product', href: '/product', constant: ProductsLinks, icon: <BiBox size={20} /> },
+  { name: 'Solution & Cases', href: '/solutions', icon: <BiBriefcase size={20} /> },
+  { name: 'Support & Service', href: '/support', constant: SupportServiceLinks, icon: <BiSupport size={20} /> },
+  { name: 'Contact Us', href: '/contact', constant: ContactLinks, icon: <BiPhone size={20} /> }
 ];
+
 
 
 

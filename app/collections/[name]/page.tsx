@@ -24,7 +24,7 @@ function ProductsPage() {
 
       category.subcategories?.forEach((sub) => {
         if (sub.name.toLowerCase() === (Array.isArray(name) ? name[0].toLowerCase() : name?.toLowerCase())) {
-          foundParent = category.name;
+          // foundParent = category.name;
           foundSubcategory = sub.name;
         }
       });
@@ -33,6 +33,9 @@ function ProductsPage() {
     if (foundParent) {
       setExpandedCategory(foundParent);
     }
+    // if(foundParent){
+      // setExpandedSubcategory(foundParent)
+    // }
     if (foundSubcategory) {
       setActiveSubcategory(foundSubcategory);
     }
@@ -96,7 +99,7 @@ function ProductsPage() {
 
 
                 <AnimatePresence>
-                  {category.subcategories && expandedCategory === category.name && (
+                  {category.subcategories && expandedCategory === category.name  && (
                     <motion.ul
                       className="ml-4 mt-2 overflow-hidden"
                       initial={{ height: 0, opacity: 0 }}

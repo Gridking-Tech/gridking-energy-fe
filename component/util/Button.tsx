@@ -6,8 +6,8 @@ function Button({
   className = ""
 }: { 
   title: string, 
-  onClick?: () => void, 
-  className?: string 
+  onClick?: () => void,
+  className?: string
 }) {
   return (
     <button 
