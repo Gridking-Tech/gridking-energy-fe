@@ -12,7 +12,7 @@ const PlaceholderCarousel: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
-    }, 10000); // Switch image every 1 minute
+    }, 25000);
     return () => clearInterval(interval);
   }, [placeholders.length]);
 
@@ -41,7 +41,7 @@ const PlaceholderCarousel: React.FC = () => {
               initial={{ x: isCurrent ? "100%" : 0 }}
               animate={{ x: isCurrent ? 0 : "-100%" }}
               exit={{ x: "-100%" }}
-              transition={{ duration: 0.5, ease: "linear" }} // Linear slide animation
+              transition={{ duration: 0.1, ease: "linear" }} // Linear slide animation
               className="absolute w-full z-10 h-full overflow-hidden pointer-events-none"
             >
               <div className="relative w-full h-full">

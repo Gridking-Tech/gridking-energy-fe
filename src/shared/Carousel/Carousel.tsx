@@ -30,7 +30,7 @@ function Carousel() {
       if (hasImages) {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % imagesArr.length);
       }
-    }, 10000);
+    }, 25000);
     return () => clearInterval(interval);
   }, [hasImages]);
 
@@ -70,7 +70,7 @@ function Carousel() {
                     initial={{ x: isCurrent ? "100%" : 0 }}
                     animate={{ x: isCurrent ? 0 : "-100%" }}
                     exit={{ x: "-100%" }}
-                    transition={{ duration: 0.5, ease: "linear" }}
+                    transition={{ duration: 0.1, ease: "linear" }}
                     className="absolute w-full z-10 h-full overflow-hidden"
                   >
                     <div className="relative w-full h-full">

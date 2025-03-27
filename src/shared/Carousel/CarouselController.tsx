@@ -9,7 +9,7 @@ const CarouselControls = ({ currentIndex, setCurrentIndex, images }: any) => {
           className="focus:outline-none "
         >
           <div
-            className={`transition-colors cursor-pointer transition-all w-[3.8rem] h-[2.1px] rounded-[20rem] duration-500 
+            className={`cursor-pointer transition-all w-[3.8rem] h-[2.1px] rounded-[20rem] duration-500 
               ${index === currentIndex ? 'bg-white' : 'bg-gray-300 hover:bg-white'}`}
           />
         </div>
