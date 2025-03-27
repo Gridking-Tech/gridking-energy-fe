@@ -7,7 +7,7 @@ const NewsShowcase = () => {
 
   return (
     <div className="w-full flex flex-col text-black items-center bg-gray-100 p-6">
-      <h2 className="md:text-5xl text-3xl font-bold my-20">NEWSROOM</h2>
+      <h2 className="md:text-5xl text-3xl font-bold my-20">PRODUCT GALLERY</h2>
 
       <div className="flex flex-col md:flex-row items-center w-[90%] mx-auto gap-6">
         <div className="relative w-full md:w-[65%] h-[250px] md:h-[450px] bg-white shadow-lg rounded-lg overflow-hidden">
