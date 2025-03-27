@@ -26,7 +26,7 @@ const VideoPlaceholder: React.FC<VideoPlaceholderProps> = ({
         className="absolute"
       />
       <div className="absolute w-full h-full bg-black/30 flex items-center justify-center">
-        <span className="text-white font-bold text-2xl">...Loading Video</span>
+        <span className="text-white font-bold text-2xl">Loading Video...</span>
       </div>
     </div>
   );
