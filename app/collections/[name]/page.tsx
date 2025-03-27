@@ -1,5 +1,4 @@
 'use client';
-
 import NavBar from '@/component/NavBar/NavBar';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -8,12 +7,12 @@ import { ProductsLinks } from '@/constant/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function ProductsPage() {
-  const { name } = useParams();
+  const { name } = useParams<any>();
   const router = useRouter();
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [expandedSubcategory, setExpandedSubcategory] = useState<string | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
-
+  
   useEffect(() => {
     let foundParent: string | null = null;
     let foundSubcategory: string | null = null;
@@ -59,8 +58,6 @@ function ProductsPage() {
   return (
     <div className="w-full">
       <NavBar />
-
-      {/* Banner Section */}
       <div className="w-full">
         <Image
           src="/assets/images/pexels-kseniachernaya-3965534.jpg"
@@ -75,7 +72,6 @@ function ProductsPage() {
       </div>
 
       <div className="flex flex-col md:flex-row px-4 md:px-10 py-8">
-        {/* Sidebar Navigation */}
         <div className="w-full md:w-1/4 pr-6 border-r md:block">
           <h3 className="font-bold text-xl text-black mb-4">CATEGORIES</h3>
           <ul>
@@ -84,7 +80,7 @@ function ProductsPage() {
                 <div className="flex justify-between items-center">
                   <button
                     onClick={() => handleNavigation(`/collections/${category.name}`)}
-                    className={`block font-semibold ${category.name === name ? 'text-orange-500' : 'text-gray-700'}`}
+                    className={`block font-semibold ${category.name ===  decodeURIComponent(name) ? 'text-orange-500' : 'text-gray-700'}`}
                   >
                     {category.name}
                   </button>
@@ -98,7 +94,7 @@ function ProductsPage() {
                   )}
                 </div>
 
-                {/* Animated Expandable Subcategories */}
+
                 <AnimatePresence>
                   {category.subcategories && expandedCategory === category.name && (
                     <motion.ul
@@ -117,12 +113,12 @@ function ProductsPage() {
                             >
                               {sub.name}
                             </button>
-                            <button
+                            {/* <button
                               className="text-gray-500 text-[0.8rem] cursor-pointer focus:outline-none"
                               onClick={() => toggleSubcategory(sub.name)}
                             >
                               {expandedSubcategory === sub.name ? '-' : '+'}
-                            </button>
+                            </button> */}
                           </div>
                         </li>
                       ))}
