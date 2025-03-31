@@ -8,10 +8,10 @@ import NewsShowcase from "@/component/NewShowcase";
 export default function HeroCarousel() {
   return (
     <div className="  w-screen h-screen">
-      <Carousel/>
-      <About/>
-      <NewArrivals/>
-      <ProductShowcase/>
+      <Carousel />
+      <About />
+      <NewArrivals />
+      <ProductShowcase />
       <NewsShowcase />
     </div>
   );
