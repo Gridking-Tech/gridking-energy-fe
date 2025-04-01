@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import { useRouter } from "next/navigation";
 import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
-import { productsApi } from "@/src/api/productApi";
+import { productsApi } from "@/src/api/product-api";
 
 interface Product {
   name: string;
@@ -28,9 +28,6 @@ const ProductShowcase = () => {
     isLoading: boolean;
     error: any;
   };
-
-  console.log("products", products);
-  console.log("selectedProduct", selectedProduct);
 
   useEffect(() => {
     if (Array.isArray(products) && products.length > 0) {
@@ -56,11 +53,6 @@ const ProductShowcase = () => {
 
   if (isLoading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    console.error("Failed to load products:", error);
-    return <div>Error loading products. Please try again later.</div>;
   }
 
   return (
