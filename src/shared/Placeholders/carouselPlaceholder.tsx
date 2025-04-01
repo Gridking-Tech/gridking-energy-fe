@@ -12,7 +12,7 @@ const PlaceholderCarousel: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
-    }, 25000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [placeholders.length]);
 
