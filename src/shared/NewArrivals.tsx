@@ -1,11 +1,14 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+// import Image from "next/image";
 import { products } from "@/src/constants/constants";
 
 function NewArrivals() {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [visibleProducts, setVisibleProducts] = useState([products[0]]);
 
   useEffect(() => {
     if (isPaused) return;
@@ -14,6 +17,23 @@ function NewArrivals() {
     }, 3000);
     return () => clearInterval(interval);
   }, [isPaused]);
+
+  useEffect(() => {
+    const updateVisibleProducts = () => {
+      const nextProducts = [
+        products[index],
+        ...(window.innerWidth >= 768
+          ? [products[(index + 1) % products.length]]
+          : []),
+      ];
+      setVisibleProducts(nextProducts);
+    };
+
+    updateVisibleProducts();
+    window.addEventListener("resize", updateVisibleProducts);
+
+    return () => window.removeEventListener("resize", updateVisibleProducts);
+  }, [index]);
 
   const handleChange = (direction: any) => {
     setIsPaused(true);
@@ -64,26 +84,21 @@ function NewArrivals() {
               transition={{ duration: 0.6, type: "spring", stiffness: 50 }}
               className="absolute w-full flex flex-col items-center space-y-5"
             >
-              {[
-                products[index],
-                ...(window?.innerWidth >= 768
-                  ? [products[(index + 1) % products.length]]
-                  : []),
-              ].map((product) => (
+              {visibleProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center justify-between rounded-[0.6rem] bg-orange-500 h-[160px] md:h-[200px] p-6 rounded-lg w-full shadow-md"
+                  className="flex items-center justify-between bg-orange-500 h-[160px] md:h-[200px] p-6 rounded-lg w-full shadow-md"
                 >
                   <div className="text-white">
                     <h3 className="text-2xl font-bold">{product.name}</h3>
                     <p className="text-md">{product.desc}</p>
                   </div>
-                  <Image
-                    src={product.image}
+                  {/* <Image
+                    src={''}
                     alt={product.name}
                     width={100}
                     height={100}
-                  />
+                  /> */}
                 </div>
               ))}
             </motion.div>
