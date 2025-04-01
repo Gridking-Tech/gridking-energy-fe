@@ -1,4 +1,5 @@
 import {} from "@/src/api";
 
-export * from "./userApi";
-export * from "./productApi";
+export * from "./gallery-api";
+export * from "./product-api";
+export * from "./homepage-api"; 
