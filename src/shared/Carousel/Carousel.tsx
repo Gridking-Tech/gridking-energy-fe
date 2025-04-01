@@ -5,12 +5,29 @@ import CarouselControls from "./CarouselController";
 import Image from "next/image";
 import NavBar from "../NavBar/NavBar";
 import PlaceholderCarousel from "../Placeholders/carouselPlaceholder";
+import { homePageApi } from "@/src/api";
 
 function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [screenWidth, setScreenWidth] = useState(0);
   const [loading, setLoading] = useState(true);
   const hasImages = imagesArr && imagesArr.length > 0;
+
+  const { data } = homePageApi.useGetHomePageResource() as {
+    data: unknown;
+    isLoading: boolean;
+    error: unknown;
+  };
+
+  console.log("data", data);
+
+  const { data: carouselData } = homePageApi.useGetcarousel() as {
+    data: unknown;
+    isLoading: boolean;
+    error: unknown;
+  };
+
+  console.log("carouselData", carouselData);
 
   useEffect(() => {
     setScreenWidth(window.innerWidth);
@@ -70,7 +87,7 @@ function Carousel() {
                     initial={{ x: isCurrent ? "100%" : 0 }}
                     animate={{ x: isCurrent ? 0 : "-100%" }}
                     exit={{ x: "-100%" }}
-                    transition={{ duration: 0.1, ease: "linear" }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="absolute w-full z-10 h-full overflow-hidden"
                   >
                     <div className="relative w-full h-full">
