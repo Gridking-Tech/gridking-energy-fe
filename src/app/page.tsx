@@ -5,7 +5,7 @@ import ProductShowcase from "@/src/shared/HotSell";
 import NewArrivals from "@/src/shared/NewArrivals";
 import NewsShowcase from "@/src/shared/NewShowcase";
 
-export default function HeroCarousel() {
+export default function Homepage() {
   return (
     <div className="  w-screen h-screen">
       <Carousel />

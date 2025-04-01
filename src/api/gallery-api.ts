@@ -1,4 +1,4 @@
-import ApiSchema from "./apiSchema";
+import ApiSchema from "../schemas/apiSchema";
 
 const api = new ApiSchema("");
 

@@ -1,8 +1,5 @@
-import {
-  ProductsLinks,
-  SupportServiceLinks,
-  ContactLinks,
-} from "@/src/constants/constants";
+'use client';
+
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
