@@ -130,7 +130,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
         </div>
 
         {/* Product images section */}
-        <div className="w-full md:w-3/4">
+        <div className="w-full md:w-3/4 px-10">
         <h2 className="text-2xl font-bold text-black mb-6">
   {subname && subname !== "undefined" ? decodeURIComponent(subname) : decodeURIComponent(name)}
 </h2>
