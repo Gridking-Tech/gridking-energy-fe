@@ -20,7 +20,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   useEffect(() => {
     let foundImages: { image: string; name: string }[] = [];
 
-    // Find the selected category
     const category = ProductsLinks.find(
       (cat) => cat.name.toLowerCase() === name?.toLowerCase()
     );

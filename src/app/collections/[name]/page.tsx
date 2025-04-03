@@ -6,7 +6,11 @@ const CategoryPage = () => {
  const { name, subname } = useParams<{ name: string; subname: string }>();
   return (
     <div>
-      <ProductsPage name={decodeURIComponent(name)} subname={decodeURIComponent(subname)}/>
+      <ProductsPage
+  name={decodeURIComponent(name)}
+
+/>
+
     </div>
   );
 };
