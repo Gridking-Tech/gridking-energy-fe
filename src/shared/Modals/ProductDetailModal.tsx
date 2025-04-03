@@ -19,7 +19,7 @@ export default function ProductDetailModal({
 }: ProductDetailModalProps) {
   return (
     <div className="fixed inset-0 bg-black/60 bg-opacity-50 flex z-50 items-center justify-center">
-      <div className="bg-white flex\ flex-col p-6 rounded-lg w-[40%] h-[80%] shadow-lg relative">
+      <div className="bg-white flex flex-col p-6 rounded-lg w-[40%] h-[85%] shadow-lg relative">
         <button
           className="absolute top-4 right-4 text-gray-600"
           onClick={() => setIsModalOpen(false)}
@@ -27,11 +27,11 @@ export default function ProductDetailModal({
           ✖
         </button>
         <h2 className="text-2xl font-bold mb-4 text-center">GET A QUOTE</h2>
-        <p className="text-sm text-gray-500 text-center mb-4">
+        <p className="text-md text-black font-bold  text-center mb-4">
           If you have a query regarding our product, please complete the form below.
         </p>
         <form onSubmit={handleSubmit} className="space-y-5 w-full flex flex-col">
-          <div className="flex flex-col w-full gap-3">
+          <div className="flex flex-col w-full gap-5">
             <Input
               value={formData.firstName}
               showLabel
@@ -60,7 +60,7 @@ export default function ProductDetailModal({
             onChange={handleInputChange}
             className="w-full p-2 border rounded"
           />
-          <div className="flex w-full flex-col  gap-3">
+          <div className="flex w-full flex-col  gap-5">
             <Input
               value={formData.email}
               name="email"
@@ -87,7 +87,7 @@ export default function ProductDetailModal({
             
             value={formData.requirements}
             onChange={handleInputChange}
-            className="w-full p-2 border rounded h-24"
+            className="w-full p-2 mt-5 border rounded h-24"
           ></textarea>
           <Button title="SEND" type="submit" className="w-full bg-orange-500 text-white py-2 rounded" />
         </form>

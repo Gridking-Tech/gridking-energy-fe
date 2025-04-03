@@ -6,105 +6,160 @@ export const ProductsLinks = [
   {
     name: "Battery",
     href: "/collections/battery",
+    images: [
+      "/assets/placeholders/products.png",
+      "/assets/placeholders/products.png",
+      "/assets/placeholders/products.png",
+    ],
     subcategories: [
       {
         name: "Lithium Battery",
         href: "/collections/lithium",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
       {
         name: "Gel Battery",
         href: "/collections/gel",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+
+        ],
       },
       {
         name: "Front Terminal Telecom Battery",
         href: "/collections/front-terminal",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
       {
         name: "OPZV Battery",
         href: "/collections/opzv",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
     ],
   },
   {
     name: "Inverter",
     href: "/collections/inverter",
+    images: [
+      "/assets/placeholders/products.png",
+    ],
     subcategories: [
       {
         name: "Hybrid Inverter",
         href: "/collections/hybrid",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
       {
         name: "Off-Grid Inverter",
         href: "/collections/off-grid",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
     ],
   },
   {
     name: "Solar Panel",
     href: "/collections/solar-panel",
-    images: [],
+    images: [
+      "/assets/placeholders/products.png",
+    ],
   },
   {
     name: "Solar Light",
     href: "/collections/solarlight",
+    images: [
+      "/assets/placeholders/products.png",
+    ],
     subcategories: [
       {
         name: "All-in-One Solar Street Light",
         href: "/collections/street-light",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
       {
         name: "Flood Light",
         href: "/collections/flood-light",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
     ],
   },
   {
     name: "Accessories",
     href: "/collections/accessories",
+    images: [
+      "/assets/placeholders/products.png",
+    ],
     subcategories: [
       {
         name: "Car Charger",
         href: "/collections/car-charger",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
       {
         name: "WiFi Module",
-        href: "/collectionss/wifi-module",
-        images: ['/assets/placeholders/products.png'],
+        href: "/collections/wifi-module",
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
       {
         name: "Combiner Box",
         href: "/collections/combiner-box",
-        images: ['/assets/placeholders/products.png'],
+        images: [
+          "/assets/placeholders/products.png",
+        ],
       },
     ],
   },
   {
     name: "MPPT Charge Controller",
     href: "/collections/mppt-charge-controller",
-    images: ['/assets/placeholders/products.png'],
+    images: [
+      "/assets/placeholders/products.png",
+      "/assets/placeholders/products.png",
+      "/assets/placeholders/products.png",
+    ],
   },
   {
     name: "All-in-One ESS",
     href: "/collections/all-in-one-ess",
+    images: [
+      "/assets/placeholders/products.png",
+      "/assets/placeholders/products.png",
+      "/assets/placeholders/products.png",
+    ],
     subcategories: [
       {
         name: "Liquid Cooling System",
-        href: "collections/all-in-one-ess/liquid-cooling",
-        images: ['/assets/placeholders/products.png'],
+        href: "/collections/all-in-one-ess/liquid-cooling",
+        images: [
+          "/assets/placeholders/products.png",
+
+        ],
       },
       {
         name: "Air Cooling System",
-        href: "collection/all-in-one-ess/air-cooling",
-        images: ['/assets/placeholders/products.png'],
+        href: "/collections/all-in-one-ess/air-cooling",
+        images: [
+          "/assets/placeholders/products.png",
+          "/assets/placeholders/products.png",
+          "/assets/placeholders/products.png",
+        ],
       },
     ],
   },

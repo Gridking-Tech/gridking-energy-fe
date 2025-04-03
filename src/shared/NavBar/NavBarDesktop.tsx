@@ -18,7 +18,7 @@ export default function NavBarDesktop() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 15) {
-        controls.start({
+        controls?.start({
           width: "100%",
           top: 0,
           borderRadius: 0,
@@ -130,7 +130,7 @@ export default function NavBarDesktop() {
                         <li
                           key={subIndex}
                           className="my-2 text-[0.9rem] cursor-pointer text-gray-800"
-                          onClick={() => routes.push(`${sub.href}`)}
+                          onClick={() => routes.push(`/collections/${category.name}/${sub.name}`)}
                         >
                           {sub.name}
                         </li>

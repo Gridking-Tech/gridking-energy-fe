@@ -56,8 +56,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
       <div className="w-full">
         <ImagePlaceholder />
         <div className="text-gray-700 flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
-          {`Home > ${decodeURIComponent(name)}`}
-          {subname && ` > ${decodeURIComponent(subname)}`}
+        {`Home > ${decodeURIComponent(name)}`}
+{typeof subname !== "undefined" && subname !== "" && subname !== "undefined" 
+  ? ` > ${decodeURIComponent(subname)}` 
+  : ""}
+
         </div>
       </div>
 
@@ -127,11 +130,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           </ul>
         </div>
 
-\
+        {/* Product images section */}
         <div className="w-full md:w-3/4">
-          <h2 className="text-2xl font-bold text-black mb-6">
-            {subname ? decodeURIComponent(subname) : decodeURIComponent(name)}
-          </h2>
+        <h2 className="text-2xl font-bold text-black mb-6">
+  {subname && subname !== "undefined" ? decodeURIComponent(subname) : decodeURIComponent(name)}
+</h2>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {selectedImages.length > 0 ? (
               selectedImages.map((imageData, index) => (
@@ -155,4 +159,5 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     </div>
   );
 };
+
 export default ProductsPage;
