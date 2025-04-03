@@ -10,22 +10,22 @@ export const ProductsLinks = [
       {
         name: "Lithium Battery",
         href: "/collections/lithium",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "Gel Battery",
         href: "/collections/gel",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "Front Terminal Telecom Battery",
         href: "/collections/front-terminal",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "OPZV Battery",
         href: "/collections/opzv",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
     ],
   },
@@ -36,12 +36,12 @@ export const ProductsLinks = [
       {
         name: "Hybrid Inverter",
         href: "/collections/hybrid",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "Off-Grid Inverter",
         href: "/collections/off-grid",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
     ],
   },
@@ -57,12 +57,12 @@ export const ProductsLinks = [
       {
         name: "All-in-One Solar Street Light",
         href: "/collections/street-light",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "Flood Light",
         href: "/collections/flood-light",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
     ],
   },
@@ -73,24 +73,24 @@ export const ProductsLinks = [
       {
         name: "Car Charger",
         href: "/collections/car-charger",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "WiFi Module",
         href: "/collectionss/wifi-module",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "Combiner Box",
         href: "/collections/combiner-box",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
     ],
   },
   {
     name: "MPPT Charge Controller",
     href: "/collections/mppt-charge-controller",
-    images: [],
+    images: ['/assets/placeholders/products.png'],
   },
   {
     name: "All-in-One ESS",
@@ -99,12 +99,12 @@ export const ProductsLinks = [
       {
         name: "Liquid Cooling System",
         href: "collections/all-in-one-ess/liquid-cooling",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
       {
         name: "Air Cooling System",
         href: "collection/all-in-one-ess/air-cooling",
-        images: [],
+        images: ['/assets/placeholders/products.png'],
       },
     ],
   },
