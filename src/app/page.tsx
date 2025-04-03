@@ -4,6 +4,8 @@ import Carousel from "@/src/shared/Carousel/Carousel";
 import ProductShowcase from "@/src/shared/HotSell";
 import NewArrivals from "@/src/shared/NewArrivals";
 import NewsShowcase from "@/src/shared/NewShowcase";
+import TalkExpert from "../shared/TalkExpert";
+import LoadCalculator from "../shared/LoadCalculator";
 
 export default function Homepage() {
   return (
@@ -12,6 +14,8 @@ export default function Homepage() {
       <About />
       <NewArrivals />
       <ProductShowcase />
+      <TalkExpert />
+      {/* <LoadCalculator /> */}
       <NewsShowcase />
     </div>
   );
