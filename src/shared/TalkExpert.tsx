@@ -40,7 +40,7 @@ export default function TalkExpert() {
           </div>
         </div>
       </div>
-      <div className="w-[500px]  p-6 md:shadow-lg border h-[650px] flex flex-col  rounded-lg bg-white">
+      <div className="md:w-[500px] w-[380px] p-6 md:shadow-lg border md:h-[650px] flex flex-col  rounded-lg bg-white">
         <h2 className="text-2xl font-semibold text-gray-900 text-center mb-6">
           Service Inquiry
         </h2>
