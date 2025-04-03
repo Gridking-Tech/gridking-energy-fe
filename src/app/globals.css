@@ -87,7 +87,7 @@
 }
 
 body {
-  background: var(--foreground);
+  background: var(--background);
   padding: 0;
 }
 
