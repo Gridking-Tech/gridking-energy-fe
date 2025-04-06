@@ -5,6 +5,7 @@ import ProductShowcase from "@/src/shared/HotSell";
 import NewArrivals from "@/src/shared/NewArrivals";
 import NewsShowcase from "@/src/shared/NewShowcase";
 import TalkExpert from "../shared/TalkExpert";
+import Footer from "../shared/Footer";
 import LoadCalculator from "../shared/LoadCalculator";
 
 export default function Homepage() {
@@ -15,8 +16,9 @@ export default function Homepage() {
       <NewArrivals />
       <ProductShowcase />
       <TalkExpert />
-      {/* <LoadCalculator /> */}
+      <LoadCalculator />
       <NewsShowcase />
+      <Footer />
     </div>
   );
 }

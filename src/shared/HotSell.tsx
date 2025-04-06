@@ -1,39 +1,40 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { RxDoubleArrowRight } from "react-icons/rx";
-import { useRouter } from "next/navigation";
-import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
 import { productsApi } from "@/src/api/product-api";
+import { useRouter } from "next/navigation";
+
+interface Category {
+  name: string;
+}
 
 interface Product {
   name: string;
-  id: number;
-  images?: string[];
+  id: string;
+  images: { url: string }[];
+  category: Category;
 }
 
 const ProductShowcase = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [imageIndex, setImageIndex] = useState(0);
-  const router = useRouter();
+  const routes = useRouter()
 
   const {
-    data: products,
+    data: productsData,
     isLoading,
     error,
   } = productsApi.useGetProducts() as {
-    data: Product[];
+    data: { products: Product[] }; // Adjusted to match the nested structure
     isLoading: boolean;
     error: any;
   };
 
   useEffect(() => {
-    if (Array.isArray(products) && products.length > 0) {
-      setSelectedProduct(products[0]);
+    if (Array.isArray(productsData?.products) && productsData.products.length > 0) {
+      setSelectedProduct(productsData.products[0]);
     }
-  }, [products]);
+  }, [productsData]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,37 +52,40 @@ const ProductShowcase = () => {
     setImageIndex(0);
   };
 
+  // Log category name of the first product
+  useEffect(() => {
+    if (!isLoading && productsData?.products.length > 0) {
+      // console.log("Category name of the first product:", productsData?.products[0]?.category?.name);
+    }
+  }, [isLoading, productsData]);
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    // console.log('loading');
   }
 
   return (
-    <div className="w-full flex flex-col mb-20 z-[100] items-center justify-center h-[70%] md:h-[88%] p-6">
+    <div className="w-full flex flex-col md:mb-20 mb-10 z-30 relative items-center justify-center h-[70%] md:h-[80%] p-6">
       <div className="text-black font-black text-3xl md:text-5xl text-center mb-16">
         HOT SELL
       </div>
       <div className="flex xl:flex-nowrap flex-wrap justify-center md:space-x-6 mb-6 border-b pb-3">
-        {Array.isArray(products) &&
-          products.map((product) => (
+        {Array.isArray(productsData?.products) &&
+          productsData.products.map((product) => (
             <div
               className="flex items-center relative flex-col "
-              key={product.name}
+              key={product.id}
             >
               <button
-                className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 cursor-pointer ${
-                  selectedProduct?.name === product.name
+                className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 cursor-pointer ${selectedProduct?.name === product.name
                     ? "text-orange-500 border-b2 border-orange-500"
                     : "text-gray-700 border-b-transparent"
-                }`}
+                  }`}
                 onClick={() => handleTabClick(product)}
               >
-                <div>{product.name}</div>
-                <div>
-                  <RxDoubleArrowRight size={20} />
-                </div>
+                <div>{product.category?.name}</div>
               </button>
               <div
-                onClick={() => router.push(`/collections/${product.name}`)}
+                onClick={() => routes.push(`/collections/${product.category?.name}`)}
                 className="text-[0.78rem] absolute px-2 rounded-[3px] py-[0.6px] bg-black text-white right-2 cursor-pointer"
               >
                 More
@@ -90,27 +94,24 @@ const ProductShowcase = () => {
           ))}
       </div>
       <div className="relative w-full md:w-[90%] h-[250px] md:h-[450px] flex justify-center items-center bg-transparent rounded-lg overflow-hidden">
-        {!selectedProduct?.images?.length ? (
-          <ImagePlaceholder height={450} />
+        {!selectedProduct?.images?.length && !isLoading ? (
+          <div>No images available</div>
         ) : (
           <div
             className="absolute min-w-full h-full flex flex-nowrap transition-transform duration-700 ease-in-out z-10"
             style={{ transform: `translateX(-${imageIndex * 100}%)` }}
           >
-            {selectedProduct.images.map((image, i) => (
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-full text-black flex-shrink-0 pointer-events-auto"
+            {selectedProduct?.images?.map((image, i) => (
+              <div
                 key={i}
+                className="w-full text-black flex-shrink-0 pointer-events-auto"
               >
-                <Image
-                  src={image || "/placeholder.png"}
+                <img
+                  src={image.url}
                   alt={`${selectedProduct.name} - Image ${i + 1}`}
-                  fill
-                  className="object-cover w-full h-full"
+                  className="object-contain w-full h-full"
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
         )}
