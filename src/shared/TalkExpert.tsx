@@ -10,6 +10,7 @@ export default function TalkExpert() {
     email: "",
     service: "",
     state: "",
+    message: ""
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -29,13 +30,13 @@ export default function TalkExpert() {
     if (isFormValid) {
       alert("Form has been submitted!");
       console.log("Form submitted:", formData);
-      // Optionally reset form here
       setFormData({
         name: "",
         phone: "",
         email: "",
         service: "",
         state: "",
+        message: ""
       });
     }
   };
@@ -60,26 +61,37 @@ export default function TalkExpert() {
         </div>
       </div>
 
-      <div className="md:w-[500px] w-[380px] p-6 md:shadow-lg border md:h-[590px] flex flex-col rounded-lg bg-white">
+      <div className="md:w-[500px] w-[380px] p-6 md:shadow-2xl border md:h-[590px] flex flex-col rounded-lg bg-white">
         <h2 className="text-2xl font-black text-gray-900 text-center mb-6">
           Service Inquiry
         </h2>
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-2 h-[60%] justify-between">
-          <Inputs name="name" onChange={handleChange} value={formData.name} showLabel label="Name:" />
-          <Inputs name="phone" showLabel label="Phone Number:" onChange={handleChange} value={formData.phone} />
-          <Inputs name="email" showLabel label="Email:" type="email" onChange={handleChange} value={formData.email} />
-          <Inputs name="service" showLabel label="Service Interested in:" onChange={handleChange} value={formData.service} />
-          <Inputs name="state" showLabel label="State:" onChange={handleChange} value={formData.state} />
-          <textarea ></textarea>
+        <form onSubmit={handleSubmit} className="flex flex-col  h-[85%]  justify-between">
+          <div className="overflow-y-auto h-[90%] justify-between gap-3 flex flex-col">
+            <Inputs name="name" onChange={handleChange} placeholder="john doe" value={formData.name} showLabel label="Name:" />
+            <Inputs name="phone" showLabel label="Phone Number:" placeholder="081293181869" onChange={handleChange} value={formData.phone} />
+            <Inputs name="email" showLabel label="Email:" type="email" placeholder="e.g john doe@gmail.com" onChange={handleChange} value={formData.email} />
+            <Inputs name="service" showLabel label="Service Interested in:" placeholder="e.g Gell battery, inverters, solar panel installations" onChange={handleChange} value={formData.service} />
+            <Inputs name="state" showLabel label="Location:" placeholder=" e.g Lagos, Abuja, Ghana, Nairobi, etc" onChange={handleChange} value={formData.state} />
+            <div className="flex flex-col">
+              <div className="text-gray-700 font-black mb-1">Describe your inquiry </div>
+              <textarea
+                name="message"
+                value={formData.message || ""}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                placeholder="Tell us more about what you need"
+                className="border-2 border-black rounded-md p-2 w-full min-h-[8rem] "
+              />
+            </div>
+          </div>
           <Button
             title="Submit"
             type="submit"
             disabled={!isFormValid}
-            className={`w-full mt-5 text-white ${
-              isFormValid ? "bg-blue-700 hover:bg-blue-600 cursor-pointer" : "bg-gray-700 cursor-not-allowed"
-            }`}
+            className={`w-full mt-5 text-white ${isFormValid ? "bg-blue-700 hover:bg-blue-600 cursor-pointer" : "bg-gray-700 cursor-not-allowed"
+              }`}
           />
         </form>
+
       </div>
     </div>
   );

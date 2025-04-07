@@ -55,7 +55,7 @@ export default function NavBarDesktop() {
         className="  flex-col justify-center flex fixed left-1/2   transform -translate-x-1/2 z-60 bg-transparent"
       >
         <motion.div className="w-full md:px-7 h-[4rem] bg-white rounded-[0.5rem] flex mx-auto justify-between items-center shadow">
-          <div className="text-black text-xl font-bold">GridKing</div>
+          <div className="text-black text-xl font-bold" onClick={() =>routes.push('/')}>GridKing</div>
           <motion.div>
             <ul className="text-black flex gap-10">
               {navLinks.map((link, index) => {
@@ -89,17 +89,17 @@ export default function NavBarDesktop() {
           <div className="flex items-center gap-7">
             <IoSearch
               size={25}
-              color="black"
-              className="cursor-pointer"
-              onClick={() => setShowSearch(!showSearch)}
+              // color="black"
+              className="cursor-not-allowed text-gray-400"
+              // onClick={() => setShowSearch(!showSearch)}
             />
             <CgProfile
               size={25}
-              color="black"
-              className="cursor-pointer"
+              // color="black"
+              className="cursor-not-allowed text-gray-400"
               // onClick={() => routes.push("/contact")}
             />
-            <FaGlobe size={25} color="black" className="cursor-pointer" />
+            <FaGlobe size={25} className="cursor-not-allowed text-gray-400" />
           </div>
         </motion.div>
 

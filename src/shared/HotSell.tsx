@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { productsApi } from "@/src/api/product-api";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
 
 interface Category {
   name: string;
@@ -64,7 +65,7 @@ const ProductShowcase = () => {
 
   return (
     <div className="w-full flex flex-col md:mb-20 mb-10 z-30 relative items-center justify-center h-[70%] md:h-[80%] p-6">
-      <div className="text-black font-black text-3xl md:text-5xl text-center mb-16">
+      <div className="text-black font-black text-3xl md:text-5xl text-center mb-10">
         HOT SELL
       </div>
       <div className="flex xl:flex-nowrap flex-wrap justify-center md:space-x-6 mb-6 border-b pb-3">
@@ -92,13 +93,9 @@ const ProductShowcase = () => {
             </div>
           ))}
       </div>
-      <div className="relative w-full md:w-[90%] h-[250px] md:h-[450px] cursor-pointer flex justify-center items-center bg-transparent rounded-lg overflow-hidden" onClick={() => routes.push(`/products/${selectedProduct?.name}`)}>
+      <div className="relative w-full md:w-[65%] h-[250px] md:h-[550px] cursor-pointer shadow-lg border-2 flex justify-center items-center bg-transparent rounded-lg overflow-hidden" onClick={() => routes.push(`/products/${selectedProduct?.name}`)}>
         {selectedProduct?.images?.length && isLoading ? (
-          <div
-            className="absolute w-full h-full bg-center bg-cover"
-          >
-            <p className="text-center text-white text-lg absolute inset-0 flex items-center justify-center">No images available</p>
-          </div>
+          <ImagePlaceholder width="100%" height="100%" />
         ) : (
           <div
             className="absolute min-w-full h-full flex flex-nowrap transition-transform duration-700 ease-in-out z-10"

@@ -21,7 +21,7 @@ function Input({ value, placeholder, className, name, onChange, type, label, sho
         type={type}
         placeholder={placeholder}
         name={name}
-        className={className || 'border-2  outline-0 border-gray-600 outline-0 p-2 text-black rounded-md w-full'}
+        className={className || 'border-2  outline-0 border-gray-600 outline-0 p-2 text-black text-[0.9rem] rounded-md w-full'}
         onChange={onChange}
       />
     </div>

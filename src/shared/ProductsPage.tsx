@@ -7,6 +7,7 @@ import { ProductsLinks } from "@/src/constants/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import ImagePlaceholder from "@/src/shared/Placeholders/ImagePlaceholder";
 import { homePageApi } from "../api";
+import Footer from "./Footer";
 
 
 interface ProductsPageProps {
@@ -19,7 +20,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [selectedImages, setSelectedImages] = useState<{ image: string; name: string }[]>([]);
 
-  const { data: productsData, isLoading, error } = homePageApi.useGetCarouselById("67ec90cb2d2e858db2b1ca28") as {
+  const { data: productsData, isLoading, error } = homePageApi.useGetCarouselById("67ec910d2d2e858db2b1ca2a") as {
     data: any;
     isLoading: boolean;
     error: any;
@@ -63,16 +64,22 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     <div className="w-full">
       <NavBar />
       <div className="w-full">
-        {/* <ImagePlaceholder /> */}
-        <div className="relative w-full h-[30rem]">
-          <Image
-            src={productsData?.[0]?.url }
-            alt="eds"
-            style={{ objectFit: "cover" }}
-            fill
-            className="absolute w-full h-full"
-          />
-        </div>
+        {
+          productsData?.length > 0 ? (
+
+            <div className="relative w-full h-[30rem]">
+              <Image
+                src={productsData?.[0]?.url}
+                alt="eds"
+                style={{ objectFit: "cover" }}
+                fill
+                className="absolute w-full h-full"
+              />
+            </div>
+          ) : (
+            <ImagePlaceholder />
+          )
+        }
 
 
 
@@ -97,7 +104,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                     onClick={() =>
                       handleNavigation(`/collections/${category.name}`)
                     }
-                    className={`block font-semibold ${category.name === name ? "text-orange-500" : "text-gray-700"
+                    className={`block font-semibold ${category.disabled ? "pointer-not-allowed text-gray-500" : "cursor-pointer"} ${category.name === name  ? "text-orange-500" : "text-gray-700"
                       }`}
                   >
                     {category.name}
@@ -174,6 +181,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

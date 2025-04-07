@@ -7,6 +7,7 @@ import Input from '@/src/shared/util/Inputs'
 import ProductDetailModal from '@/src/shared/Modals/ProductDetailModal'
 import ImagePlaceholder from '@/src/shared/Placeholders/ImagePlaceholder'
 import ImageZoom from './ImageZoom'
+import Footer from '../Footer'
 
 interface ProductDetailsProps {
   productTitle: string;
@@ -59,18 +60,24 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
     <div className="text-black">
       <NavBar />
       <div className="mb-6 text-center">
-        {/* <ImagePlaceholder /> */}
-        <div className="relative w-full h-[30rem]">
-          <Image
-            src={ImageData?.[0]?.url || ""}
-            alt="eds"
-            style={{ objectFit: "cover" }}
-            fill
-            className="absolute w-full h-full"
-          />
-        </div>
+        {
+          productsData?.length > 0 ? (
+
+            <div className="relative w-full h-[30rem]">
+              <Image
+                src={ImageData?.[0]?.url}
+                alt="eds"
+                style={{ objectFit: "cover" }}
+                fill
+                className="absolute w-full h-full"
+              />
+            </div>
+          ) : (
+            <ImagePlaceholder />
+          )
+        }
       </div>
-      <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4">
+      <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4 h-[100%] md:h-[500px] w-full md:w-[90%]">
         <div className="flex flex-col w-full md:w-1/2">
           {product.images?.length ? (
             <ImageZoom
@@ -94,7 +101,7 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
           {product.price && (
             <p className="text-xl font-semibold text-green-600 mb-4">₦{product.price.toLocaleString()}</p>
           )}
-          <Button title="Order Now" onClick={() => setIsModalOpen(true)} disabled={false} className='w-[80%]' />
+          <Button title="Order Now" onClick={() => setIsModalOpen(true)} disabled={false} className='xl:w-[20%] w-full cursor-pointer' />
         </div>
       </div>
 
@@ -107,6 +114,7 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
           setIsModalOpen={setIsModalOpen}
         />
       )}
+      <Footer />
     </div>
   )
 }

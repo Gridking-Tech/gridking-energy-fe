@@ -17,7 +17,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-      <footer className="bg-gray-900 text-white p-5">
+      <footer className="bg-gray-900 text-white p-16">
           <div className="flex justify-between items-center flex-wrap">
               <div className="flex flex-col">
                   {/* <img src="/gridking-logo.png" alt="GridKing" className="h-12 mr-4" /> */}
