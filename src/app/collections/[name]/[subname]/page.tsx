@@ -1,5 +1,3 @@
-// app/collections/[name]/[subname]/page.tsx
-
 'use client';
 import ProductsPage from '@/src/shared/ProductsPage';
 import { useParams } from 'next/navigation';

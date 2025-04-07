@@ -5,12 +5,12 @@ function About() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   return (
-    <div className="mt-20 w-full h-[80%] flex  flex-col justify-center">
-      <div className="text-black font-black text-3xl  md:text-5xl text-center mb-10">
+    <div className="mt-20 w-full relative h-[80%] flex  flex-col justify-center">
+      <div className="text-black font-black text-2xl  md:text-5xl text-center md:mb-10">
         GRIDKING EXPERT GUIDE
       </div>
 
-      <div className="bg- w-[100%]  md:w-[80%] mx-auto p-4 md:py-6 ">
+      <div className="bg- w-[100%]   md:w-[90%] mx-auto p-4 md:py-0 ">
         {!isVideoLoaded && <VideoPlaceholder width="100%" height="500px" />}
         <iframe
           width="100%"

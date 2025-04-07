@@ -1,78 +1,111 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { products } from "@/src/constants/constants";
+import Image from "next/image";
+import { productsApi } from "../api";
+
+interface Category {
+  _id: string;
+  name: string;
+}
+
+interface ProductImage {
+  url: string;
+  primary: boolean;
+}
+
+interface Product {
+  _id: string;
+  name: string;
+  category: Category;
+  images: ProductImage[];
+}
 
 function NewArrivals() {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [visibleProducts, setVisibleProducts] = useState([products[0]]);
+  const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
+  const [uniqueProducts, setUniqueProducts] = useState<Product[]>([]);
+
+  const {
+    data: productsData,
+    isLoading,
+    error,
+  } = productsApi.useGetProducts() as {
+    data: { products: Product[] };
+    isLoading: boolean;
+    error: any;
+  };
+
 
   useEffect(() => {
-    if (isPaused) return;
+    if (!productsData?.products) return;
+
+    const seenCategories = new Set();
+    const unique: Product[] = [];
+
+    for (const product of productsData.products) {
+      const categoryId = product?.category?._id;
+      if (categoryId && !seenCategories.has(categoryId)) {
+        seenCategories.add(categoryId);
+        unique.push(product);
+      }
+    }
+    setUniqueProducts(unique);
+  }, [productsData]);
+
+
+  useEffect(() => {
+    if (isPaused || uniqueProducts.length === 0) return;
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % products.length);
+      setIndex((prev) => (prev + 1) % uniqueProducts.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, uniqueProducts]);
+
 
   useEffect(() => {
     const updateVisibleProducts = () => {
       const nextProducts = [
-        products[index],
+        uniqueProducts[index],
         ...(window.innerWidth >= 768
-          ? [products[(index + 1) % products.length]]
+          ? [uniqueProducts[(index + 1) % uniqueProducts.length]]
           : []),
       ];
-      setVisibleProducts(nextProducts);
+      setVisibleProducts(nextProducts.filter(Boolean));
     };
 
     updateVisibleProducts();
     window.addEventListener("resize", updateVisibleProducts);
-
     return () => window.removeEventListener("resize", updateVisibleProducts);
-  }, [index]);
+  }, [index, uniqueProducts]);
 
-  const handleChange = (direction: any) => {
+  const handleChange = (direction: "prev" | "next") => {
     setIsPaused(true);
     setTimeout(() => {
       setIndex((prev) =>
         direction === "prev"
-          ? (prev - 1 + products.length) % products.length
-          : (prev + 1) % products.length
+          ? (prev - 1 + uniqueProducts.length) % uniqueProducts.length
+          : (prev + 1) % uniqueProducts.length
       );
       setIsPaused(false);
     }, 3000);
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-white overflow-hidden relative">
+    <div className="w-full md:h-[90%] xl:h-screen flex items-center justify-center bg-white overflow-hidden relative">
       <div className="w-[80%] flex flex-col md:flex-row justify-between items-center">
         <div className="w-full md:w-[40%] h-auto md:h-[450px] flex flex-col items-center md:items-start text-center md:text-left space-y-4">
           <h2 className="text-black text-4xl font-extrabold">NEW ARRIVAL</h2>
-          <div className="h-[4rem] md:h-[10rem] w-[3px]  bg-orange-500"></div>
+          <div className="h-[4rem] md:h-[10rem] w-[3px] bg-orange-500"></div>
           <p className="text-black text-lg font-medium">
             GridKing focuses on the "PV+Energy Storage" industry chain,
             specializing in LiFePO4 batteries, solar inverters, MPPT
             controllers, and solar panels.
           </p>
-
-          <div className="flex space-x-4">
-            <button
-              onClick={() => handleChange("prev")}
-              className="bg-gray-800 text-white p-3 rounded-full hover:bg-gray-700 transition"
-            >
-              &#8593;
-            </button>
-            <button
-              onClick={() => handleChange("next")}
-              className="bg-gray-800 text-white p-3 rounded-full hover:bg-gray-700 transition"
-            >
-              &#8595;
-            </button>
-          </div>
         </div>
+
         <div className="relative w-full md:w-[45%] h-[160px] md:h-[400px] mt-5 xl:mt-0 flex items-center overflow-hidden">
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -83,23 +116,32 @@ function NewArrivals() {
               transition={{ duration: 0.6, type: "spring", stiffness: 50 }}
               className="absolute w-full flex flex-col items-center space-y-5"
             >
-              {visibleProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex items-center justify-between bg-orange-500 h-[160px] md:h-[200px] p-6 rounded-lg w-full shadow-md"
-                >
-                  <div className="text-white">
-                    <h3 className="text-2xl font-bold">{product.name}</h3>
-                    <p className="text-md">{product.desc}</p>
+              {visibleProducts.map((product) => {
+                const primaryImage =
+                  product.images?.find((img) => img.primary) || product.images?.[0];
+                return (
+                  <div
+                    key={product._id}
+                    className="flex items-center justify-between bg-orange-500 h-[160px] md:h-[200px] p-6 rounded-lg w-full shadow-md"
+                  >
+                    <div className="text-white w-[65%]">
+                      <h3 className="text-xl font-bold line-clamp-2">
+                        {product.name}
+                      </h3>
+                      <p className="text-md line-clamp-1">{product.category?.name}</p>
+                    </div>
+                    {primaryImage && (
+                      <Image
+                        src={primaryImage.url}
+                        alt={product._id}
+                        width={300}
+                        height={300}
+                        className="rounded object-cover"
+                      />
+                    )}
                   </div>
-                  {/* <Image
-                    src={''}
-                    alt={product.name}
-                    width={100}
-                    height={100}
-                  /> */}
-                </div>
-              ))}
+                );
+              })}
             </motion.div>
           </AnimatePresence>
         </div>

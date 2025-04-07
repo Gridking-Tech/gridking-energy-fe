@@ -10,14 +10,14 @@ export default function NavBarMobile() {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <div className="h-full z-50 w-full">
+    <div className="h-full  fixed top-0 z-60 w-full">
       <div className="w-full xl:hidden">
-        <div className="w-full px-4 h-[3.4rem] bg-white flex justify-between items-center shadow-md">
-          <div className="text-black text-lg font-bold">GridKing</div>
-          <motion.div className="cursor-pointer">
+        <div className="w-full px-4 h-[4.4rem] bg-white flex justify-between items-center shadow-md">
+          <div className="text-black text-2xl font-bold">GridKing</div>
+          <motion.div className="cursor-pointer ">
             <div className="flex items-center gap-2">
-              <IoSearch size={25} color="black" onClick={() => setShowSearch(!showSearch)} />
-              <RxHamburgerMenu size={25} color="black" onClick={() => setIsOpen(!isOpen)} />
+              <IoSearch size={30} color="black" onClick={() => setShowSearch(!showSearch)} />
+              <RxHamburgerMenu size={30} color="black" onClick={() => setIsOpen(!isOpen)} />
             </div>
           </motion.div>
         </div>

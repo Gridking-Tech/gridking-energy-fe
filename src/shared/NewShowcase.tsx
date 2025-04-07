@@ -1,9 +1,10 @@
-"use client"; // Ensure this is at the top if in a client component
+"use client"; 
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { newsItems } from "@/src/constants/constants";
 import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
+import galleryApi from "../api/gallery-api";
 
 interface Product {
   name?: string;
@@ -16,6 +17,18 @@ const NewsShowcase = () => {
   const [activeNews, setActiveNews] = useState<Product>(newsItems[0]);
   const [loading, setLoading] = useState(true);
   const hasImages = activeNews?.image && activeNews?.image?.length > 0;
+
+   const {
+      data: productsData,
+      isLoading,
+      error,
+    } = galleryApi.useGetImages() as {
+      data: { products: Product[] }
+      isLoading: boolean;
+      error: any;
+    };
+
+  // console.log("products Gallwery",productsData)
 
   useEffect(() => {
     if (hasImages) {

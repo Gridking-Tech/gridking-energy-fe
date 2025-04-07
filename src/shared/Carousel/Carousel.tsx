@@ -1,4 +1,3 @@
-import { imagesArr } from "@/src/constants/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import CarouselControls from "./CarouselController";
@@ -7,124 +6,112 @@ import NavBar from "../NavBar/NavBar";
 import PlaceholderCarousel from "../Placeholders/carouselPlaceholder";
 import { homePageApi } from "@/src/api";
 
-function Carousel() {
+export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [screenWidth, setScreenWidth] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const hasImages = imagesArr && imagesArr.length > 0;
+  const [imageUrl, setImageUrl] = useState<string>("");
 
-  const { data } = homePageApi.useGetHomePageResource() as {
-    data: unknown;
+  const { data: carouselData, isLoading } = homePageApi.useGetcarousel() as {
+    data: { _id: string }[];
     isLoading: boolean;
     error: unknown;
   };
 
-  console.log("data", data);
-
-  const { data: carouselData } = homePageApi.useGetcarousel() as {
-    data: unknown;
-    isLoading: boolean;
-    error: unknown;
-  };
-
-  console.log("carouselData", carouselData);
+  const hasImages = carouselData && carouselData.length > 0;
+  const currentId = carouselData?.[currentIndex]?._id;
 
   useEffect(() => {
-    setScreenWidth(window.innerWidth);
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    const fetchImageUrl = async () => {
+      if (!currentId) return;
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_BASE_URL}/api/image/Carousel/${currentId}`);
+        const data = await res.json();
+        if (data?.[0]?.url) {
+          setImageUrl(data[0].url);
+        } else {
+          console.warn("No image URL returned for carousel ID:", currentId);
+        }
+      } catch (error) {
+        console.error("Error fetching carousel image:", error);
+      }
+    };
+
+    fetchImageUrl();
+  }, [currentId]);
+
 
   useEffect(() => {
     if (hasImages) {
-      setLoading(false);
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
+      }, 4500);
+      return () => clearInterval(interval);
     }
-  }, [hasImages]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (hasImages) {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % imagesArr.length);
-      }
-    }, 25000);
-    return () => clearInterval(interval);
-  }, [hasImages]);
+  }, [hasImages, carouselData]);
 
   const handlePrev = () => {
-    if (hasImages) {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? imagesArr.length - 1 : prevIndex - 1
-      );
-    }
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? carouselData.length - 1 : prevIndex - 1
+    );
   };
 
   const handleNext = () => {
-    if (hasImages) {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % imagesArr.length);
-    }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
   };
 
   return (
-    <div className="relative w-full h-[60%] overflow-hidden flex flex-col md:h-[100%]">
-      {!hasImages || loading ? (
+    <div className="relative w-full h-[90%] overflow-hidden flex flex-col md:h-[100%]">
+      {!hasImages || !imageUrl || isLoading ? (
         <PlaceholderCarousel />
       ) : (
         <>
-          <div className="relative w-full h-full">
-            <AnimatePresence mode="wait">
-              {imagesArr.map((src, index) => {
-                const isCurrent = index === currentIndex;
-                const isPrevious =
-                  index ===
-                  (currentIndex === 0
-                    ? imagesArr.length - 1
-                    : currentIndex - 1);
-
-                return isCurrent || isPrevious ? (
-                  <motion.div
-                    key={src}
-                    initial={{ x: isCurrent ? "100%" : 0 }}
-                    animate={{ x: isCurrent ? 0 : "-100%" }}
-                    exit={{ x: "-100%" }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="absolute w-full z-10 h-full overflow-hidden"
-                  >
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={src}
-                        alt={`Image ${index}`}
-                        priority={true}
-                        layout="fill"
-                        objectFit="cover"
-                        className="absolute min-w-full min-h-full"
-                        onLoad={() => setLoading(false)}
-                      />
-                    </div>
-                    <div className="absolute w-full h-full bg-black/10"></div>{" "}
-                  </motion.div>
-                ) : null;
-              })}
+          <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[90%]">
+            <AnimatePresence>
+              <motion.div
+                key={currentIndex}
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -50, opacity: 0 }}
+                transition={{ duration: 1 }}
+                className="absolute w-full h-full"
+              >
+                <div className="relative w-full h-full">
+                  <Image
+                    src={imageUrl}
+                    alt={`Image ${currentIndex}`}
+                    priority={true}
+                    fill
+                    objectFit="cover"
+                    className="absolute min-w-full min-h-full"
+                  />
+                  <div className="absolute inset-0 bg-black/40 z-10" />
+                </div>
+              </motion.div>
             </AnimatePresence>
+
+            <div className="z-50">
+              <CarouselControls
+                currentIndex={currentIndex}
+                setCurrentIndex={setCurrentIndex}
+                images={carouselData}
+              />
+            </div>
           </div>
-          <CarouselControls
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            images={imagesArr}
-          />
+
+          {/* Arrows */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-20"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white w-[3rem] h-[3rem] text-black font-black text-xl shadow p-2 rounded-full z-20"
           >
             &#8592;
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-20"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white w-[3rem] h-[3rem] text-black font-black text-xl shadow p-2 rounded-full z-20"
           >
             &#8594;
           </button>
-          <motion.div className="">
+
+          <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
             <NavBar />
           </motion.div>
         </>
@@ -132,5 +119,3 @@ function Carousel() {
     </div>
   );
 }
-
-export default Carousel;

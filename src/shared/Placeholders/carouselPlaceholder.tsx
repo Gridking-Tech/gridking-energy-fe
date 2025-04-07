@@ -27,8 +27,8 @@ const PlaceholderCarousel: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-[85%] overflow-hidden flex flex-col md:h-[80%]">
-      <AnimatePresence mode="wait">
+    <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[90%]">
+      <AnimatePresence>
         {placeholders.map((placeholder, index) => {
           const isCurrent = index === currentIndex;
           const isPrevious =
@@ -38,10 +38,10 @@ const PlaceholderCarousel: React.FC = () => {
           return isCurrent || isPrevious ? (
             <motion.div
               key={index}
-              initial={{ x: isCurrent ? "100%" : 0 }}
-              animate={{ x: isCurrent ? 0 : "-100%" }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.1, ease: "linear" }} // Linear slide animation
+              initial={{ x: isCurrent ? "30%" : 0, opacity:0 }}
+              animate={{ x: 0, opacity:1 }}
+              exit={{ x: "-30%",opacity: 1 }}
+              transition={{ duration:1}}
               className="absolute w-full z-10 h-full overflow-hidden pointer-events-none"
             >
               <div className="relative w-full h-full">

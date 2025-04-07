@@ -13,6 +13,8 @@ export default function NavBarDesktop() {
   const pathname = usePathname();
   const [activeCategory, setActiveCategory] = useState<any>(null);
   const routes = useRouter();
+  const [dropdownPosition, setDropdownPosition] = useState({ left: 0, width: 0 });
+
 
   const controls = useAnimation();
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function NavBarDesktop() {
     const itemCount = activeCategory.length;
     if (itemCount > 4) return "w-[97%] min-h-[15rem] rounded-[1.5rem]";
     if (itemCount > 2) return "w-[25rem] min-h-[10rem] rounded-[0.8rem]";
-    return "w-[15rem] min-h-[8rem] rounded-[0.8rem]";
+    return "w-[15rem] min-h-[6rem]  rounded-[0.8rem]";
   };
 
   return (
@@ -50,10 +52,10 @@ export default function NavBarDesktop() {
       <motion.div
         animate={controls}
         initial={{ width: "90%", borderRadius: "0.5rem", top: "17px" }}
-        className="  flex-col justify-center flex fixed left-1/2  transform -translate-x-1/2 z-[100] bg-transparent "
+        className="  flex-col justify-center flex fixed left-1/2   transform -translate-x-1/2 z-60 bg-transparent"
       >
-        <motion.div className="w-full md:px-7 h-[3.5rem] bg-white rounded-[0.5rem]   flex mx-auto justify-between items-center shadow">
-          <div className="text-black text-lg font-bold">GridKing</div>
+        <motion.div className="w-full md:px-7 h-[4rem] bg-white rounded-[0.5rem] flex mx-auto justify-between items-center shadow">
+          <div className="text-black text-xl font-bold">GridKing</div>
           <motion.div>
             <ul className="text-black flex gap-10">
               {navLinks.map((link, index) => {
@@ -67,14 +69,17 @@ export default function NavBarDesktop() {
                         ? "text-orange-500 border-orange-500"
                         : "text-black"
                     }`}
-                    onMouseEnter={() => {
+                    onMouseEnter={(e) => {
                       if (link.constant) {
                         setActiveCategory(link.constant);
                         setIscategories(true);
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        setDropdownPosition({ left: rect.left, width: rect.width });
                       } else {
                         setIscategories(false);
                       }
                     }}
+                    
                   >
                     {link.name}
                   </li>
@@ -93,13 +98,13 @@ export default function NavBarDesktop() {
               size={25}
               color="black"
               className="cursor-pointer"
-              onClick={() => routes.push("/contact")}
+              // onClick={() => routes.push("/contact")}
             />
             <FaGlobe size={25} color="black" className="cursor-pointer" />
           </div>
         </motion.div>
 
-        <div className="w-full flex justify-center relative   h-full">
+        <div className="w-full flex  relative  justify-center  h-full">
           {isCategories && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -117,7 +122,7 @@ export default function NavBarDesktop() {
                 {activeCategory?.map((category: any, index: any) => (
                   <div key={index} className="flex flex-col items-start">
                     <li
-                      className="text-black text-[1.04rem] cursor-pointer font-black"
+                      className={`text-black text-[1.04rem]  font-black ${category.disabled ? "cursor-not-allowed opacity-53" : "hover:bg-gray-100 cursor-pointer"}`}
                       onClick={() =>
                         routes.push(`/collections/${category.name}`)
                       }
@@ -129,7 +134,7 @@ export default function NavBarDesktop() {
                       category.subcategories.map((sub: any, subIndex: any) => (
                         <li
                           key={subIndex}
-                          className="my-2 text-[0.9rem] cursor-pointer text-gray-800"
+                          className={`my-2 text-[0.9rem]  text-gray-800 ${sub.disabled ? "cursor-not-allowed opacity-50" : "hover:bg-gray-100 cursor-pointer"}`}
                           onClick={() => routes.push(`/collections/${category.name}/${sub.name}`)}
                         >
                           {sub.name}

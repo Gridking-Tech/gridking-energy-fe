@@ -1,7 +1,7 @@
 const CarouselControls = ({ currentIndex, setCurrentIndex, images }: any) => {
   return (
     <div className="absolute bottom-4 z-50 left-1/2 transform -translate-x-1/2 flex gap-3">
-      {images.map((_: any, index: any) => (
+      {images?.map((_: any, index: any) => (
         <div
           key={index}
           onClick={() => setCurrentIndex(index)}

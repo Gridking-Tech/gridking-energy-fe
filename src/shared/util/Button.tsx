@@ -4,18 +4,21 @@ function Button({
   title, 
   type,
   onClick, 
-  className = ""
+  className = "",
+  disabled
 }: { 
   title: string, 
   type?: any,
   onClick?: () => void, 
   className?: string 
+  disabled: boolean
 }) {
   return (
     <button 
+    disabled={disabled}
     type={type}
       onClick={onClick} 
-      className={`w-full bg-black text-white text-lg cursor-pointer font-semibold py-3 rounded-lg mt-6 ${className}`}
+      className={`w-full bg-black text-white text-lg  font-semibold py-3 rounded-lg mt-6 ${className}`}
     >
       {title}
     </button>
