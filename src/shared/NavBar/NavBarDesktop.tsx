@@ -63,7 +63,7 @@ export default function NavBarDesktop() {
                 return (
                   <li
                     key={index}
-                    onClick={() => routes.push("/")}
+                    onClick={() => routes.push(`${link.href}`)}
                     className={`text-[0.95rem] cursor-pointer hover:text-orange-500 font-bold ${
                       isActive
                         ? "text-orange-500 border-orange-500"
@@ -79,7 +79,6 @@ export default function NavBarDesktop() {
                         setIscategories(false);
                       }
                     }}
-                    
                   >
                     {link.name}
                   </li>
@@ -122,7 +121,7 @@ export default function NavBarDesktop() {
                 {activeCategory?.map((category: any, index: any) => (
                   <div key={index} className="flex flex-col items-start">
                     <li
-                      className={`text-black text-[1.04rem]  font-black ${category.disabled ? "cursor-not-allowed opacity-53" : "hover:bg-gray-100 cursor-pointer"}`}
+                      className={`text-black text-[1.04rem]  font-black ${category.disabled ? "cursor-not-allowed opacity-53" : "hover:text-orange-500 cursor-pointer"}`}
                       onClick={() =>
                         routes.push(`/collections/${category.name}`)
                       }

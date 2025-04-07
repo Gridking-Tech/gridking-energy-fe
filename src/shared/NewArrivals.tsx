@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { productsApi } from "../api";
+import { useRouter } from "next/navigation";
 
 interface Category {
   _id: string;
@@ -27,7 +28,7 @@ function NewArrivals() {
   const [isPaused, setIsPaused] = useState(false);
   const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
   const [uniqueProducts, setUniqueProducts] = useState<Product[]>([]);
-
+  const routes = useRouter()
   const {
     data: productsData,
     isLoading,
@@ -106,14 +107,14 @@ function NewArrivals() {
           </p>
         </div>
 
-        <div className="relative w-full md:w-[45%] h-[160px] md:h-[400px] mt-5 xl:mt-0 flex items-center overflow-hidden">
+        <div className="relative w-full md:w-[45%] h-[160px] md:h-[600px] mt-5 xl:mt-0 flex items-center overflow-hidden">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={index}
-              initial={{ y: "55%", opacity: 1 }}
+              initial={{ y: "50%", opacity: 1 }}
               animate={{ y: "0%", opacity: 1 }}
-              exit={{ y: "-55%", opacity: 1 }}
-              transition={{ duration: 0.6, type: "spring", stiffness: 50 }}
+              exit={{ y: "-50%", opacity: 1 }}
+              transition={{ duration: 0.6, }}
               className="absolute w-full flex flex-col items-center space-y-5"
             >
               {visibleProducts.map((product) => {
@@ -122,10 +123,11 @@ function NewArrivals() {
                 return (
                   <div
                     key={product._id}
-                    className="flex items-center justify-between bg-orange-500 h-[160px] md:h-[200px] p-6 rounded-lg w-full shadow-md"
+                    onClick={() => routes.push(`/products/${product.name}`) }
+                    className="flex items-center flex-row-reverse gap-3 mb-20 justify-between bg-orange-500 h-[160px] md:h-[200px] cursor-pointer p-6 rounded-lg w-full shadow-md"
                   >
-                    <div className="text-white w-[65%]">
-                      <h3 className="text-xl font-bold line-clamp-2">
+                    <div className="text-white  w-[45%]">
+                      <h3 className="text-xl  font-bold line-clamp-2">
                         {product.name}
                       </h3>
                       <p className="text-md line-clamp-1">{product.category?.name}</p>
@@ -136,7 +138,7 @@ function NewArrivals() {
                         alt={product._id}
                         width={300}
                         height={300}
-                        className="rounded object-cover"
+                        className="rounded abnsolute -top-6 left-3 object-cover"
                       />
                     )}
                   </div>

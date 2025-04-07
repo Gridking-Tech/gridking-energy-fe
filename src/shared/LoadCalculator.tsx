@@ -26,14 +26,14 @@ export default function LoadCalculator() {
       : 0;
 
   return (
-    <div className="w-full h-screen  relative flex flex-col xl:my-20 items-center justify-center px-8 ">
+    <div className="w-[90%] mx-auto h-screen relative flex flex-col xl:my-20 items-center justify-center px-8 border-2 border-gray-300 shadow-lg m-5 p-5 rounded-lg bg-white">
       {/* Header */}
       <div className="flex items-center flex-col gap-2 text-center mb-12 max-w-2xl">
         <h1 className="text-4xl md:text-5xl font-black text-orange-500">Load Calculator</h1>
         <div className="text-xl md:text-xl tracking-[0px] font-semibold text-gray-600">Know which inverter you need, what it can carry and for how long</div>
       </div>
-      <div className="w-full xl:max-w-full sm:max-w-6xl md:max-w-[80%] flex flex-col md:flex-row bg-white text-black rounded-xl mt-6 overflow-hidden">
-        <div className="md:w-1/2 w-full p-6 flex flex-col justify-center items-start gap-6">
+      <div className="w-full xl:max-w-full sm:max-w-6xl md:max-w-[80%]  flex flex-col md:flex-row bg-white text-black rounded-xl mt-6 overflow-hidden">
+        <div className="md:w-1/2 w-full p-6 flex flex-col justify-center border-2 mb-3 rounded-lg items-start gap-6">
           <div className="text-left">
             <h2 className="text-2xl md:text-2xl font-bold mb-2">Total Power Consumption</h2>
             <div className="text-4xl text-green-600 md:text-5xl font-extrabold mb-2">{totalLoad} W</div>
@@ -96,9 +96,27 @@ export default function LoadCalculator() {
 
       </div>
       <div className='w-full  border-t-1  rounded-[1rem] xl:flex hidden justify-center flex flex-row items-center border-gray-400 h-[32rem]'>
-        <div className="w-[50%] text-left ">
-          <h3 className="text-2xl font-bold">Recommended Inverter Rating</h3>
-          <div className="text-4xl font-black text-green-600 mt-1">{recommendedInverterVA} VA</div>
+        <div className="w-[50%] justify-between ites-center flex text-left ">
+          <div className='w-[50%] h-full border-r-2 text-left px-4 py-6 '>
+            <h3 className="text-2xl font-bold">Recommended Inverter Rating</h3>
+            <div className="text-4xl font-black text-green-600 mt-1">{recommendedInverterVA} VA</div>
+          </div>
+          <div className='w-[50%] h-full text-left px-4 py-6 '>
+          <label className="block mt-2 text-sm text-gray-900 font-medium">Choose Battery Capacity</label>
+            <select
+              className="mt-1 border border-black w-full  px-4 py-2 rounded text-gray-800"
+              value={batteryCapacity}
+              onChange={e => setBatteryCapacity(Number(e.target.value))}
+            >
+              <option value={220}>220Ah</option>
+              <option value={200}>200Ah</option>
+              <option value={150}>150Ah</option>
+            </select>
+            <p className="mt-4 text-sm font-medium text-gray-600">Your Available Battery Back Up Time:</p>
+            <p className="text-4xl font-black text-green-600">
+              {backupTimeHours} hrs
+            </p>
+          </div>
         </div>
         <div className="w-[50%] h-full text-left px-4 py-6 ">
           <h3 className="text-xl font-bold mb-4 text-gray-800">Explore Products</h3>
@@ -123,7 +141,7 @@ export default function LoadCalculator() {
             })}
           </div>
         </div>
-
+        ]\
       </div>
     </div>
   );

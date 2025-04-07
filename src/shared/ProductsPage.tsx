@@ -6,6 +6,8 @@ import React, { useState, useEffect } from "react";
 import { ProductsLinks } from "@/src/constants/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import ImagePlaceholder from "@/src/shared/Placeholders/ImagePlaceholder";
+import { homePageApi } from "../api";
+
 
 interface ProductsPageProps {
   name: string;
@@ -16,6 +18,14 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const router = useRouter();
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [selectedImages, setSelectedImages] = useState<{ image: string; name: string }[]>([]);
+
+  const { data: productsData, isLoading, error } = homePageApi.useGetCarouselById("67ec90cb2d2e858db2b1ca28") as {
+    data: any;
+    isLoading: boolean;
+    error: any;
+  }
+
+  console.log("ProductsPage data:", productsData);
 
   useEffect(() => {
     let foundImages: { image: string; name: string }[] = [];
@@ -46,19 +56,31 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   }, [name, subname]);
 
   const handleNavigation = (path: string) => {
-    router.replace(path); 
+    router.replace(path);
   };
 
   return (
     <div className="w-full">
       <NavBar />
       <div className="w-full">
-        <ImagePlaceholder />
+        {/* <ImagePlaceholder /> */}
+        <div className="relative w-full h-[30rem]">
+          <Image
+            src={productsData?.[0]?.url }
+            alt="eds"
+            style={{ objectFit: "cover" }}
+            fill
+            className="absolute w-full h-full"
+          />
+        </div>
+
+
+
         <div className="text-gray-700 flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
-        {`Home > ${decodeURIComponent(name)}`}
-{typeof subname !== "undefined" && subname !== "" && subname !== "undefined" 
-  ? ` > ${decodeURIComponent(subname)}` 
-  : ""}
+          {`Home > ${decodeURIComponent(name)}`}
+          {typeof subname !== "undefined" && subname !== "" && subname !== "undefined"
+            ? ` > ${decodeURIComponent(subname)}`
+            : ""}
 
         </div>
       </div>
@@ -75,9 +97,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                     onClick={() =>
                       handleNavigation(`/collections/${category.name}`)
                     }
-                    className={`block font-semibold ${
-                      category.name === name ? "text-orange-500" : "text-gray-700"
-                    }`}
+                    className={`block font-semibold ${category.name === name ? "text-orange-500" : "text-gray-700"
+                      }`}
                   >
                     {category.name}
                   </button>
@@ -111,11 +132,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                                 `/collections/${category.name}/${sub.name}`
                               )
                             }
-                            className={`text-sm ${
-                              subname === sub.name
-                                ? "text-orange-500 font-semibold"
-                                : "text-gray-600"
-                            }`}
+                            className={`text-sm ${subname === sub.name
+                              ? "text-orange-500 font-semibold"
+                              : "text-gray-600"
+                              }`}
                           >
                             {sub.name}
                           </button>
@@ -129,11 +149,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           </ul>
         </div>
 
-        {/* Product images section */}
         <div className="w-full md:w-3/4 px-10">
-        <h2 className="text-2xl font-bold text-black mb-6">
-  {subname && subname !== "undefined" ? decodeURIComponent(subname) : decodeURIComponent(name)}
-</h2>
+          <h2 className="text-2xl font-bold text-black mb-6">
+            {subname && subname !== "undefined" ? decodeURIComponent(subname) : decodeURIComponent(name)}
+          </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {selectedImages.length > 0 ? (

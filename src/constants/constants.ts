@@ -199,7 +199,7 @@ export const ContactLinks = [
 export const navLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Product", href: "/product", constant: ProductsLinks },
+  { name: "Product", href: "/productsoverview", constant: ProductsLinks },
   // { name: "Solution & Cases", href: "/solutions" },
   {
     name: "Support & Service",

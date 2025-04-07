@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { newsItems } from "@/src/constants/constants";
-import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
 import galleryApi from "../api/gallery-api";
 
 interface Product {
@@ -15,30 +14,35 @@ interface Product {
 
 const NewsShowcase = () => {
   const [activeNews, setActiveNews] = useState<Product>(newsItems[0]);
-  const [loading, setLoading] = useState(true);
+  const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
+
   const hasImages = activeNews?.image && activeNews?.image?.length > 0;
 
-   const {
-      data: productsData,
-      isLoading,
-      error,
-    } = galleryApi.useGetImages() as {
-      data: { products: Product[] }
-      isLoading: boolean;
-      error: any;
-    };
+  const {
+    data: productsData,
+    isLoading,
+    error,
+  } = galleryApi.useGetImages() as {
+    data: { products: Product[] };
+    isLoading: boolean;
+    error: any;
+  };
 
-  // console.log("products Gallwery",productsData)
+  console.log("products Gallwery", productsData);
 
   useEffect(() => {
     if (hasImages) {
-      setLoading(false);
+      setLoadingImages({});
     }
   }, [hasImages]);
 
   const handleNewsClick = (item: Product) => {
     setActiveNews(item);
-    setLoading(true);
+    setLoadingImages({}); // Reset the loading state when a new image is clicked
+  };
+
+  const handleImageLoad = (id: string) => {
+    setLoadingImages((prev) => ({ ...prev, [id]: false })); // Mark the image as loaded
   };
 
   return (
@@ -47,23 +51,16 @@ const NewsShowcase = () => {
 
       <div className="flex flex-col md:flex-row items-center w-[90%] mx-auto gap-6">
         <div className="relative w-full md:w-[65%] h-[250px] md:h-[450px] bg-white shadow-lg rounded-lg overflow-hidden">
-          {!hasImages || loading ? (
-            <ImagePlaceholder width="100%" height="100%" />
-          ) : (
-            <>
-              <Image
-                src={activeNews?.image?.[0] || ""}
-                alt={`News - ${activeNews.id}`}
-                width={800}
-                height={450}
-                className="object-cover w-full h-full"
-                onLoad={() => setLoading(false)} 
-              />
-              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-4">
-                <p className="text-sm text-orange-400">{activeNews.date}</p>
-              </div>
-            </>
-          )}
+          {hasImages && !loadingImages[activeNews.id || ""] ? (
+            <Image
+              src={activeNews?.image?.[0] || ""}
+              alt={`News - ${activeNews.id}`}
+              width={800}
+              height={450}
+              className="object-cover w-full h-full"
+              onLoad={() => handleImageLoad(activeNews.id?.toString() || "")}
+            />
+          ) : null}
         </div>
 
         <div className="flex md:flex-col w-full md:w-[35%] gap-4 items-center">
@@ -77,8 +74,9 @@ const NewsShowcase = () => {
               }`}
               onClick={() => handleNewsClick(item)}
             >
-              {!hasImages || (loading && activeNews.id === item.id) ? (
-                <ImagePlaceholder width="100%" height="100%" />
+              {loadingImages[item.id?.toString() || ""] ? (
+                // The placeholder is not shown at all anymore, only if the image is loading
+                <div className="w-full h-full bg-gray-200" />
               ) : (
                 <Image
                   src={item.image?.[0] || ""}
@@ -86,7 +84,7 @@ const NewsShowcase = () => {
                   width={150}
                   height={100}
                   className="object-cover w-full h-full"
-                  onLoad={() => setLoading(false)} 
+                  onLoad={() => handleImageLoad(item.id?.toString() || "")}
                 />
               )}
             </div>

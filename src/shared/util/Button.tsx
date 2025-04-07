@@ -18,7 +18,7 @@ function Button({
     disabled={disabled}
     type={type}
       onClick={onClick} 
-      className={`w-full bg-black text-white text-lg  font-semibold py-3 rounded-lg mt-6 ${className}`}
+      className={`w-[50%] bg-black text-white text-lg  font-semibold py-3 rounded-lg mt-6 ${className}`}
     >
       {title}
     </button>
