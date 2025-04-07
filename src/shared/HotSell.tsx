@@ -64,7 +64,7 @@ const ProductShowcase = () => {
   }
 
   return (
-    <div className="w-full flex flex-col md:mb-20 mb-10 z-30 relative items-center justify-center h-[70%] md:h-[80%] p-6">
+    <div className="w-full flex flex-col md:mb-32 mb-10 z-30 relative items-center justify-center h-[70%] md:h-[80%] p-6">
       <div className="text-black font-black text-3xl md:text-5xl text-center mb-10">
         HOT SELL
       </div>

@@ -55,7 +55,7 @@ const NewsShowcase = () => {
   };
 
   return (
-    <div className="w-full flex flex-col text-black items-center bg-gray-100 p-6">
+    <div className="w-full flex flex-col text-black mb-20 items-center  p-6">
       <h2 className="md:text-5xl text-3xl font-bold my-20">PRODUCT GALLERY</h2>
 
       <div className="flex flex-col justify-center md:flex-row items-center w-[90%] mx-auto gap-6">

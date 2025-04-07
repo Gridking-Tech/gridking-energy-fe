@@ -26,7 +26,7 @@ export default function LoadCalculator() {
       : 0;
 
   return (
-    <div className="w-[90%] mx-auto h-screen relative flex flex-col xl:my-20 items-center justify-center px-8 border-2 border-gray-300 shadow-lg m-5 p-5 rounded-lg bg-white">
+    <div className="w-[90%] mx-auto h-screen  relative flex flex-col xl:my-20 items-center justify-center px-8 border-2 border-gray-300 shadow-lg  m-5 p-5 rounded-lg bg-white">
       {/* Header */}
       <div className="flex items-center flex-col gap-2 text-center mb-12 max-w-2xl">
         <h1 className="text-4xl md:text-5xl font-black text-orange-500">Load Calculator</h1>
@@ -96,10 +96,10 @@ export default function LoadCalculator() {
 
       </div>
       <div className='w-full  border-t-1  rounded-[1rem] xl:flex hidden justify-center flex flex-row items-center border-gray-400 h-[32rem]'>
-        <div className="w-[50%] justify-between ites-center flex text-left ">
-          <div className='w-[50%] h-full border-r-2 text-left px-4 py-6 '>
+        <div className="w-[50%] justify-between items-center flex text-left ">
+          <div className='w-[50%] h-full border-r-2  text-left px-4 py-6 '>
             <h3 className="text-2xl font-bold">Recommended Inverter Rating</h3>
-            <div className="text-4xl font-black text-green-600 mt-1">{recommendedInverterVA} VA</div>
+            <div className="text-4xl font-black text-green-600 text-center mt-1">{recommendedInverterVA} VA</div>
           </div>
           <div className='w-[50%] h-full text-left px-4 py-6 '>
           <label className="block mt-2 text-sm text-gray-900 font-medium">Choose Battery Capacity</label>

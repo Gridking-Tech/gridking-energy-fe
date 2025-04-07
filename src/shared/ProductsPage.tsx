@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import { ProductsLinks } from "@/src/constants/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import ImagePlaceholder from "@/src/shared/Placeholders/ImagePlaceholder";
-import { homePageApi } from "../api";
+import { homePageApi, productsApi } from "../api";
 import Footer from "./Footer";
 
 
@@ -20,13 +20,21 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [selectedImages, setSelectedImages] = useState<{ image: string; name: string }[]>([]);
 
-  const { data: productsData, isLoading, error } = homePageApi.useGetCarouselById("67ec910d2d2e858db2b1ca2a") as {
+  const { data: productsDataId, isLoading, error } = homePageApi.useGetCarouselById("67ec910d2d2e858db2b1ca2a") as {
     data: any;
     isLoading: boolean;
     error: any;
   }
 
-  console.log("ProductsPage data:", productsData);
+    const { data: productsData} = productsApi.useGetProducts() as {
+    data: any;
+    isLoading: boolean;
+    error: any;
+  }
+  
+  console.log('ProductsDtaapi', productsData)
+
+
 
   useEffect(() => {
     let foundImages: { image: string; name: string }[] = [];
@@ -65,11 +73,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
       <NavBar />
       <div className="w-full">
         {
-          productsData?.length > 0 ? (
+          productsDataId?.[0]?.url.length > 0 ? (
 
             <div className="relative w-full h-[30rem]">
               <Image
-                src={productsData?.[0]?.url}
+                src={productsDataId?.[0]?.url}
                 alt="eds"
                 style={{ objectFit: "cover" }}
                 fill
@@ -77,7 +85,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
               />
             </div>
           ) : (
-            <ImagePlaceholder />
+            <ImagePlaceholder width={'100%'} height={'100%'} />
           )
         }
 
@@ -104,8 +112,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                     onClick={() =>
                       handleNavigation(`/collections/${category.name}`)
                     }
-                    className={`block font-semibold ${category.disabled ? "pointer-not-allowed text-gray-500" : "cursor-pointer"} ${category.name === name  ? "text-orange-500" : "text-gray-700"
-                      }`}
+                    className={`block font-semibold 
+  ${category.disabled ? "pointer-not-allowed text-gray-500" : "cursor-pointer"} 
+  ${category.name === name ? "text-orange-500" : "text-gray-700"}`}
+
                   >
                     {category.name}
                   </button>
