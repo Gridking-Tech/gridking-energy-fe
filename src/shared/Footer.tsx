@@ -29,24 +29,24 @@ export default function Footer() {
               </div>
               <div className="flex gap-4 text-xl">
                   {socialLinks.map((link, index) => (
-                      <a key={index} href={link.href} className="text-white">
-                          <i >{link.icon}</i>
-                      </a>
+                      <div key={index} className="text-white">
+                          <div>{link.icon}</div>
+                      </div>
                   ))}
               </div>
           </div>
           <hr className="my-4 border-gray-700" />
           <div className="flex justify-between flex-wrap">
-              <div>
+              <div className="flex items-center"> 
                   {footerLinks.map((link, index) => (
-                      <span key={index}>
-                          <a href={link.href} className="text-white mx-2">{link.name}</a>
+                      <span key={index} className="flex items-center">
+                          <div  className="text-white mx-2">{link.name}</div>
                           {index < footerLinks.length - 1 && " | "}
                       </span>
                   ))}
               </div>
               <div>
-                  <p>&copy; 2007–2025 GridKing. All Rights Reserved. POWERED BY UEESHOP</p>
+                  <p>&copy; Copyrights 2024/2025 all right preserved</p>
               </div>
           </div>
       </footer>

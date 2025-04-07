@@ -70,6 +70,7 @@ export default function TalkExpert() {
           <Inputs name="email" showLabel label="Email:" type="email" onChange={handleChange} value={formData.email} />
           <Inputs name="service" showLabel label="Service Interested in:" onChange={handleChange} value={formData.service} />
           <Inputs name="state" showLabel label="State:" onChange={handleChange} value={formData.state} />
+          <textarea ></textarea>
           <Button
             title="Submit"
             type="submit"

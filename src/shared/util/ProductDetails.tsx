@@ -6,13 +6,15 @@ import NavBar from '@/src/shared/NavBar/NavBar'
 import Input from '@/src/shared/util/Inputs'
 import ProductDetailModal from '@/src/shared/Modals/ProductDetailModal'
 import ImagePlaceholder from '@/src/shared/Placeholders/ImagePlaceholder'
+import ImageZoom from './ImageZoom'
 
 interface ProductDetailsProps {
   productTitle: string;
   productsData: any[];
+  ImageData: any[]
 }
 
-const ProductDetails = ({ productTitle, productsData }: ProductDetailsProps) => {
+const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetailsProps) => {
   const titles = decodeURIComponent(productTitle)
   const [product, setProduct] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -26,14 +28,14 @@ const ProductDetails = ({ productTitle, productsData }: ProductDetailsProps) => 
   })
 
   useEffect(() => {
-    const category = productsData.find((category) =>
-      category.subcategories?.some((sub: { name: string }) => sub.name.toLowerCase() === titles.toLowerCase())
-    )
-    const subcategory = category?.subcategories?.find(
-      (sub: { name: string }) => sub.name.toLowerCase() === titles.toLowerCase()
-    )
-    setProduct(subcategory || null)
-  }, [titles, productsData])
+    if (!productsData) return;
+
+    const found = productsData.find((p) =>
+      p.name.toLowerCase() === titles.toLowerCase()
+    );
+    setProduct(found || null);
+  }, [titles, productsData]);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -57,30 +59,42 @@ const ProductDetails = ({ productTitle, productsData }: ProductDetailsProps) => 
     <div className="text-black">
       <NavBar />
       <div className="mb-6 text-center">
-        <ImagePlaceholder />
+        {/* <ImagePlaceholder /> */}
+        <div className="relative w-full h-[30rem]">
+          <Image
+            src={ImageData?.[0]?.url || ""}
+            alt="eds"
+            style={{ objectFit: "cover" }}
+            fill
+            className="absolute w-full h-full"
+          />
+        </div>
       </div>
-
-      {/* Product image and details in a left-right layout */}
       <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4">
-        {/* Left side: Product image */}
         <div className="flex flex-col w-full md:w-1/2">
           {product.images?.length ? (
-            <Image
-              src={product.images[0]}
+            <ImageZoom
+              src={product.images[0].url}
               alt={product.name}
-              width={600}
-              height={350}
-              className="rounded-lg w-[70%] mx-auto h-[25rem] object-cover"
             />
           ) : (
             <ImagePlaceholder />
           )}
         </div>
-
-        {/* Right side: Product details */}
         <div className="flex flex-col items-center md:items-start w-full md:w-1/2 px-4">
           <h1 className="text-3xl md:text-4xl font-black mb-2 text-center md:text-left">{product.name}</h1>
-          <Button title="Order Now" onClick={() => setIsModalOpen(true)} />
+          {product.category?.name && (
+            <p className="text-lg text-gray-700 mb-2">Category: {product.category.name}</p>
+          )}
+
+          {product.description && (
+            <p className="text-md text-gray-600 mb-4">{product.description}</p>
+          )}
+
+          {product.price && (
+            <p className="text-xl font-semibold text-green-600 mb-4">₦{product.price.toLocaleString()}</p>
+          )}
+          <Button title="Order Now" onClick={() => setIsModalOpen(true)} disabled={false} className='w-[80%]' />
         </div>
       </div>
 

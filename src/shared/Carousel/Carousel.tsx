@@ -19,6 +19,8 @@ export default function Carousel() {
   const hasImages = carouselData && carouselData.length > 0;
   const currentId = carouselData?.[currentIndex]?._id;
 
+  console.log("Current ID:", currentId);
+
   useEffect(() => {
     const fetchImageUrl = async () => {
       if (!currentId) return;
@@ -100,13 +102,13 @@ export default function Carousel() {
           {/* Arrows */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white w-[3rem] h-[3rem] text-black font-black text-xl shadow p-2 rounded-full z-20"
+            className="absolute left-4 top-1/2 transform cursor-pointer -translate-y-1/2 bg-white w-[3rem] h-[3rem] text-black font-black text-xl shadow p-2 rounded-full z-20"
           >
             &#8592;
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white w-[3rem] h-[3rem] text-black font-black text-xl shadow p-2 rounded-full z-20"
+            className="absolute right-4 top-1/2 transform cursor-pointer -translate-y-1/2 bg-white w-[3rem] h-[3rem] text-black font-black text-xl shadow p-2 rounded-full z-20"
           >
             &#8594;
           </button>
