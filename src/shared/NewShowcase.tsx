@@ -1,92 +1,113 @@
-"use client"; 
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { newsItems } from "@/src/constants/constants";
+import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
 import galleryApi from "../api/gallery-api";
 
-interface Product {
-  name?: string;
-  id?: number;
-  image?: string[];
-  date?: string;
+interface GalleryImage {
+  _id: string;
+  url: string;
+  primary: boolean;
+}
+
+interface GalleryItem {
+  _id: string;
+  name: string;
+  description: string;
+  images: GalleryImage[];
 }
 
 const NewsShowcase = () => {
-  const [activeNews, setActiveNews] = useState<Product>(newsItems[0]);
-  const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
-
-  const hasImages = activeNews?.image && activeNews?.image?.length > 0;
+  const [activeImage, setActiveImage] = useState<GalleryImage | null | any>(null);
+  const [activeGallery, setActiveGallery] = useState<GalleryItem | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const {
     data: productsData,
     isLoading,
     error,
   } = galleryApi.useGetImages() as {
-    data: { products: Product[] };
+    data: { data: GalleryItem[] };
     isLoading: boolean;
     error: any;
   };
 
-  console.log("products Gallwery", productsData);
-
   useEffect(() => {
-    if (hasImages) {
-      setLoadingImages({});
+    if (productsData?.data?.length > 0) {
+      const defaultGallery = productsData.data[0];
+      const defaultImage =
+        defaultGallery.images.find((img) => img.primary) ||
+        defaultGallery.images[0];
+
+      setActiveImage(defaultImage);
+      setActiveGallery(defaultGallery);
+      setLoading(true);
     }
-  }, [hasImages]);
+  }, [productsData]);
 
-  const handleNewsClick = (item: Product) => {
-    setActiveNews(item);
-    setLoadingImages({}); // Reset the loading state when a new image is clicked
-  };
 
-  const handleImageLoad = (id: string) => {
-    setLoadingImages((prev) => ({ ...prev, [id]: false })); // Mark the image as loaded
+
+  const handleImageClick = (img: GalleryImage, gallery: GalleryItem) => {
+    setActiveImage(img);
+    setActiveGallery(gallery);
+    setLoading(true);
   };
 
   return (
     <div className="w-full flex flex-col text-black items-center bg-gray-100 p-6">
       <h2 className="md:text-5xl text-3xl font-bold my-20">PRODUCT GALLERY</h2>
 
-      <div className="flex flex-col md:flex-row items-center w-[90%] mx-auto gap-6">
-        <div className="relative w-full md:w-[65%] h-[250px] md:h-[450px] bg-white shadow-lg rounded-lg overflow-hidden">
-          {hasImages && !loadingImages[activeNews.id || ""] ? (
-            <Image
-              src={activeNews?.image?.[0] || ""}
-              alt={`News - ${activeNews.id}`}
-              width={800}
-              height={450}
-              className="object-cover w-full h-full"
-              onLoad={() => handleImageLoad(activeNews.id?.toString() || "")}
-            />
-          ) : null}
+      <div className="flex flex-col justify-center md:flex-row items-center w-[90%] mx-auto gap-6">
+        <div className="relative w-full md:w-[65%] h-[250px] md:h-[650px] bg-white shadow-lg rounded-lg overflow-hidden">
+          {!activeImage?.url && loading ? (
+            <ImagePlaceholder width="100%" height="100%" />
+          ) : (
+            <div className="">
+              <Image
+                src={activeImage?.url}
+                alt="Main Product"
+                width={800}
+                height={450}
+                className={`object-cover w-full h-full transition-opacity duration-300 ${loading ? 'opacity-0' : 'opacity-100'}`}
+                onLoad={() => setLoading(false)}
+                onLoadingComplete={() => setLoading(false)}
+                // unoptimized
+              />
+
+              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
+                {activeGallery && (
+                  <p className="text-white text-lg font-semibold">
+                    {activeGallery.name}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
-        <div className="flex md:flex-col w-full md:w-[35%] gap-4 items-center">
-          {newsItems.map((item) => (
-            <div
-              key={item.id}
-              className={`w-[80%] md:w-[85%] h-[100px] md:h-[130px] cursor-pointer rounded-lg overflow-hidden shadow-md border ${
-                activeNews.id === item.id
-                  ? "border-orange-500"
-                  : "border-transparent"
-              }`}
-              onClick={() => handleNewsClick(item)}
-            >
-              {loadingImages[item.id?.toString() || ""] ? (
-                // The placeholder is not shown at all anymore, only if the image is loading
-                <div className="w-full h-full bg-gray-200" />
-              ) : (
-                <Image
-                  src={item.image?.[0] || ""}
-                  alt={`Thumbnail - ${item.id}`}
-                  width={150}
-                  height={100}
-                  className="object-cover w-full h-full"
-                  onLoad={() => handleImageLoad(item.id?.toString() || "")}
-                />
-              )}
+
+        <div className="flex md:flex-col  w-full md:w-[35%]  items-center">
+          {productsData?.data?.slice(1, 3).map((gallery) => (
+            <div key={gallery._id} className="w-full flex gap-5 xl:flex-col flex-row">
+              {gallery.images.map((img) => (
+                <div
+                  key={img._id}
+                  className={`w-[80%] md:w-[95%]  h-[100px] md:h-[200px] cursor-pointer rounded-lg overflow-hidden shadow-md border ${activeImage?._id === img._id
+                    ? "border-orange-500"
+                    : "border-transparent"
+                    }`}
+                  onClick={() => handleImageClick(img, gallery)}
+                >
+                  <Image
+                    src={img.url}
+                    alt={`Thumbnail ${img._id}`}
+                    width={150}
+                    height={100}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+              ))}
             </div>
           ))}
         </div>

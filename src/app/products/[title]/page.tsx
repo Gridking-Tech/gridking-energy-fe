@@ -16,7 +16,7 @@ const ProductsDescription = () => {
     error: any;
   };
 
-   const { data: ImageData } = homePageApi.useGetCarouselById("67ec90cb2d2e858db2b1ca28") as {
+   const { data: ImageData } = homePageApi.useGetCarouselById("67ec910d2d2e858db2b1ca2a") as {
       data: any;
       isLoading: boolean;
       error: any;

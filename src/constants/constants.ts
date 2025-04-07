@@ -143,8 +143,8 @@ export const ProductsLinks = [
   },
   {
     name: "MPPT Charge Controller",
-    href: "/collections/mppt-charge-controller",
     disabled: true,
+    href: "/collections/mppt-charge-controller",
     images: [
       "/assets/placeholders/products.png",
       "/assets/placeholders/products.png",

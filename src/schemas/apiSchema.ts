@@ -1,5 +1,5 @@
+'use client'
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosInstance } from "axios";
-
 import { useQuery, useMutation } from "react-query";
 
 const APIBaseURL = process.env.NEXT_PUBLIC_APP_BASE_URL || "";

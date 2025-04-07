@@ -33,8 +33,8 @@ export default function LoadCalculator() {
         <div className="text-xl md:text-xl tracking-[0px] font-semibold text-gray-600">Know which inverter you need, what it can carry and for how long</div>
       </div>
       <div className="w-full xl:max-w-full sm:max-w-6xl md:max-w-[80%]  flex flex-col md:flex-row bg-white text-black rounded-xl mt-6 overflow-hidden">
-        <div className="md:w-1/2 w-full p-6 flex flex-col justify-center border-2 mb-3 rounded-lg items-start gap-6">
-          <div className="text-left">
+        <div className="md:w-1/2 w-full p-6 flex flex-col justify-center border-2 mb-3 rounded-lg items-center gap-6">
+          <div className="text-center">
             <h2 className="text-2xl md:text-2xl font-bold mb-2">Total Power Consumption</h2>
             <div className="text-4xl text-green-600 md:text-5xl font-extrabold mb-2">{totalLoad} W</div>
           </div>
@@ -59,13 +59,13 @@ export default function LoadCalculator() {
             </p> */}
           </div>
         </div>
-        <div className="md:w-1/2 w-full max-h-[600px] md:max-h-[90%] overflow-y-auto p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="md:w-1/2 w-full max-h-[600px]  md:max-h-[90%] overflow-y-auto p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
           {appliances.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.name}
-                className="bg-white rounded-xl shadow p-4 flex flex-col justify-between h-[180px] hover:bg-gray-100 relative transition-all duration-300 border border-gray-100"
+                className="bg-white rounded-xl cursor-pointer shadow p-4 flex flex-col justify-between h-[180px] hover:bg-gray-100 relative transition-all duration-300 border border-gray-100"
               >
                 <div className="bg-orange-300 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full absolute top-3 left-3">
                   <Icon className="text-black text-sm md:text-base" />
@@ -141,7 +141,7 @@ export default function LoadCalculator() {
             })}
           </div>
         </div>
-        ]\
+      
       </div>
     </div>
   );
