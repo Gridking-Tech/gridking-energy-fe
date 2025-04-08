@@ -64,11 +64,11 @@ const ProductShowcase = () => {
   }
 
   return (
-    <div className="w-full flex flex-col md:mb-20 mb-10 z-30 relative items-center justify-center h-[70%] md:h-[80%] p-6">
+    <div className="w-full flex flex-col md:mb-32 mb-10 z-30 relative items-center justify-center h-[70%] md:h-[80%] p-6">
       <div className="text-black font-black text-3xl md:text-5xl text-center mb-10">
         HOT SELL
       </div>
-      <div className="flex xl:flex-nowrap flex-wrap justify-center md:space-x-6 mb-6 border-b pb-3">
+      <div className="flex xl:flex-nowrap flex-wrap justify-center md:space-x-6 space-x-7 mb-6 border-b pb-3">
         {Array.isArray(productsData?.products) &&
           productsData.products.map((product) => (
             <div
@@ -86,7 +86,7 @@ const ProductShowcase = () => {
               </button>
               <div
                 onClick={() => routes.push(`/collections/${product.category?.name}`)}
-                className="text-[0.78rem] absolute px-2 rounded-[3px] py-[0.6px] bg-black text-white right-2 cursor-pointer"
+                className="text-[0.78rem] absolute px-2 rounded-[3px] py-[0.6px] bg-black text-white -right-4 md:top-0 top-3 md:right-2 cursor-pointer"
               >
                 More
               </div>

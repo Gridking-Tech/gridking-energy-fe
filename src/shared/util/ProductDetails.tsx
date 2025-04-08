@@ -73,7 +73,7 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
               />
             </div>
           ) : (
-            <ImagePlaceholder />
+            <ImagePlaceholder width={'100%'} height={'100%'}/>
           )
         }
       </div>
