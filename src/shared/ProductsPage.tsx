@@ -3,7 +3,6 @@ import NavBar from "@/src/shared/NavBar/NavBar";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { ProductsLinks } from "@/src/constants/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import ImagePlaceholder from "@/src/shared/Placeholders/ImagePlaceholder";
 import { homePageApi, productsApi } from "../api";
@@ -23,7 +22,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const [isLoadingSubcategories, setIsLoadingSubcategories] = useState(false);
   const [subcategoryCache, setSubcategoryCache] = useState<{ [key: string]: any[] }>({});
 
-  const { data: productsDataId, isLoading, error } = homePageApi.useGetCarouselById("67ec910d2d2e858db2b1ca2a") as {
+  const { data: productsDataId } = homePageApi.useGetCarouselById("67ec910d2d2e858db2b1ca2a") as {
     data: any;
     isLoading: boolean;
     error: any;
@@ -34,9 +33,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     isLoading: boolean;
     error: any;
   };
-
-  const productIds = ProductsContainer?.data?.map((cat: any) => cat._id);
-  console.log("List of IDs:", productIds);
 
   useEffect(() => {
     if (ProductsContainer?.data) {
@@ -49,7 +45,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     const isCurrentlyExpanded = expandedCategory === categoryName;
     setExpandedCategory(isCurrentlyExpanded ? null : categoryName);
 
-    // If already cached, use cache
     if (subcategoryCache[categoryId]) {
       setSubcategories(subcategoryCache[categoryId]);
       return;
@@ -75,39 +70,88 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   };
 
   useEffect(() => {
-    let foundImages: { image: string; name: string }[] = [];
+    const fetchData = async () => {
+      if (!ProductsContainer?.data) return;
   
-    const category = ProductsLinks.find((cat) => cat.name.toLowerCase() === name?.toLowerCase());
-  
-    if (category) {
-      // Automatically expand the category and fetch subcategories
-      setExpandedCategory(category.name);
-  
-      // Trigger subcategory fetch (same as clicking manually)
-      const matchingCat = ProductsContainer?.data?.find(
+      const matchingCat = ProductsContainer.data.find(
         (cat: any) => cat.name.toLowerCase() === name?.toLowerCase()
       );
   
-      if (matchingCat) {
-        handleCategoryClick(matchingCat._id, matchingCat.name);
-      }
+      if (!matchingCat) return;
   
-      if (subname) {
-        const sub = category.subcategories?.find(
-          (sub) => sub.name.toLowerCase() === subname?.toLowerCase()
+      setExpandedCategory(matchingCat.name);
+  
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_APP_BASE_URL}/api/category/${matchingCat._id}/children`
         );
-        if (sub) {
-          foundImages = sub.images?.map((img) => ({ image: img, name: sub.name })) ?? [];
-        }
-      } else {
-        foundImages =
-          category.subcategories?.flatMap((sub) =>
-            sub.images?.map((img) => ({ image: img, name: sub.name }))
-          ) ?? [];
-      }
-    }
+        const data = await res.json();
+        const subList = data?.data || [];
   
-    setSelectedImages(foundImages);
+        setSubcategories(subList);
+        setSubcategoryCache((prev) => ({ ...prev, [matchingCat._id]: subList }));
+  
+        if (subname) {
+          const subMatch = subList.find(
+            (sub: any) => sub.name.toLowerCase() === subname?.toLowerCase()
+          );
+  
+          if (subMatch) {
+            if (subMatch.images?.length > 0) {
+              setSelectedImages(
+                subMatch.images.map((img: string) => ({ image: img, name: subMatch.name }))
+              );
+            } else {
+              setSelectedImages([
+                {
+                  image: "/assets/placeholders/products.png",
+                  name: subMatch.name,
+                },
+              ]);
+            }
+          } else {
+            setSelectedImages([
+              {
+                image: "/assets/placeholders/products.png",
+                name: decodeURIComponent(subname),
+              },
+            ]);
+          }
+        } else {
+          const combinedImages: { image: string; name: string }[] = [];
+  
+          subList.forEach((sub: any) => {
+            if (sub.images?.length > 0) {
+              sub.images.forEach((img: string) =>
+                combinedImages.push({ image: img, name: sub.name })
+              );
+            } else {
+              combinedImages.push({
+                image: "/assets/placeholders/products.png",
+                name: sub.name,
+              });
+            }
+          });
+  
+          if (combinedImages.length > 0) {
+            setSelectedImages(combinedImages);
+          } else if (matchingCat.images?.length > 0) {
+            setSelectedImages(
+              matchingCat.images.map((img: string) => ({
+                image: img,
+                name: matchingCat.name,
+              }))
+            );
+          } else {
+            setSelectedImages([]);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch subcategories", err);
+      }
+    };
+  
+    fetchData();
   }, [name, subname, ProductsContainer]);
   
 
@@ -132,7 +176,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
         ) : (
           <ImagePlaceholder width={"100%"} height={"100%"} />
         )}
-
         <div className="text-gray-700 flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
           {`Home > ${decodeURIComponent(name)}`}
           {typeof subname !== "undefined" && subname !== "" && subname !== "undefined"
@@ -142,7 +185,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
       </div>
 
       <div className="flex flex-col md:flex-row px-4 md:px-10 py-8">
-        {/* Sidebar */}
         <div className="w-full md:w-1/4 pr-6 border-r md:block">
           <h3 className="font-bold text-xl text-black mb-4">CATEGORIES</h3>
           <ul>
@@ -150,7 +192,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
               <li key={category.name} className="mb-3">
                 <div className="flex justify-between items-center">
                   <button
-                    onClick={() => handleCategoryClick(category._id, category.name)}
+                    onClick={() => router.push(`/collections/${category.name}`)}
                     className={`block font-semibold 
                       ${category.disabled ? "pointer-not-allowed text-gray-500" : "cursor-pointer"} 
                       ${category.name === name ? "text-orange-500" : "text-gray-700"}`}
@@ -224,17 +266,18 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                     alt={imageData.name}
                     width={500}
                     height={300}
-                    className="rounded-lg w-full h-[20rem]"
+                    className="rounded-lg w-full h-[20rem] object-cover"
                   />
                   <div className="text-xl font-bold text-gray-700 mt-2">{imageData.name}</div>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">No images available.</p>
+              <p className="text-gray-500">No products found.</p>
             )}
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
