@@ -67,8 +67,7 @@ const NewsShowcase = () => {
               <Image
                 src={activeImage?.url}
                 alt="Main Product"
-                width={800}
-                height={450}
+              fill
                 className={`object-cover w-full h-full transition-opacity duration-300 ${loading ? 'opacity-0' : 'opacity-100'}`}
                 onLoad={() => setLoading(false)}
                 onLoadingComplete={() => setLoading(false)}
@@ -89,7 +88,7 @@ const NewsShowcase = () => {
 
         <div className="flex md:flex-col  w-full md:w-[35%]  items-center">
           {productsData?.data?.slice(1, 3).map((gallery) => (
-            <div key={gallery._id} className="w-full flex gap-5 xl:flex-col flex-row">
+            <div key={gallery._id} className="w-full flex gap-5 md:flex-col flex-row">
               {gallery.images.map((img) => (
                 <div
                   key={img._id}

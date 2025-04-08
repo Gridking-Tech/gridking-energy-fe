@@ -32,34 +32,16 @@ export default function LoadCalculator() {
         <h1 className="text-4xl md:text-5xl font-black text-orange-500">Load Calculator</h1>
         <div className="text-xl md:text-xl tracking-[0px] font-semibold text-gray-600">Know which inverter you need, what it can carry and for how long</div>
       </div>
-      <div className="w-full xl:max-w-full sm:max-w-6xl md:max-w-[80%]  flex flex-col md:flex-row bg-white text-black rounded-xl mt-6 overflow-hidden">
-        <div className="md:w-1/2 w-full p-6 flex flex-col justify-center border-2 mb-3 rounded-lg items-center gap-6">
+      <div className="w-full xl:max-w-full sm:max-w-6xl md:max-w-[80%]  flex flex-col xl:flex-row bg-white text-black rounded-xl mt-6 overflow-hidden">
+        <div className="xl:w-1/2 w-full p-6 flex flex-col justify-center border-2 mb-3 rounded-lg items-center gap-6">
           <div className="text-center">
             <h2 className="text-2xl md:text-2xl font-bold mb-2">Total Power Consumption</h2>
             <div className="text-4xl text-green-600 md:text-5xl font-extrabold mb-2">{totalLoad} W</div>
           </div>
-          <div className="w-full text-center">
-            {/* <h3 className="text-xl font-bold">Estimate Your Battery Back Up Time</h3>
-            <label className="block mt-2 text-sm text-gray-700 font-medium">Choose Battery Capacity</label>
-            <select
-              className="mt-1 border px-4 py-2 rounded text-gray-800"
-              value={batteryCapacity}
-              onChange={e => setBatteryCapacity(Number(e.target.value))}
-            >
-              <option value={220}>220Ah</option>
-              <option value={200}>200Ah</option>
-              <option value={150}>150Ah</option>
-            </select> */}
-            {/* <p className="mt-4 text-sm font-medium text-gray-600">Your Available Battery Back Up Time:</p>
-            <p className="text-2xl font-bold text-blue-600">
-              {backupTimeHours} hrs
-            </p>
-            <p className="text-xs mt-2 text-gray-500">
-              *Backup time estimate is based on 12V batteries and may vary depending on usage.
-            </p> */}
-          </div>
+          {/* <div className="w-full text-center">
+          </div> */}
         </div>
-        <div className="md:w-1/2 w-full max-h-[600px]  md:max-h-[90%] overflow-y-auto p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="xl:w-1/2 w-full max-h-[600px]  xl:max-h-[90%] overflow-y-auto p-4 grid xl:grid-cols-2 xl:grid-cols-3 gap-4">
           {appliances.map((item, index) => {
             const Icon = item.icon;
             return (

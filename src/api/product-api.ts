@@ -8,4 +8,6 @@ export const productsApi = {
     api.useFetchRequest(`SINGLE_PRODUCT_${id}`, `/api/product/${id}`),
   useGetCategory: () =>
     api.useFetchRequest("PRODUCT_CATEGORY", "/api/category"),
+  useGetCategoryById: (id:number) =>
+    api.useFetchRequest("PRODUCT_CATEGORY", `/api/category/${id}/children`),
 };

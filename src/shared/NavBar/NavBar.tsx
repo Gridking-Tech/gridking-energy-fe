@@ -21,7 +21,7 @@ export default function NavBar() {
   return (
     <div className='w-full h-full z-50 relative'>
       {isMobile ?
-        <div className='fixed z-30] w-full'>
+        <div className='fixed  w-full'>
           <NavBarMobile />
         </div> :
         <motion.div>
