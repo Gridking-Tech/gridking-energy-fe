@@ -94,7 +94,7 @@ const ProductShowcase = () => {
           onClick={() => routes.push(`/products/${selectedProduct?.name}`)}
         >
           {isLoading ? (
-            <ImagePlaceholder width="50%" height="100%" />
+            <ImagePlaceholder width="100%" height="100%" />
           ) : (
             <div
               className="absolute w-[60%] h-[50%] flex flex-nowrap transition-transform duration-700 ease-in-out z-10 items-center justify-center"
@@ -124,9 +124,9 @@ const ProductShowcase = () => {
         </div>
         <div className="w-1/2 p-6 text-center">
           <h2 className="text-2xl md:text-5xl font-bold mb-4 text-white">
-            Powering the Future with Solar & Storage Tech ⚡️☀️
+            {selectedProduct?.name || "Powering the Future with Solar & Storage Tech ⚡️☀️"}
           </h2>
-          <p className="text-1xl md:text-3xl text-white p-6">
+          <p className="text-1xl md:text-3xl text-white p-6 italic">
             Making clean energy a no-brainer — for your squad, your fam, and
             your everyday grind.
             <br/>
