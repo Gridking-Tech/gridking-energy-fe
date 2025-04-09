@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import ImagePlaceholder from "@/src/shared/Placeholders/ImagePlaceholder";
 import { homePageApi, productsApi } from "../api";
 import Footer from "./Footer";
-import { router, handleNavigation } from "../utils";
+import { useRouter } from "next/navigation";
+// import { router, handleNavigation } from "../utils";
 
 interface ProductsPageProps {
   name: string;
@@ -14,6 +15,7 @@ interface ProductsPageProps {
 }
 
 const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
+  const router = useRouter();
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [selectedImages, setSelectedImages] = useState<
     { image: string; name: string }[]
@@ -24,6 +26,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const [subcategoryCache, setSubcategoryCache] = useState<{
     [key: string]: any[];
   }>({});
+
 
   const { data: productsDataId } = homePageApi.useGetCarouselById(
     "67ec910d2d2e858db2b1ca2a"
@@ -37,6 +40,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     data: any;
     isLoading: boolean;
     error: any;
+  };
+
+
+
+  const handleNavigation = (path: string) => {
+    router.replace(path);
   };
 
   useEffect(() => {
@@ -81,96 +90,79 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     }
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       if (!ProductsContainer?.data) return;
-
+  
       const matchingCat = ProductsContainer.data.find(
         (cat: any) => cat.name.toLowerCase() === name?.toLowerCase()
       );
-
       if (!matchingCat) return;
-
       setExpandedCategory(matchingCat.name);
-
+  
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_APP_BASE_URL}/api/category/${matchingCat._id}/children`
         );
         const data = await res.json();
         const subList = data?.data || [];
-
         setSubcategories(subList);
         setSubcategoryCache((prev) => ({
           ...prev,
           [matchingCat._id]: subList,
         }));
-
+  
+        const combinedImages: { image: string; name: string }[] = [];
         if (subname) {
-          const subMatch = subList.find(
-            (sub: any) => sub.name.toLowerCase() === subname?.toLowerCase()
+          const matchingSub = subList.find(
+            (sub: any) => sub.name.toLowerCase() === subname.toLowerCase()
           );
-
-          if (subMatch) {
-            if (subMatch.images?.length > 0) {
-              setSelectedImages(
-                subMatch.images.map((img: string) => ({
-                  image: img,
-                  name: subMatch.name,
-                }))
-              );
-            } else {
-              setSelectedImages([
-                {
-                  image: "/assets/placeholders/products.png",
-                  name: subMatch.name,
-                },
-              ]);
-            }
-          } else {
-            setSelectedImages([
-              {
-                image: "/assets/placeholders/products.png",
-                name: decodeURIComponent(subname),
-              },
-            ]);
-          }
-        } else {
-          const combinedImages: { image: string; name: string }[] = [];
-
-          subList.forEach((sub: any) => {
-            if (sub.images?.length > 0) {
-              sub.images.forEach((img: string) =>
-                combinedImages.push({ image: img, name: sub.name })
-              );
-            } else {
+          if (matchingSub) {
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_APP_BASE_URL}/api/category/${matchingSub._id}`
+            );
+            const data = await res.json();
+            const product = data?.data?.products?.[0];
+            if (product?.primaryImage?.url) {
               combinedImages.push({
-                image: "/assets/placeholders/products.png",
-                name: sub.name,
+                image: product.primaryImage.url,
+                name: product.name,
               });
             }
-          });
-
-          if (combinedImages.length > 0) {
-            setSelectedImages(combinedImages);
-          } else if (matchingCat.images?.length > 0) {
-            setSelectedImages(
-              matchingCat.images.map((img: string) => ({
-                image: img,
-                name: matchingCat.name,
-              }))
-            );
-          } else {
-            setSelectedImages([]);
           }
+        } else {
+          await Promise.all(
+            subList.map(async (sub: any) => {
+              try {
+                const res = await fetch(
+                  `${process.env.NEXT_PUBLIC_APP_BASE_URL}/api/category/${sub._id}`
+                );
+                const data = await res.json();
+                const product = data?.data?.products?.[0];
+                if (product?.primaryImage?.url) {
+                  combinedImages.push({
+                    image: product.primaryImage.url,
+                    name: product.name,
+                  });
+                }
+              } catch (err) {
+                console.error("Failed to fetch product for subcategory", sub.name, err);
+              }
+            })
+          );
         }
+  
+        setSelectedImages(combinedImages);
       } catch (err) {
         console.error("Failed to fetch subcategories", err);
       }
     };
-
+  
     fetchData();
   }, [name, subname, ProductsContainer]);
+  
+
 
   return (
     <div className="w-full">
@@ -185,6 +177,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
               fill
               className="absolute w-full h-full"
             />
+            <div className="absolute inset-0 bg-black/30"></div>
           </div>
         ) : (
           <ImagePlaceholder width={"100%"} height={"100%"} />
@@ -192,8 +185,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
         <div className="text-gray-700 flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
           {`Home > ${decodeURIComponent(name)}`}
           {typeof subname !== "undefined" &&
-          subname !== "" &&
-          subname !== "undefined"
+            subname !== "" &&
+            subname !== "undefined"
             ? ` > ${decodeURIComponent(subname)}`
             : ""}
         </div>
@@ -209,15 +202,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                   <button
                     onClick={() => router.push(`/collections/${category.name}`)}
                     className={`block font-semibold 
-                      ${
-                        category.disabled
-                          ? "pointer-not-allowed text-gray-500"
-                          : "cursor-pointer"
+                      ${category.disabled
+                        ? "pointer-not-allowed text-gray-500"
+                        : "cursor-pointer"
                       } 
-                      ${
-                        category.name === name
-                          ? "text-orange-500"
-                          : "text-gray-700"
+                      ${category.name === name
+                        ? "text-orange-500"
+                        : "text-gray-700"
                       }`}
                   >
                     {category.name}
@@ -255,11 +246,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                                   `/collections/${category.name}/${sub.name}`
                                 )
                               }
-                              className={`text-sm ${
-                                subname === sub.name
-                                  ? "text-orange-500 font-semibold"
-                                  : "text-gray-600"
-                              }`}
+                              className={`text-sm ${subname === sub.name
+                                ? "text-orange-500 font-semibold"
+                                : "text-gray-600"
+                                }`}
                             >
                               {sub.name}
                             </button>
@@ -294,8 +284,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                     src={imageData.image}
                     alt={imageData.name}
                     width={500}
-                    height={300}
-                    className="rounded-lg w-full h-[20rem] object-cover"
+                    height={200}
+                    className="rounded-lg w-full h-[16rem] object-cover"
                   />
                   <div className="text-xl font-bold text-gray-700 mt-2">
                     {imageData.name}

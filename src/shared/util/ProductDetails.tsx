@@ -69,6 +69,7 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
                 fill
                 className="absolute w-full h-full"
               />
+              <div className="absolute inset-0 bg-black/30"></div>
             </div>
           ) : (
             <ImagePlaceholder width={'100%'} height={'100%'}/>

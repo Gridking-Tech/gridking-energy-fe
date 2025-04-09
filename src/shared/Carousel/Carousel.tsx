@@ -64,7 +64,7 @@ export default function Carousel() {
         <PlaceholderCarousel />
       ) : (
         <>
-          <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[90%]">
+          <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[98%]">
             <AnimatePresence>
               <motion.div
                 key={currentIndex}
