@@ -11,8 +11,8 @@ import LoadCalculator from "../shared/LoadCalculator";
 export default function Homepage() {
   return (
     <div className="  w-screen h-screen">
-       <Carousel />
-      <About /> 
+      <Carousel />
+      <About />
       <NewArrivals />
       <ProductShowcase />
       <TalkExpert />
