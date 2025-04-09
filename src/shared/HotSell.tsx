@@ -1,123 +1,127 @@
 import React, { useState, useEffect } from "react";
-import { productsApi } from "@/src/api/product-api";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
-
-interface Category {
-  name: string;
-}
-
-interface Product {
-  name: string;
-  id: string;
-  images: { url: string }[];
-  category: Category;
-}
+import { homePageApi } from "../api";
+import { IProduct } from ".././types";
 
 const ProductShowcase = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
   const [imageIndex, setImageIndex] = useState(0);
   const routes = useRouter();
 
-  const {
-    data: productsData,
-    isLoading,
-    error,
-  } = productsApi.useGetProducts() as {
-    data: { products: Product[] };
+  const { data, isLoading, error } = homePageApi.useGetHomePageResource() as {
+    data: { hotSell: Record<string, IProduct[]> };
     isLoading: boolean;
     error: any;
   };
 
+  const hotSellData = data?.hotSell;
+
   useEffect(() => {
-    if (Array.isArray(productsData?.products) && productsData.products.length > 0) {
-      setSelectedProduct(productsData.products[0]);
+    if (hotSellData && Object.keys(hotSellData).length > 0) {
+      const firstCategory = Object.keys(hotSellData)[0];
+      setSelectedCategory(firstCategory);
+      setSelectedProduct(hotSellData[firstCategory][0]);
     }
-  }, [productsData]);
+  }, [hotSellData]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (selectedProduct?.images?.length) {
-        setImageIndex(
-          (prev) => (prev + 1) % (selectedProduct?.images?.length)
-        );
+      if (selectedProduct?.primaryImage?.url) {
+        setImageIndex((prev) => (prev + 1) % 1);
       }
     }, 3000);
     return () => clearInterval(interval);
   }, [selectedProduct]);
 
-  const handleTabClick = (product: Product) => {
-    setSelectedProduct(product);
+  const handleTabClick = (category: string) => {
+    setSelectedCategory(category);
+    setSelectedProduct(hotSellData[category][0]);
     setImageIndex(0);
   };
-
-  // Log category name of the first product
-  useEffect(() => {
-    if (!isLoading && productsData?.products.length > 0) {
-      // console.log("Category name of the first product:", productsData?.products[0]?.category?.name);
-    }
-  }, [isLoading, productsData]);
-
-  if (isLoading) {
-    // console.log('loading');
-  }
 
   return (
     <div className="w-full flex flex-col md:mb-32 mb-10 z-30 relative items-center justify-center h-[70%] md:h-[80%] p-6">
       <div className="text-black font-black text-3xl md:text-5xl text-center mb-10">
         HOT SELL
       </div>
-      <div className="flex xl:flex-nowrap flex-wrap justify-center md:space-x-6 space-x-7 mb-6 border-b pb-3">
-        {Array.isArray(productsData?.products) &&
-          productsData.products.map((product) => (
+      <div className="flex xl:flex-nowrap flex-wrap justify-start md:space-x-6 space-x-7 mb-6 border-b pb-3">
+        {hotSellData &&
+          Object.keys(hotSellData).map((category) => (
             <div
-              className="flex items-center relative flex-col "
-              key={product.id}
+              className="flex items-center relative flex-col text-2xl"
+              key={category}
             >
               <button
-                className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 cursor-pointer ${selectedProduct?.name === product.name
-                  ? "text-orange-500 border-b2 border-orange-500"
-                  : "text-gray-700 border-b-transparent"
-                  }`}
-                onClick={() => handleTabClick(product)}
+                className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 cursor-pointer ${
+                  selectedCategory === category
+                    ? "text-orange-500 border-b2 border-orange-500"
+                    : "text-gray-700 border-b-transparent"
+                }`}
+                onClick={() => handleTabClick(category)}
               >
-                <div>{product.category?.name}</div>
+                <div className="flex items-center gap-2">
+                  <div>{category}</div>
+                </div>
               </button>
-              <div
-                onClick={() => routes.push(`/collections/${product.category?.name}`)}
-                className="text-[0.78rem] absolute px-2 rounded-[3px] py-[0.6px] bg-black text-white -right-4 md:top-0 top-3 md:right-2 cursor-pointer"
+              <a
+                href="#"
+                title="Learn More"
+                className="text-blue-500 mt-2 underline text-lg"
               >
-                More
-              </div>
+                Learn More
+              </a>
             </div>
           ))}
       </div>
-      <div className="relative w-full md:w-[65%] h-[250px] md:h-[550px] cursor-pointer shadow-lg border-2 flex justify-center items-center bg-transparent rounded-lg overflow-hidden" onClick={() => routes.push(`/products/${selectedProduct?.name}`)}>
-        {selectedProduct?.images?.length && isLoading ? (
-          <ImagePlaceholder width="100%" height="100%" />
-        ) : (
-          <div
-            className="absolute min-w-full h-full flex flex-nowrap transition-transform duration-700 ease-in-out z-10"
-            style={{ transform: `translateX(-${imageIndex * 100}%)` }}
-          >
-            {selectedProduct?.images?.map((image, i) => (
-              <motion.div
-                initial={{ x: "100%" }}
-                animate={{ x: `0` }}
-                transition={{ duration: 0.7 }}
-                key={i}
-                className="w-full text-black flex-shrink-0 pointer-events-auto"
-              >
-                <img
-                  src={image.url}
-                  alt={`${selectedProduct.name} - Image ${i + 1}`}
-                  className="object-contain w-full h-full"
-                />
-              </motion.div>
-            ))}
-          </div>
-        )}
+      <div className="relative w-full md:w-[90%] h-[450px] md:h-[950px] cursor-pointer shadow-lg border-shadow-2 border border-gray-300 flex justify-between items-center bg-orange-500 overflow-hidden">
+        <div
+          className="relative w-1/2 h-full flex justify-center items-center"
+          onClick={() => routes.push(`/products/${selectedProduct?.name}`)}
+        >
+          {isLoading ? (
+            <ImagePlaceholder width="100%" height="100%" />
+          ) : (
+            <div
+              className="absolute w-[60%] h-[50%] flex flex-nowrap transition-transform duration-700 ease-in-out z-10 items-center justify-center"
+              style={{ transform: `translateX(-${imageIndex * 100}%)` }}
+            >
+              {selectedProduct?.primaryImage?.url && (
+                <motion.div
+                  initial={{ x: "100%" }}
+                  animate={{ x: `0` }}
+                  transition={{ duration: 0.7 }}
+                  className="w-full text-black flex-shrink-0 pointer-events-auto flex justify-center items-center"
+                >
+                  <img
+                    src={selectedProduct.primaryImage.url}
+                    alt={`${selectedProduct?.name}`}
+                    className="object-contain max-w-full max-h-full"
+                    style={{
+                      width: "600px",
+                      height: "400px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </motion.div>
+              )}
+            </div>
+          )}
+        </div>
+        <div className="w-1/2 p-6 text-center">
+          <h2 className="text-2xl md:text-5xl font-bold mb-4 text-white">
+            {selectedProduct?.name ||
+              "Powering the Future with Solar & Storage Tech ⚡️☀️"}
+          </h2>
+          <p className="text-1xl md:text-3xl text-white p-6 italic">
+            Making clean energy a no-brainer — for your squad, your fam, and
+            your everyday grind.
+            <br />
+            Let&apos;s glow up green 🌱✨
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Button from '@/src/shared/util/Button'
 import NavBar from '@/src/shared/NavBar/NavBar'
-import Input from '@/src/shared/util/Inputs'
 import ProductDetailModal from '@/src/shared/Modals/ProductDetailModal'
 import ImagePlaceholder from '@/src/shared/Placeholders/ImagePlaceholder'
 import ImageZoom from './ImageZoom'
@@ -48,7 +47,6 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formData)
     setIsModalOpen(false)
   }
 

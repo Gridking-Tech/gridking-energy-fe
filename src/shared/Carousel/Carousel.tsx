@@ -19,8 +19,6 @@ export default function Carousel() {
   const hasImages = carouselData && carouselData.length > 0;
   const currentId = carouselData?.[currentIndex]?._id;
 
-  console.log("Current ID:", currentId);
-
   useEffect(() => {
     const fetchImageUrl = async () => {
       if (!currentId) return;
