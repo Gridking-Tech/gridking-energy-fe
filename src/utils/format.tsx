@@ -1,7 +1,9 @@
 import { useRouter } from "next/navigation";
 
-export const router = useRouter();
+export const useCustomRouter = () => {
+  return useRouter();
+};
 
-export const handleNavigation = (path: string) => {
+export const handleNavigation = (router: ReturnType<typeof useRouter>, path: string) => {
   router.replace(path);
 };
