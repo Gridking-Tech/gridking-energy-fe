@@ -85,7 +85,7 @@ export default function Carousel() {
                     objectFit="cover"
                     className="absolute min-w-full min-h-full"
                   />
-                  <div className="absolute inset-0 bg-black/40 z-10" />
+                  <div className="absolute inset-0 bg-black/30 z-10" />
                 </div>
               </motion.div>
             </AnimatePresence>

@@ -172,6 +172,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
               fill
               className="absolute w-full h-full"
             />
+            <div className="absolute inset-0 bg-black/30"></div>
           </div>
         ) : (
           <ImagePlaceholder width={"100%"} height={"100%"} />
