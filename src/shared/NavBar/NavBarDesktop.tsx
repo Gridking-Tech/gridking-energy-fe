@@ -54,7 +54,7 @@ export default function NavBarDesktop() {
       <motion.div
         animate={controls}
         initial={{ width: "90%", borderRadius: "0.5rem", top: "17px" }}
-        className="  flex-col justify-center flex fixed left-1/2   transform -translate-x-1/2 z-60 bg-transparent"
+        className="flex-col justify-center flex fixed left-1/2 transform -translate-x-1/2 z-60 bg-transparent"
       >
         <motion.div className="w-full md:px-7 h-[4rem] bg-white rounded-[0.5rem] flex mx-auto justify-between items-center shadow">
           <div
@@ -113,25 +113,26 @@ export default function NavBarDesktop() {
           </div>
         </motion.div>
 
-        <div className="w-full flex  relative  justify-center  h-full">
+        <div className="w-[1900px] flex  relative  justify-center  h-full">
           {isCategories && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className={`${getDropdownWidth()} mx-auto h-auto  absolute  px-6  mt-2 bg-white fixed z-[100] flex items-center shadow-lg justify-center`}
+              className={`${getDropdownWidth()} mx-auto h-auto  absolute px-3  mt-2 bg-white z-[100] flex-col items-center shadow-lg justify-center`}
               onMouseLeave={() => setIscategories(false)}
             >
-              <ul
-                className={`w-full flex  justify-between ${
-                  activeCategory.length > 4 ? "flex-wrap" : "flex-col"
-                }`}
-              >
+              <ul className="w-full flex flex-wrap gap-8 justify-between"> {/* Ensure categories are evenly spaced */}
                 {activeCategory?.map((category: any, index: any) => (
-                  <div key={index} className="flex flex-col items-start">
+                  <div
+                    key={index}
+                    className="flex flex-col items-start flex-1 min-w-[20%] space-y-2"
+                  >
+                    {" "}
+                    {/* Adjusted to allow flexible width for each category */}
                     <li
-                      className={`text-black text-[1.04rem]  font-black ${
+                      className={`text-black text-[1.04rem] font-black mb-2 ${
                         category.disabled
                           ? "cursor-not-allowed opacity-53"
                           : "hover:text-orange-500 cursor-pointer"
@@ -142,12 +143,11 @@ export default function NavBarDesktop() {
                     >
                       {category.name}
                     </li>
-
                     {category.subcategories &&
                       category.subcategories.map((sub: any, subIndex: any) => (
                         <li
                           key={subIndex}
-                          className={`my-2 text-[0.9rem]  text-gray-800 ${
+                          className={`my-1 text-[0.9rem] text-gray-800 whitespace-nowrap ${
                             sub.disabled
                               ? "cursor-not-allowed opacity-50"
                               : "hover:bg-gray-100 cursor-pointer"
