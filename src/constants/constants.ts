@@ -187,7 +187,7 @@ export const ProductsLinks = [
 export const SupportServiceLinks = [
   // { name: "Blog", href: "/blog" },
   { name: "Download", href: "/collections/download" },
-  // { name: "Technical Support", href: "/Technoical supprt" },
+  { name: "Technical Support", href: "/Technoical supprt" },
   // { name: "Anti-counterfieting Verify", href: "/anti-counterfieting verify" },
 ];
 
