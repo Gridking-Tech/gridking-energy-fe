@@ -16,7 +16,6 @@ export default function TalkExpert() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    // Check if all fields are filled
     const allFieldsFilled = Object.values(formData).every((value) => value.trim() !== "");
     setIsFormValid(allFieldsFilled);
   }, [formData]);
@@ -29,7 +28,6 @@ export default function TalkExpert() {
     e.preventDefault();
     if (isFormValid) {
       alert("Form has been submitted!");
-      console.log("Form submitted:", formData);
       setFormData({
         name: "",
         phone: "",
