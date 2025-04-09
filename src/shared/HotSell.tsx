@@ -119,7 +119,7 @@ const ProductShowcase = () => {
             Making clean energy a no-brainer — for your squad, your fam, and
             your everyday grind.
             <br />
-            Let's glow up green 🌱✨
+            Let&apos;s glow up green 🌱✨
           </p>
         </div>
       </div>
