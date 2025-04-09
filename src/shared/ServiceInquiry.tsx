@@ -50,11 +50,12 @@ export default function TalkExpert() {
         <div className="mt-4 space-y-4">
           <div className="flex items-center gap-3">
             <FaEnvelope className="text-red-500" size={25} />
-            <span className="text-gray-800 text-xl font-semibold">info@frankanozie.com</span>
+            <span className="text-gray-800 text-xl font-semibold">info@gridking.africa 
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <FaPhone className="text-yellow-500" size={25} />
-            <span className="text-gray-800 text-xl font-semibold">08067471009</span>
+            <span className="text-gray-800 text-xl font-semibold">+2347074683973</span>
           </div>
         </div>
       </div>
@@ -77,7 +78,7 @@ export default function TalkExpert() {
                 value={formData.message || ""}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="Tell us more about what you need"
-                className="border-2  rounded-md w-full p-2 border rounded min-h-[5rem] xl:min-h-[6rem] "
+                className="border-2 rounded-md w-full p-2 min-h-[5rem] xl:min-h-[6rem] "
               />
             </div>
           </div>

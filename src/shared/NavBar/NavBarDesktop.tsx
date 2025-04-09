@@ -6,15 +6,17 @@ import { CgProfile } from "react-icons/cg";
 import { FaGlobe } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import SearchModals from "../Modals/SearchModals";
-
+import logo from "../../../public/assets/placeholders/logo-gridking.png";
 export default function NavBarDesktop() {
   const [isCategories, setIscategories] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const pathname = usePathname();
   const [activeCategory, setActiveCategory] = useState<any>(null);
   const routes = useRouter();
-  const [dropdownPosition, setDropdownPosition] = useState({ left: 0, width: 0 });
-
+  const [dropdownPosition, setDropdownPosition] = useState({
+    left: 0,
+    width: 0,
+  });
 
   const controls = useAnimation();
   useEffect(() => {
@@ -55,7 +57,12 @@ export default function NavBarDesktop() {
         className="  flex-col justify-center flex fixed left-1/2   transform -translate-x-1/2 z-60 bg-transparent"
       >
         <motion.div className="w-full md:px-7 h-[4rem] bg-white rounded-[0.5rem] flex mx-auto justify-between items-center shadow">
-          <div className="text-black text-xl font-bold cursor-pointer" onClick={() =>routes.push('/')}>GridKing</div>
+          <div
+            className="text-black text-xl font-bold cursor-pointer"
+            onClick={() => routes.push("/")}
+          >
+            <img src={logo.src} alt="logo" className="h-12" />
+          </div>
           <motion.div>
             <ul className="text-black flex gap-10">
               {navLinks.map((link, index) => {
@@ -74,7 +81,10 @@ export default function NavBarDesktop() {
                         setActiveCategory(link.constant);
                         setIscategories(true);
                         const rect = e.currentTarget.getBoundingClientRect();
-                        setDropdownPosition({ left: rect.left, width: rect.width });
+                        setDropdownPosition({
+                          left: rect.left,
+                          width: rect.width,
+                        });
                       } else {
                         setIscategories(false);
                       }
@@ -121,7 +131,11 @@ export default function NavBarDesktop() {
                 {activeCategory?.map((category: any, index: any) => (
                   <div key={index} className="flex flex-col items-start">
                     <li
-                      className={`text-black text-[1.04rem]  font-black ${category.disabled ? "cursor-not-allowed opacity-53" : "hover:text-orange-500 cursor-pointer"}`}
+                      className={`text-black text-[1.04rem]  font-black ${
+                        category.disabled
+                          ? "cursor-not-allowed opacity-53"
+                          : "hover:text-orange-500 cursor-pointer"
+                      }`}
                       onClick={() =>
                         routes.push(`/collections/${category.name}`)
                       }
@@ -133,8 +147,16 @@ export default function NavBarDesktop() {
                       category.subcategories.map((sub: any, subIndex: any) => (
                         <li
                           key={subIndex}
-                          className={`my-2 text-[0.9rem]  text-gray-800 ${sub.disabled ? "cursor-not-allowed opacity-50" : "hover:bg-gray-100 cursor-pointer"}`}
-                          onClick={() => routes.push(`/collections/${category.name}/${sub.name}`)}
+                          className={`my-2 text-[0.9rem]  text-gray-800 ${
+                            sub.disabled
+                              ? "cursor-not-allowed opacity-50"
+                              : "hover:bg-gray-100 cursor-pointer"
+                          }`}
+                          onClick={() =>
+                            routes.push(
+                              `/collections/${category.name}/${sub.name}`
+                            )
+                          }
                         >
                           {sub.name}
                         </li>
