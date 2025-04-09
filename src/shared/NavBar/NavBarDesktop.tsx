@@ -45,8 +45,8 @@ export default function NavBarDesktop() {
   const getDropdownWidth = () => {
     const itemCount = activeCategory.length;
     if (itemCount > 4) return "w-[97%] min-h-[15rem] rounded-[1.5rem]";
-    if (itemCount > 2) return "w-[25rem] min-h-[10rem] rounded-[0.8rem]";
-    return "w-[15rem] min-h-[6rem]  rounded-[0.8rem]";
+    if (itemCount > 2) return "w-[25rem] min-h-[10rem] p-4 rounded-[0.8rem]";
+    return "w-[15rem] min-h-[6rem] p-4  rounded-[0.8rem]";
   };
 
   return (
