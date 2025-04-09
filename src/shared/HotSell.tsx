@@ -3,33 +3,21 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
 import { homePageApi } from "../api";
-
-interface Category {
-  name: string;
-}
-
-interface Product {
-  name: string;
-  id: string;
-  primaryImage: { url: string };
-  category: Category;
-}
+import { IProduct } from ".././types";
 
 const ProductShowcase = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
   const [imageIndex, setImageIndex] = useState(0);
   const routes = useRouter();
 
   const { data, isLoading, error } = homePageApi.useGetHomePageResource() as {
-    data: { hotSell: Record<string, Product[]> };
+    data: { hotSell: Record<string, IProduct[]> };
     isLoading: boolean;
     error: any;
   };
 
   const hotSellData = data?.hotSell;
-
-  console.log("hotSellData", hotSellData);
 
   useEffect(() => {
     if (hotSellData && Object.keys(hotSellData).length > 0) {
@@ -124,12 +112,13 @@ const ProductShowcase = () => {
         </div>
         <div className="w-1/2 p-6 text-center">
           <h2 className="text-2xl md:text-5xl font-bold mb-4 text-white">
-            {selectedProduct?.name || "Powering the Future with Solar & Storage Tech ⚡️☀️"}
+            {selectedProduct?.name ||
+              "Powering the Future with Solar & Storage Tech ⚡️☀️"}
           </h2>
           <p className="text-1xl md:text-3xl text-white p-6 italic">
             Making clean energy a no-brainer — for your squad, your fam, and
             your everyday grind.
-            <br/>
+            <br />
             Let's glow up green 🌱✨
           </p>
         </div>

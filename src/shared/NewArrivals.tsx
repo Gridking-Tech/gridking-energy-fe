@@ -5,46 +5,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { productsApi } from "../api";
 import { useRouter } from "next/navigation";
-
-interface Category {
-  _id: string;
-  name: string;
-}
-
-interface ProductImage {
-  url: string;
-  primary: boolean;
-}
-
-interface Product {
-  _id: string;
-  name: string;
-  category: Category;
-  images: ProductImage[];
-}
+import { INewArrival } from "../types";
 
 function NewArrivals() {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
-  const [uniqueProducts, setUniqueProducts] = useState<Product[]>([]);
-  const routes = useRouter()
-  const {
-    data: productsData,
-    isLoading,
-    error,
-  } = productsApi.useGetProducts() as {
-    data: { products: Product[] };
+  const [visibleProducts, setVisibleProducts] = useState<INewArrival[]>([]);
+  const [uniqueProducts, setUniqueProducts] = useState<INewArrival[]>([]);
+  const routes = useRouter();
+  const { data: productsData } = productsApi.useGetProducts() as {
+    data: { products: INewArrival[] };
     isLoading: boolean;
     error: any;
   };
-
-
+  
   useEffect(() => {
     if (!productsData?.products) return;
 
     const seenCategories = new Set();
-    const unique: Product[] = [];
+    const unique: INewArrival[] = [];
 
     for (const product of productsData.products) {
       const categoryId = product?.category?._id;
@@ -56,7 +35,6 @@ function NewArrivals() {
     setUniqueProducts(unique);
   }, [productsData]);
 
-
   useEffect(() => {
     if (isPaused || uniqueProducts.length === 0) return;
     const interval = setInterval(() => {
@@ -64,7 +42,6 @@ function NewArrivals() {
     }, 3000);
     return () => clearInterval(interval);
   }, [isPaused, uniqueProducts]);
-
 
   useEffect(() => {
     const updateVisibleProducts = () => {
@@ -81,18 +58,6 @@ function NewArrivals() {
     window.addEventListener("resize", updateVisibleProducts);
     return () => window.removeEventListener("resize", updateVisibleProducts);
   }, [index, uniqueProducts]);
-
-  const handleChange = (direction: "prev" | "next") => {
-    setIsPaused(true);
-    setTimeout(() => {
-      setIndex((prev) =>
-        direction === "prev"
-          ? (prev - 1 + uniqueProducts.length) % uniqueProducts.length
-          : (prev + 1) % uniqueProducts.length
-      );
-      setIsPaused(false);
-    }, 3000);
-  };
 
   return (
     <div className="w-full md:h-[90%] xl:h-screen flex items-center justify-center bg-white overflow-hidden relative">
@@ -114,29 +79,34 @@ function NewArrivals() {
               initial={{ y: "50%", opacity: 1 }}
               animate={{ y: "0%", opacity: 1 }}
               exit={{ y: "-50%", opacity: 1 }}
-              transition={{ duration: 0.6, }}
+              transition={{ duration: 0.6 }}
               className="absolute w-full flex flex-col items-center space-y-5"
             >
               {visibleProducts.map((product) => {
                 const primaryImage =
-                  product.images?.find((img) => img.primary) || product.images?.[0];
+                  (Array.isArray(product.images)
+                    ? product.images.find((img) => img.primary)
+                    : null) ||
+                  (Array.isArray(product.images) ? product.images[0] : null);
                 return (
                   <div
                     key={product._id}
-                    onClick={() => routes.push(`/products/${product.name}`) }
+                    onClick={() => routes.push(`/products/${product.name}`)}
                     className="flex items-center flex-row-reverse gap-3 mb-20 justify-between bg-orange-500 h-[160px] md:h-[200px] cursor-pointer p-6 rounded-lg w-full shadow-md"
                   >
                     <div className="text-white  w-[45%]">
                       <h3 className="text-xl  font-bold line-clamp-2">
                         {product.name}
                       </h3>
-                      <p className="text-md line-clamp-1">{product.category?.name}</p>
+                      <p className="text-md line-clamp-1">
+                        {product.category?.name}
+                      </p>
                     </div>
                     {primaryImage && (
                       <Image
                         src={primaryImage.url}
                         alt={product._id}
-                        width={300}
+                        width={200}
                         height={300}
                         className="rounded abnsolute -top-6 left-3 object-cover"
                       />
