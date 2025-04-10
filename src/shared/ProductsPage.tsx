@@ -261,7 +261,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                                   `/collections/${category.name}/${sub.name}`
                                 )
                               }
-                              className={`text-sm ${subname === sub.name
+                              className={`text-sm  cursor-pointer hover:text-orange-500 ${subname === sub.name
                                 ? "text-orange-500 font-semibold"
                                 : "text-gray-600"
                                 }`}

@@ -220,11 +220,11 @@ export const ContactLinks = [
 export const navLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Product", href: "/productsoverview", constant: ProductsLinks },
+  { name: "Product", href: "", constant: ProductsLinks },
   // { name: "Solution & Cases", href: "/solutions" },
   {
     name: "Support & Service",
-    href: "/support",
+    href: "",
     constant: SupportServiceLinks,
   },
   { name: "Contact Us", href: "/contact" },
