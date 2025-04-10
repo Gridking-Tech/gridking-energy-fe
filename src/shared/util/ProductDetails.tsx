@@ -55,9 +55,9 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
   }
 
   return (
-    <div className="text-black">
+    <div className="text-black w-full">
       <NavBar />
-      <div className="mb-6 text-center">
+      <div className=" w-full text-center">
         {
           productsData?.length > 0 ? (
 
@@ -75,6 +75,9 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
             <ImagePlaceholder width={'100%'} height={'100%'}/>
           )
         }
+      </div>
+      <div className='bg-gray-200 h-[3rem] flex px-10 items-center w-full'>
+        <div>ewsd</div>
       </div>
       <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4 h-[100%] md:h-[500px] w-full md:w-[90%]">
         <div className="flex flex-col w-full md:w-1/2">

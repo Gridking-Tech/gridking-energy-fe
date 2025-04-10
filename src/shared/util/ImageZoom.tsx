@@ -33,7 +33,7 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
           fill
           className="md:object-cover object-contain"
         />
-
+{/* 
         {isHovering && (
           <div
             className="absolute pointer-events-none border-2 border-orange-500 rounded-md"
@@ -46,12 +46,12 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
               transform: "scale(1.1)",
             }}
           />
-        )}
+        )} */}
       </div>
 
       {isHovering && (
         <div
-          className="absolute top-0 right-[-520px] w-[500px] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
+          className="absolute top-0 right-[-720px] w-[800px] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
         >
           <Image
             src={src}

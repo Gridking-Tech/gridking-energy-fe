@@ -108,7 +108,7 @@ function NewArrivals() {
                         alt={product._id}
                         width={200}
                         height={300}
-                        className="rounded abnsolute -top-6 left-3 object-cover"
+                        className="rounded h-[10rem] left-3 object-cover"
                       />
                     )}
                   </div>
