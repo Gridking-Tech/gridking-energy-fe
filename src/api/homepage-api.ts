@@ -9,4 +9,6 @@ export const homePageApi = {
     api.useFetchRequest("CAROUSEL_RESOURCE", "/api/carousel"),
   useGetCarouselById: (id: string) =>
     api.useFetchRequest("CAROUSEL_SINGLE_RESOURCE", `/api/image/Carousel/${id}`),
+
+  
 };

@@ -1,3 +1,4 @@
+'use client'
 import { homePageApi } from "@/src/api";
 import Footer from "@/src/shared/Footer";
 import NavBar from "@/src/shared/NavBar/NavBar";
@@ -33,14 +34,38 @@ const features = [
 ];
 
 export default function CustomSection() {
+
+    const { data: ImageId,isLoading } = homePageApi.useGetCarouselById(
+      "67ec910d2d2e858db2b1ca2a"
+    ) as {
+      data: any;
+      isLoading: boolean;
+      error: any;
+    };
+
+
   return (
     <div className="w-screen   space-y-24">
       <div className="absolute top-0 left-0 w-full z-50">
         <NavBar />
       </div>
       <div className="w-full">
-        <ImagePlaceholder />
-
+      <div className="w-full">
+        {ImageId?.[0]?.url.length > 0 ? (
+          <div className="relative w-full h-[30rem]">
+            <Image
+              src={ImageId?.[0]?.url}
+              alt="Banner"
+              style={{ objectFit: "cover" }}
+              fill
+              className="absolute w-full h-full"
+            />
+            <div className="absolute inset-0 bg-black/30"></div>
+          </div>
+        ) : (
+          <ImagePlaceholder width={"100%"} height={"100%"} />
+        )}
+      </div>
         <div className="w-full flex pl-20 font-bold justify-center flex-col  h-[3.5rem] bg-gray-200">
           {'HOME > CONTACT US'}
         </div>

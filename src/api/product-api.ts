@@ -12,4 +12,5 @@ export const productsApi = {
     api.useFetchRequest("PRODUCTID_CATEGORY", `/api/category/${id}/children`),
   useGetCategoryByProduct: (id:number) =>
     api.useFetchRequest("PRODUCT_CATEGORY", `/api/category/${id}`),
+  useGetDownload: () => api.useFetchRequest('PRODUCTS_DOWNLOADS','/api/download')
 };

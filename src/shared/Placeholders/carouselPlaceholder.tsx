@@ -27,7 +27,7 @@ const PlaceholderCarousel: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[90%]">
+    <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[98%]">
       <AnimatePresence>
         {placeholders.map((placeholder, index) => {
           const isCurrent = index === currentIndex;

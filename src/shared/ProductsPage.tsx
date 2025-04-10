@@ -7,6 +7,7 @@ import ImagePlaceholder from "@/src/shared/Placeholders/ImagePlaceholder";
 import { homePageApi, productsApi } from "../api";
 import Footer from "./Footer";
 import { useRouter } from "next/navigation";
+import {FadeLoader} from "react-spinners";
 import SkeletonCard from "./util/SkeletonCard";
 // import { router, handleNavigation } from "../utils";
 
@@ -31,7 +32,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
 
 
 
-  const { data: productsDataId } = homePageApi.useGetCarouselById(
+  const { data: productsDataId,isLoading } = homePageApi.useGetCarouselById(
     "67ec910d2d2e858db2b1ca2a"
   ) as {
     data: any;
@@ -44,6 +45,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     isLoading: boolean;
     error: any;
   };
+
 
 
 
@@ -164,14 +166,16 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
       } catch (err) {
         console.error("Failed to fetch subcategories", err);
       } finally {
-        setIsLoadingImages(false); // ✅ Done loading
+        setIsLoadingImages(false);
       }
     };
 
     fetchData();
   }, [name, subname, ProductsContainer]);
 
-
+  if (isLoading) return <div className="text-center h-screen w-scren flex justify-center items-center  font-black mt-10">
+    <FadeLoader height={15} />
+  </div>;
 
 
   return (
@@ -190,7 +194,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
             <div className="absolute inset-0 bg-black/30"></div>
           </div>
         ) : (
-          <ImagePlaceholder width={"100%"} height={"100%"} />
+          <ImagePlaceholder/>
         )}
         <div className="text-gray-700 flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
           {`Home > ${decodeURIComponent(name)}`}

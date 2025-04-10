@@ -11,8 +11,8 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const boundedX = Math.min(Math.max(x, 50), rect.width - 50);
-    const boundedY = Math.min(Math.max(y, 50), rect.height - 50);
+    const boundedX = Math.min(Math.max(x, 100), rect.width - 100);
+    const boundedY = Math.min(Math.max(y, 100), rect.height - 100);
 
     setZoomPosition({ x: boundedX, y: boundedY });
   };
@@ -51,7 +51,7 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
 
       {isHovering && (
         <div
-          className="absolute top-0 right-[-520px] w-[500px] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
+          className="absolute top-0 right-[-720px] w-[800px] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
         >
           <Image
             src={src}
