@@ -2,6 +2,7 @@
 import { homePageApi, productsApi } from "@/src/api"; // or your correct path
 import ProductDetails from "@/src/shared/util/ProductDetails";
 import { useParams } from "next/navigation";
+import { FadeLoader } from "react-spinners";
 
 const ProductsDescription = () => {
   const { title } = useParams<any>();
@@ -22,7 +23,11 @@ const ProductsDescription = () => {
       error: any;
     }
 
-  if (isLoading) return <div className="text-center mt-10">Loading...</div>;
+  if (isLoading) return (
+    <div className="text-center h-screen w-scren flex justify-center items-center  font-black mt-10">
+        <FadeLoader height={15} />
+      </div>
+  );
   if (error) return <div className="text-center mt-10">Error fetching product</div>;
 
   return (

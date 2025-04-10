@@ -51,7 +51,7 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
   }
 
   if (!product) {
-    return <div className='text-black text-center mt-10'>Product not found</div>
+    return (<div className='text-black text-center mt-10'>Product not found</div>)
   }
 
   return (
