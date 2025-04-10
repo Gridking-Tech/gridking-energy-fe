@@ -194,7 +194,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
             <div className="absolute inset-0 bg-black/30"></div>
           </div>
         ) : (
-          <ImagePlaceholder width={"100%"} height={"100%"} />
+          <ImagePlaceholder/>
         )}
         <div className="text-gray-700 flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
           {`Home > ${decodeURIComponent(name)}`}

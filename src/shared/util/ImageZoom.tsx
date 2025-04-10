@@ -11,8 +11,8 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const boundedX = Math.min(Math.max(x, 50), rect.width - 50);
-    const boundedY = Math.min(Math.max(y, 50), rect.height - 50);
+    const boundedX = Math.min(Math.max(x, 100), rect.width - 100);
+    const boundedY = Math.min(Math.max(y, 100), rect.height - 100);
 
     setZoomPosition({ x: boundedX, y: boundedY });
   };
@@ -33,7 +33,7 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
           fill
           className="md:object-cover object-contain"
         />
-{/* 
+
         {isHovering && (
           <div
             className="absolute pointer-events-none border-2 border-orange-500 rounded-md"
@@ -46,7 +46,7 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
               transform: "scale(1.1)",
             }}
           />
-        )} */}
+        )}
       </div>
 
       {isHovering && (
