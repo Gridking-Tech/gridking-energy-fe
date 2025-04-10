@@ -138,8 +138,8 @@ export default function NavBarDesktop() {
                           : "hover:text-orange-500 cursor-pointer"
                       }`}
                       onClick={() =>
-                        routes.push(`/collections/${category.name}`)
-                      }
+                        routes.push(!category.routes ? category.href : `/collections/${category.name}`)
+                      }                      
                     >
                       {category.name}
                     </li>

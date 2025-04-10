@@ -61,13 +61,13 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
         {
           productsData?.length > 0 ? (
 
-            <div className="relative w-full h-[30rem]">
+            <div className="relative w-full h-[32rem]">
               <Image
-                src={ImageData?.[0]?.url}
-                alt="eds"
-                style={{ objectFit: "cover" }}
-                fill
-                className="absolute w-full h-full"
+              src={ImageData?.[0]?.url}
+              alt="eds"
+              style={{ objectFit: "cover" }}
+              fill
+              className="absolute w-full h-full"
               />
               <div className="absolute inset-0 bg-black/30"></div>
             </div>

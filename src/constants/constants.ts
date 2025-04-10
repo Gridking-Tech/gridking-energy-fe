@@ -1,6 +1,6 @@
-import { 
+import {
   FaLightbulb, FaFan, FaTv, FaDesktop, FaLaptop, FaMusic,
-  FaSnowflake, FaGamepad, FaTooth 
+  FaSnowflake, FaGamepad, FaTooth
 } from 'react-icons/fa'
 import { GiWashingMachine, GiToaster, GiVacuumCleaner, GiCooler } from 'react-icons/gi'
 import { MdOutlineLight, MdOutlinePower } from 'react-icons/md'
@@ -21,7 +21,7 @@ export const ProductsLinks = [
       {
         name: "Gel Battery",
         href: "/collections/gel",
-        
+
         images: [
           "/assets/placeholders/products.png",
 
@@ -35,7 +35,7 @@ export const ProductsLinks = [
       //     "/assets/placeholders/products.png",
       //   ],
       // },
-     
+
       // {
       //   name: "Front Terminal Telecom Battery",
       //   href: "/collections/front-terminal",
@@ -188,23 +188,27 @@ export const ProductsLinks = [
 
 export const SupportServiceLinks = [
   // { name: "Blog", href: "/blog" },
-  { name: "Download", href: "/collections/download",     subcategories: [
-    {
-      name: "PV1000-12 Inverter manual",
-      href: "/collections/hybrid",
-      images: [
-        "/assets/placeholders/products.png",
-      ],
-    },
-    {
-      name: "PV5000-24 Inverter manual",
-      href: "/collections/off-grid",
-      images: [
-        "/assets/placeholders/products.png",
-      ],
-    },
-  ], },
-  // { name: "Technical Support", href: "/Technoical supprt" },
+  {
+    name: "Download", href: "/download",routes:false, subcategories: [
+      // {
+      //   name: "PV1000-12 Inverter manual",
+      //   href: "hybrid",
+      //   routes: false,
+      //   images: [
+      //     "/assets/placeholders/products.png",
+      //   ],
+      // },
+      // {
+      //   name: "PV5000-24 Inverter manual",
+      //   href: "/off-grid",
+      //   routes: false,
+      //   images: [
+      //     "/assets/placeholders/products.png",
+      //   ],
+      // },
+    ],
+  },
+  // { name: "Technical Support", href: "/Technoical supprt", disabled:true },
   // { name: "Anti-counterfieting Verify", href: "/anti-counterfieting verify" },
 ];
 

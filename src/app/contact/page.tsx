@@ -62,7 +62,7 @@ export default function CustomSection() {
         </div>
       </section>
       <Footer />
-      {/* CONTACT SECTION */}
+    
     </div>
   );
 }

@@ -7,6 +7,7 @@ import ImagePlaceholder from "@/src/shared/Placeholders/ImagePlaceholder";
 import { homePageApi, productsApi } from "../api";
 import Footer from "./Footer";
 import { useRouter } from "next/navigation";
+import SkeletonCard from "./util/SkeletonCard";
 // import { router, handleNavigation } from "../utils";
 
 interface ProductsPageProps {
@@ -26,6 +27,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const [subcategoryCache, setSubcategoryCache] = useState<{
     [key: string]: any[];
   }>({});
+  const [isLoadingImages, setIsLoadingImages] = useState(true);
+
 
 
   const { data: productsDataId } = homePageApi.useGetCarouselById(
@@ -94,13 +97,16 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!ProductsContainer?.data) return;
-  
+
+      setIsLoadingImages(true); // 🔥 Start loading
+
       const matchingCat = ProductsContainer.data.find(
         (cat: any) => cat.name.toLowerCase() === name?.toLowerCase()
       );
       if (!matchingCat) return;
+
       setExpandedCategory(matchingCat.name);
-  
+
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_APP_BASE_URL}/api/category/${matchingCat._id}/children`
@@ -112,8 +118,9 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           ...prev,
           [matchingCat._id]: subList,
         }));
-  
+
         const combinedImages: { image: string; name: string }[] = [];
+
         if (subname) {
           const matchingSub = subList.find(
             (sub: any) => sub.name.toLowerCase() === subname.toLowerCase()
@@ -152,16 +159,19 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
             })
           );
         }
-  
+
         setSelectedImages(combinedImages);
       } catch (err) {
         console.error("Failed to fetch subcategories", err);
+      } finally {
+        setIsLoadingImages(false); // ✅ Done loading
       }
     };
-  
+
     fetchData();
   }, [name, subname, ProductsContainer]);
-  
+
+
 
 
   return (
@@ -273,7 +283,9 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {selectedImages.length > 0 ? (
+            {isLoadingImages ? (
+              Array.from({ length: 3 }).map((_, index) => <SkeletonCard key={index} />)
+            ) : selectedImages.length > 0 ? (
               selectedImages.map((imageData, index) => (
                 <div
                   key={index}
@@ -295,6 +307,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
             ) : (
               <p className="text-gray-500">No products found.</p>
             )}
+
           </div>
         </div>
       </div>

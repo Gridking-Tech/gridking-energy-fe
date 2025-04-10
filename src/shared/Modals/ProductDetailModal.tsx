@@ -3,11 +3,27 @@
 import React, { useState, useEffect } from "react";
 import Button from "../util/Button";
 import Input from "../util/Inputs";
-
 interface ProductDetailModalProps {
+  formData: {
+    firstName: string;
+    lastName: string;
+    country: string;
+    email: string;
+    phone: string;
+    requirements: string;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<{
+    firstName: string;
+    lastName: string;
+    country: string;
+    email: string;
+    phone: string;
+    requirements: string;
+  }>>;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleSubmit: (e: React.FormEvent) => void;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 export default function ProductDetailModal({ setIsModalOpen }: ProductDetailModalProps) {
   const [formData, setFormData] = useState({
     firstName: "",
