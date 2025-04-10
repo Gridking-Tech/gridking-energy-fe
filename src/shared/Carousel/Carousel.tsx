@@ -19,8 +19,6 @@ export default function Carousel() {
   const hasImages = carouselData && carouselData.length > 0;
   const currentId = carouselData?.[currentIndex]?._id;
 
-  console.log("Current ID:", currentId);
-
   useEffect(() => {
     const fetchImageUrl = async () => {
       if (!currentId) return;
@@ -66,7 +64,7 @@ export default function Carousel() {
         <PlaceholderCarousel />
       ) : (
         <>
-          <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[90%]">
+          <div className="relative w-full h-[100%] overflow-hidden flex flex-col md:h-[98%]">
             <AnimatePresence>
               <motion.div
                 key={currentIndex}
