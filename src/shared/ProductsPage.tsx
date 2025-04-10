@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import { useRouter } from "next/navigation";
 import {FadeLoader} from "react-spinners";
 import SkeletonCard from "./util/SkeletonCard";
+import { CapitalizeFirstLetter } from "../utils";
 // import { router, handleNavigation } from "../utils";
 
 interface ProductsPageProps {
@@ -283,17 +284,17 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           <h2 className="text-2xl font-bold text-black mb-6">
             {subname && subname !== "undefined"
               ? decodeURIComponent(subname)
-              : decodeURIComponent(name)}
+              : decodeURIComponent(CapitalizeFirstLetter(name))}
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:h-[40rem]">
             {isLoadingImages ? (
               Array.from({ length: 3 }).map((_, index) => <SkeletonCard key={index} />)
             ) : selectedImages.length > 0 ? (
               selectedImages.map((imageData, index) => (
                 <div
                   key={index}
-                  className="text-center cursor-pointer"
+                  className="text-center cursor-pointer "
                   onClick={() => router.push(`/products/${imageData.name}`)}
                 >
                   <Image

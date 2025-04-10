@@ -189,7 +189,7 @@ export const ProductsLinks = [
 export const SupportServiceLinks = [
   // { name: "Blog", href: "/blog" },
   {
-    name: "Download", href: "/download",routes:false, subcategories: [
+    name: "Download Manuals", href: "/download",routes:false, subcategories: [
       // {
       //   name: "PV1000-12 Inverter manual",
       //   href: "hybrid",

@@ -38,10 +38,10 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
           <div
             className="absolute pointer-events-none border-2 border-orange-500 rounded-md"
             style={{
-              width: "100px",
-              height: "100px",
-              top: `${zoomPosition.y - 50}px`,
-              left: `${zoomPosition.x - 50}px`,
+              width: "60px",
+              height: "60px",
+              top: `${zoomPosition.y - 10}px`,
+              left: `${zoomPosition.x - 10}px`,
               backgroundColor: "rgba(255, 255, 255, 0.2)",
               transform: "scale(1.1)",
             }}
@@ -51,7 +51,7 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
 
       {isHovering && (
         <div
-          className="absolute top-0 right-[-720px] w-[800px] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
+          className="absolute top-0 right-[-550px] w-[600px] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
         >
           <Image
             src={src}
