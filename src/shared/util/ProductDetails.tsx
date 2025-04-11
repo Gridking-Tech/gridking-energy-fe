@@ -77,9 +77,11 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
         }
       </div>
       <div className='bg-gray-200 h-[3rem] flex px-10 items-center w-full'>
-        <div className='font-black'>ewsd</div>
+        <div className='font-black'>
+          {`PRODUCTS > ${product.name}`}
+        </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4 h-[100%] md:h-[700px] w-full md:w-[90%]">
+      <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4 h-[100%] md:h-[650px] w-full md:w-[90%]">
         <div className="flex flex-col w-full md:w-1/2">
           {product.images?.length ? (
             <ImageZoom
