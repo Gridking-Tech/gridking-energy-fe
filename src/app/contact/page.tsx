@@ -66,7 +66,7 @@ export default function CustomSection() {
           <ImagePlaceholder width={"100%"} height={"100%"} />
         )}
       </div>
-        <div className="w-full flex pl-20 font-bold justify-center flex-col  h-[3.5rem] bg-gray-200">
+        <div className="w-full flex pl-20 font-black text-gray-600 justify-center flex-col  h-[3.5rem] bg-gray-200">
           {'HOME > CONTACT US'}
         </div>
       </div>

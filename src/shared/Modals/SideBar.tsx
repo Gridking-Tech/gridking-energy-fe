@@ -61,7 +61,7 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
                   >
                     <span
                       onClick={() => {
-                        routes.push(`/${navItem.name}`);
+                        routes.push(`${navItem.href}`);
                         setIsOpen(false);
                       }}
                     >
@@ -102,7 +102,7 @@ const SideBar = ({ isOpen, setIsOpen }: any) => {
                               },
                             }}
                             onClick={() => {
-                              routes.push(`/collections/${link.name}`)
+                              routes.push(`${link.href}`);
                               setIsOpen(false);
                             }}
                           >

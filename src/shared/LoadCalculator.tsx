@@ -81,17 +81,17 @@ export default function LoadCalculator() {
         </div>
       </div>
 
-      {/* Bottom Section */}
+    
       <div className="w-full flex flex-col lg:flex-row border-t mt-12 pt-8 gap-6">
-        {/* Left Half */}
+      
         <div className="lg:w-1/2 flex flex-col sm:flex-row justify-between gap-6">
-          {/* Recommended Inverter */}
+    
           <div className="flex-1 border-r sm:border-r-0 lg:border-r-2 px-4 py-6">
             <h3 className="text-xl font-bold mb-2">Recommended Inverter Rating</h3>
             <div className="text-4xl font-black text-green-600">{recommendedInverterVA} VA</div>
           </div>
 
-          {/* Battery Capacity & Backup Time */}
+      
           <div className="flex-1 px-4 py-6">
             <label className="block mb-1 text-sm font-medium text-gray-900">Choose Battery Capacity</label>
             <select

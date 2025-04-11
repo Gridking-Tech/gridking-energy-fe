@@ -195,7 +195,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
         ) : (
           <ImagePlaceholder/>
         )}
-        <div className="text-gray-700 font-black flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
+        <div className="text-gray-600 font-black flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
           {`Home > ${decodeURIComponent(CapitalizeFirstLetter(name))}`}
           {typeof subname !== "undefined" &&
             subname !== "" &&

@@ -6,7 +6,7 @@ import React from 'react'
 import Image from 'next/image'
 import Footer from '@/src/shared/Footer'
 
-function downloadPage() {
+function DownloadPage() {
   const { data: downloadData, isLoading } = productsApi.useGetDownload() as {
     data: any[]
     isLoading: boolean
@@ -20,7 +20,6 @@ function downloadPage() {
     isLoading: boolean;
     error: any;
   };
-
 
   console.log(downloadData)
 
@@ -45,23 +44,23 @@ function downloadPage() {
           <ImagePlaceholder height={'25.5rem'} />
         )}
       </div>
-      <div className="w-full flex pl-20  font-bold justify-center flex-col  h-[3.5rem] bg-gray-200">
+      <div className="w-full flex pl-20 font-bold justify-center text-gray-600 flex-col h-[3.5rem] bg-gray-200 text-center md:text-left">
         {'HOME > DOWNLOADS'}
       </div>
-      <div className='w-full  flex '>
-        <div className='w-1/4 pl-10 overflow-y-hidden  pt-5 text-sm  space-y-4'>
+      <div className='w-full flex flex-col md:flex-row'>
+        <div className='w-full md:w-1/4 pl-10 pt-5 text-sm space-y-4'>
           {downloadData?.map((file) => (
             <a
               key={file._id}
               href={`#${file._id}`}
-              className='block text-gray-700  font-black text-lg hover:text-orange-600 transition'
+              className='block text-gray-700 font-black text-lg hover:text-orange-600 transition'
             >
               {file.title}
             </a>
           ))}
         </div>
 
-        <div className='w-3/4 px-10 pl-8 py-6 border-l-2  '>
+        <div className='w-full md:w-3/4 px-10 pl-8 py-6 border-l-2'>
           {isLoading ? (
             <div className="space-y-4">
               {[1, 2, 3, 4].map((i) => (
@@ -72,11 +71,11 @@ function downloadPage() {
               ))}
             </div>
           ) : (
-            <div className="space-y-6 w-full h-[40rem]">
+            <div className="space-y-6 w-full md:h-[40rem]">
               {downloadData?.map((file) => (
                 <div
                   key={file._id}
-                  id={file._id} // 👈 anchor target
+                  id={file._id} 
                   className="p-4 border rounded-lg hover:shadow-sm flex w-full justify-between transition-all scroll-mt-20"
                 >
                   <div>
@@ -92,7 +91,7 @@ function downloadPage() {
                       rel="noopener noreferrer"
                       href={file.url}
                       download
-                      className="mt-2 inline-block text-sm text-white bg-orange-500 px-4 py-3 rounded hover:bg-orange-600"
+                      className="mt-2 inline-block font-black text-sm text-white bg-orange-500 px-4 py-3 rounded hover:bg-orange-600"
                     >
                       Download PDF
                     </a>
@@ -104,9 +103,8 @@ function downloadPage() {
         </div>
       </div>
       <Footer />
-
     </div>
   )
 }
 
-export default downloadPage
+export default DownloadPage
