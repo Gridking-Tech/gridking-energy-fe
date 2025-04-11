@@ -10,12 +10,12 @@ import { useRouter } from "next/navigation";
 import {FadeLoader} from "react-spinners";
 import SkeletonCard from "./util/SkeletonCard";
 import { CapitalizeFirstLetter } from "../utils";
-// import { router, handleNavigation } from "../utils";
 
 interface ProductsPageProps {
   name: string;
   subname?: string;
 }
+
 
 const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const router = useRouter();
@@ -46,8 +46,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     isLoading: boolean;
     error: any;
   };
-
-
 
 
   const handleNavigation = (path: string) => {
@@ -197,8 +195,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
         ) : (
           <ImagePlaceholder/>
         )}
-        <div className="text-gray-700 flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
-          {`Home > ${decodeURIComponent(name)}`}
+        <div className="text-gray-700 font-black flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
+          {`Home > ${decodeURIComponent(CapitalizeFirstLetter(name))}`}
           {typeof subname !== "undefined" &&
             subname !== "" &&
             subname !== "undefined"
@@ -279,7 +277,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           </ul>
         </div>
 
-        {/* Product Grid */}
         <div className="w-full md:w-3/4 px-10">
           <h2 className="text-2xl font-bold text-black mb-6">
             {subname && subname !== "undefined"
@@ -289,7 +286,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:h-[40rem]">
             {isLoadingImages ? (
-              Array.from({ length: 3 }).map((_, index) => <SkeletonCard key={index} />)
+              Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
             ) : selectedImages.length > 0 ? (
               selectedImages.map((imageData, index) => (
                 <div

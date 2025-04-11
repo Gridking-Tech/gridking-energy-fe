@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../util/Button";
 import Input from "../util/Inputs";
+import toast, { Toaster } from "react-hot-toast";
 interface ProductDetailModalProps {
   formData: {
     firstName: string;
@@ -53,14 +54,15 @@ export default function ProductDetailModal({ setIsModalOpen }: ProductDetailModa
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isFormValid) return;
-
+    if (!isFormValid) {
+      toast.error("Please complete all fields.");
+      return;
+    }
+  
     setSubmitting(true);
-
-    // Simulate sending the form (replace with real API call)
+  
     setTimeout(() => {
       alert("Quotation submitted ✅");
-
       setFormData({
         firstName: "",
         lastName: "",
@@ -69,14 +71,26 @@ export default function ProductDetailModal({ setIsModalOpen }: ProductDetailModa
         phone: "",
         requirements: "",
       });
-
       setSubmitting(false);
       setIsModalOpen(false);
     }, 1500);
   };
+  
 
   return (
     <div className="fixed inset-0 bg-black/60 bg-opacity-50 flex z-50 items-center justify-center">
+       <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            zIndex: 9999,
+          },
+        }}
+        containerStyle={{
+          top: '5rem',
+          zIndex: 9999,
+        }}
+      />
       <div className="bg-white flex flex-col p-6 rounded-lg w-[90%] md:w-[40%] h-[90%] shadow-lg relative overflow-y-auto">
         <button
           className="absolute top-4 right-4 text-gray-600"
@@ -132,7 +146,7 @@ export default function ProductDetailModal({ setIsModalOpen }: ProductDetailModa
             <Input
               value={formData.phone}
               showLabel
-              label="Whatsapp Num"
+              label="Whatsapp Number"
               name="phone"
               placeholder="Whatsapp/Phone"
               onChange={handleInputChange}
