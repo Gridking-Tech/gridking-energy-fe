@@ -56,7 +56,7 @@ export const ProductsLinks = [
   },
   {
     name: "Inverters",
-    href: "/collections/inverter",
+    href: "/collections/inverters",
     images: [
       "/assets/placeholders/products.png",
     ],
