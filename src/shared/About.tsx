@@ -10,7 +10,7 @@ function About() {
         GRIDKING EXPERT GUIDE
       </div>
 
-      <div className="bg- w-[100%]   md:w-[90%] mx-auto p-4 md:py-0 ">
+      <div className="bg- w-[100%]   md:w-[100%] mx-auto p-4 md:py-0 ">
         {!isVideoLoaded && <VideoPlaceholder width="100%" height="500px" />}
         <iframe
           width="100%"

@@ -17,6 +17,11 @@ const ProductShowcase = () => {
     error: any;
   };
 
+  function getLastWord(sentence: string) {
+    const words = sentence.trim().split(/\s+/);
+    return words[words.length - 1];
+  }
+
   const hotSellData = data?.hotSell;
 
   useEffect(() => {
@@ -47,45 +52,48 @@ const ProductShowcase = () => {
       <div className="text-black font-black text-3xl md:text-5xl text-center mb-10">
         HOT SELL
       </div>
-      <div className="flex xl:flex-nowrap flex-wrap justify-start md:space-x-6 space-x-7 mb-6 border-b pb-3">
+      <div className="flex xl:flex-nowrap   flex-wrap justify-start md:space-x-6 space-x-7 mb-6 border-b pb-3">
         {hotSellData &&
-          Object.keys(hotSellData).map((category) => (
-            <div
-              className="flex items-center relative flex-col text-2xl"
-              key={category}
-            >
-              <button
-                className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 cursor-pointer ${
-                  selectedCategory === category
-                    ? "text-orange-500 border-b2 border-orange-500"
-                    : "text-gray-700 border-b-transparent"
-                }`}
-                onClick={() => handleTabClick(category)}
+          Object.keys(hotSellData).map((category) => {
+            const name = getLastWord(category);
+            return (
+              <div
+                className="flex items-center relative flex-col text-2xl"
+                key={category}
               >
-                <div className="flex items-center gap-2">
-                  <div>{category}</div>
-                </div>
-              </button>
-              <a
-                href="#"
-                title="Learn More"
-                className="text-blue-500 mt-2 underline text-lg"
-              >
-                Learn More
-              </a>
-            </div>
-          ))}
+                <button
+                  className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 outline-0 border-0 cursor-pointer ${selectedCategory === category
+                      ? "text-orange-500 border-b2 border-orange-500"
+                      : "text-gray-700 border-b-transparent"
+                    }`}
+                  onClick={() => handleTabClick(category)}
+                >
+                  <div className="flex items-center gap-2">
+                    <div>{category}</div>
+                  </div>
+                </button>
+                <a
+                  href={`collections/${name}/${category}`}
+                  title="Learn More"
+                  className="text-blue-500  mt-2 underline-none text-lg"
+                >
+                  Learn More
+                </a>
+              </div>
+            )
+          }
+          )}
       </div>
-      <div className="relative w-full md:w-[90%] h-[450px] md:h-[950px] cursor-pointer shadow-lg border-shadow-2 border border-gray-300 flex justify-between items-center bg-orange-500 overflow-hidden">
+      <div className="relative w-full md:w-[90%] h-[550px] md:h-[950px]  shadow-lg border-shadow-2 border border-gray-300 flex justify-between items-center rounded-[2rem] shadow-md bg-gray-100 backdrop-blur-md overflow-hidden">
         <div
           className="relative w-1/2 h-full flex justify-center items-center"
           onClick={() => routes.push(`/products/${selectedProduct?.name}`)}
         >
           {isLoading ? (
-            <ImagePlaceholder width="100%" height="100%" />
+            <ImagePlaceholder />
           ) : (
             <div
-              className="absolute w-[60%] h-[50%] flex flex-nowrap transition-transform duration-700 ease-in-out z-10 items-center justify-center"
+              className="absolute w-[60%] h-[80%] md:h-[50%] flex flex-nowrap transition-transform duration-700 ease-in-out z-10 items-center justify-center"
               style={{ transform: `translateX(-${imageIndex * 100}%)` }}
             >
               {selectedProduct?.primaryImage?.url && (
@@ -93,15 +101,13 @@ const ProductShowcase = () => {
                   initial={{ x: "100%" }}
                   animate={{ x: `0` }}
                   transition={{ duration: 0.7 }}
-                  className="w-full text-black flex-shrink-0 pointer-events-auto flex justify-center items-center"
+                  className="w-full text-black flex-shrink-0 cursor-pointer pointer-events-auto flex justify-center items-center"
                 >
                   <img
                     src={selectedProduct.primaryImage.url}
                     alt={`${selectedProduct?.name}`}
-                    className="object-contain max-w-full max-h-full"
+                    className="object-contain md:w-[600px]  w-[700px]  rounded-[1rem]  h-[260px] md:h-[400px]"
                     style={{
-                      width: "600px",
-                      height: "400px",
                       objectFit: "cover",
                     }}
                   />
@@ -110,12 +116,12 @@ const ProductShowcase = () => {
             </div>
           )}
         </div>
-        <div className="w-1/2 p-6 text-center">
-          <h2 className="text-2xl md:text-5xl font-bold mb-4 text-white">
+        <div className="xl:w-1/2 w-[80%] p-6 text-center">
+          <h2 className="text-2xl md:text-5xl font-bold mb-4 text-black">
             {selectedProduct?.name ||
               "Powering the Future with Solar & Storage Tech ⚡️☀️"}
           </h2>
-          <p className="text-1xl md:text-3xl text-white p-6 italic">
+          <p className="text-1xl md:text-3xl text-black p-6 italic">
             Making clean energy a no-brainer — for your squad, your fam, and
             your everyday grind.
             <br />

@@ -71,7 +71,7 @@ export default function CustomSection() {
         </div>
       </div>
       {/* WHY CHOOSE US */}
-      <section className="text-center h-full md:h-[40rem] justify-center flex flex-col items-center ">
+      <section className="text-center h-full md:h-[30rem] justify-center flex flex-col items-center ">
 
         <div className="grid grid-cols-1  md:grid-cols-3 gap-8">
           {features.map((feature, index) => (

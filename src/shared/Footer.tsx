@@ -6,11 +6,12 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import logo from "../../public/assets/placeholders/logo-gridking.png";
+import Link from "next/link";
 const footerLinks = [
-  { name: "Contact Us", href: "#" },
-  { name: "Trade Show", href: "#" },
-  { name: "Battery", href: "#" },
-  { name: "Inverter", href: "#" },
+  { name: "Contact Us", href: "/contact" },
+  // { name: "Trade Show", href: "#" },
+  { name: "Battery", href: "collections/battery" },
+  { name: "Inverter", href: "collections/inverters" },
 ];
 
 const socialLinks = [
@@ -44,11 +45,11 @@ export default function Footer() {
         </div>
       </div>
       <hr className="my-4 border-gray-700" />
-      <div className="flex justify-between flex-wrap">
+      <div className="flex justify-between flex-wrap cursor-pointer">
         <div className="flex items-center">
           {footerLinks.map((link, index) => (
             <span key={index} className="flex items-center">
-              <div className="text-white mx-2">{link.name}</div>
+              <Link href={link.href} className="text-white mx-2">{link.name}</Link>
               {index < footerLinks.length - 1 && " | "}
             </span>
           ))}

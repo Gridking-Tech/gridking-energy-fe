@@ -71,7 +71,6 @@ function NewArrivals() {
             controllers, and solar panels.
           </p>
         </div>
-
         <div className="relative w-full md:w-[45%] h-[160px] md:h-[600px] mt-5 xl:mt-0 flex items-center overflow-hidden">
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -90,28 +89,28 @@ function NewArrivals() {
                   (Array.isArray(product.images) ? product.images[0] : null);
                 return (
                   <div
-                    key={product._id}
-                    onClick={() => routes.push(`/products/${product.name}`)}
-                    className="flex items-center flex-row-reverse gap-3 mb-20 justify-between bg-orange-500 h-[160px] md:h-[200px] cursor-pointer p-6 rounded-lg w-full shadow-md"
-                  >
-                    <div className="text-white  w-[45%]">
-                      <h3 className="text-xl  font-bold line-clamp-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-md line-clamp-1">
-                        {product.category?.name}
-                      </p>
-                    </div>
-                    {primaryImage && (
-                      <Image
-                        src={primaryImage.url}
-                        alt={product._id}
-                        width={200}
-                        height={300}
-                        className="rounded h-[10rem] left-3 object-cover"
-                      />
-                    )}
+                  key={product._id}
+                  onClick={() => routes.push(`/products/${product.name}`)}
+                  className="flex items-center flex-row-reverse gap-3 mb-20 justify-between h-[160px] md:h-[200px] cursor-pointer p-6 rounded-2xl w-full shadow-md bg-gray-100 backdrop-blur-md border"
+                >
+                  <div className="text-black w-[45%]">
+                    <h3 className="text-xl font-bold line-clamp-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-md line-clamp-1">
+                      {product.category?.name}
+                    </p>
                   </div>
+                  {primaryImage && (
+                    <Image
+                      src={primaryImage.url}
+                      alt={product._id}
+                      width={200}
+                      height={300}
+                      className="rounded h-[10rem] left-3 object-cover"
+                    />
+                  )}
+                </div>
                 );
               })}
             </motion.div>

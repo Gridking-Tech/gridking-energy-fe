@@ -69,7 +69,7 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
               fill
               className="absolute w-full h-full"
               />
-              <div className="absolute inset-0 bg-black/30"></div>
+              <div className="absolute inset-0 bg-black/20"></div>
             </div>
           ) : (
             <ImagePlaceholder />
