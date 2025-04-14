@@ -30,7 +30,7 @@ export default function LoadCalculator() {
       <div className="flex flex-col gap-2 text-center mb-10 items-center justify-cen mx-auto  max-w-4xl">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-orange-500">Load Calculator</h1>
         <p className="text-base sm:text-lg md:text-xl w-[20rem] xl:w-full font-semibold text-gray-600">
-          Know which inverter you need, what it can carry and for how lon
+          Know which inverter you need, what it can carry and for how long
         </p>
       </div>
       <div className="w-[95%] xl:w-[75%] mx-auto min-h-screen relative shadow-md bg-gray-100 backdrop-blur-md flex flex-col items-center justify-center px-4 sm:px-6  border-gray-300   p-5 rounded-lg">
