@@ -25,19 +25,19 @@ export default function TalkExpert() {
     setIsFormValid(allFieldsFilled);
   }, [formData]);
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCountryChange = (val:any) => {
+  const handleCountryChange = (val: any) => {
     setFormData({ ...formData, country: val, region: "" });
   };
 
-  const handleRegionChange = (val:any) => {
+  const handleRegionChange = (val: any) => {
     setFormData({ ...formData, region: val });
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (isFormValid) {
       setTimeout(() => {
@@ -58,7 +58,7 @@ export default function TalkExpert() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center z-40 relative h-[100%] md:h-[80%] w-[100%] xl:w-[80%] mx-auto gap-6 mb-20 justify-center md:justify-between p-6">
+    <div className="flex flex-col md:flex-row items-center z-40 relative h-[100%] md:h-[80%] w-[100%] xl:w-[80%] mx-auto gap-6 xl:my-48 mb-20 justify-center md:justify-between p-6">
       <Toaster
         position="top-center"
         toastOptions={{
@@ -84,14 +84,14 @@ export default function TalkExpert() {
         <div className="mt-4 space-y-4">
           <div className="flex items-center gap-3">
             <FaEnvelope className="text-red-500" size={25} />
-            <span className="text-gray-800 text-xl font-semibold">
-              info@gridking.africa
+            <span className="text-gray-800 cursor-pointer text-xl font-semibold">
+              <a href="mailto:">info@gridking.africa</a>
             </span>
           </div>
           <div className="flex items-center gap-3">
             <FaPhone className="text-yellow-500" size={25} />
-            <span className="text-gray-800 text-xl font-semibold">
-              +2347074683973
+            <span className="text-gray-800 text-xl cursor-pointer font-semibold">
+            <a href="https://wa.me/+2347074683973" target="_blank">+2347074683973</a>
             </span>
           </div>
         </div>
@@ -180,11 +180,10 @@ export default function TalkExpert() {
             title="Submit"
             type="submit"
             disabled={!isFormValid}
-            className={`w-full mt-0 xl:absolute -bottom-12 text-white ${
-              isFormValid
+            className={`w-full mt-0 xl:absolute -bottom-12 text-white ${isFormValid
                 ? "bg-blue-700 hover:bg-blue-600 cursor-pointer"
                 : "bg-gray-700 cursor-not-allowed"
-            }`}
+              }`}
           />
         </form>
       </div>

@@ -59,7 +59,7 @@ export default function Carousel() {
   };
 
   return (
-    <div className="relative w-full h-[90%] overflow-hidden flex flex-col md:h-[100%]">
+    <div className="relative w-full h-[80%] overflow-hidden flex flex-col xl:h-[100%]">
       {!hasImages || !imageUrl || isLoading ? (
         <PlaceholderCarousel />
       ) : (
@@ -83,7 +83,7 @@ export default function Carousel() {
                     objectFit="cover"
                     className="absolute min-w-full min-h-full"
                   />
-                  <div className="absolute inset-0 bg-black/30 z-10" />
+                  <div className="absolute inset-0 bg-black/20 z-10" />
                 </div>
               </motion.div>
             </AnimatePresence>

@@ -19,7 +19,6 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
 
   return (
     <div className="relative w-[70%] mx-auto h-[25rem] group">
-      {/* Image Container */}
       <div
         className="w-full h-full rounded-lg overflow-hidden relative"
         ref={imageRef}
@@ -40,8 +39,8 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
             style={{
               width: "60px",
               height: "60px",
-              top: `${zoomPosition.y - 10}px`,
-              left: `${zoomPosition.x - 10}px`,
+              top: `${zoomPosition.y - 50}px`,
+              left: `${zoomPosition.x - 50}px`,
               backgroundColor: "rgba(255, 255, 255, 0.2)",
               transform: "scale(1.1)",
             }}
@@ -51,7 +50,7 @@ const ImageZoom = ({ src, alt }: { src: string; alt: string }) => {
 
       {isHovering && (
         <div
-          className="absolute top-0 right-[-550px] w-[600px] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
+          className="absolute top-0 right-[-550px] w-[500px] rounded-[1rem] h-[300px] border border-gray-300 overflow-hidden hidden md:block"
         >
           <Image
             src={src}

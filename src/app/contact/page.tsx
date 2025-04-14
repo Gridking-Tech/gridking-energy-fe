@@ -66,12 +66,12 @@ export default function CustomSection() {
           <ImagePlaceholder width={"100%"} height={"100%"} />
         )}
       </div>
-        <div className="w-full flex pl-20 font-bold justify-center flex-col  h-[3.5rem] bg-gray-200">
+        <div className="w-full flex pl-20 font-black text-gray-600 justify-center flex-col  h-[3.5rem] bg-gray-200">
           {'HOME > CONTACT US'}
         </div>
       </div>
       {/* WHY CHOOSE US */}
-      <section className="text-center h-full md:h-[40rem] justify-center flex flex-col items-center ">
+      <section className="text-center h-full md:h-[30rem] justify-center flex flex-col items-center ">
 
         <div className="grid grid-cols-1  md:grid-cols-3 gap-8">
           {features.map((feature, index) => (

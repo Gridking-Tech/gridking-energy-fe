@@ -190,12 +190,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
               fill
               className="absolute w-full h-full"
             />
-            <div className="absolute inset-0 bg-black/30"></div>
+            <div className="absolute inset-0 bg-black/20"></div>
           </div>
         ) : (
           <ImagePlaceholder/>
         )}
-        <div className="text-gray-700 font-black flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
+        <div className="text-gray-600 font-black flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
           {`Home > ${decodeURIComponent(CapitalizeFirstLetter(name))}`}
           {typeof subname !== "undefined" &&
             subname !== "" &&
@@ -277,7 +277,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
           </ul>
         </div>
 
-        <div className="w-full md:w-3/4 px-10">
+        <div className="w-full xl:my-0 my-20 md:w-3/4 px-10">
           <h2 className="text-2xl font-bold text-black mb-6">
             {subname && subname !== "undefined"
               ? decodeURIComponent(subname)

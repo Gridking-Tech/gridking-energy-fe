@@ -27,23 +27,23 @@ export const ProductsLinks = [
 
         ],
       },
-      // {
-      //   name: "Lithium Battery",
-      //   href: "/collections/lithium",
-      //   disabled: true,
-      //   images: [
-      //     "/assets/placeholders/products.png",
-      //   ],
-      // },
+      {
+        name: "LifePo4 Battery",
+        href: "/collections/LifePo4",
+        // disabled: true,
+        images: [
+          "/assets/placeholders/products.png",
+        ],
+      },
 
-      // {
-      //   name: "Front Terminal Telecom Battery",
-      //   href: "/collections/front-terminal",
-      //   disabled: true,
-      //   images: [
-      //     "/assets/placeholders/products.png",
-      //   ],
-      // },
+      {
+        name: "Lithim Battery",
+        href: "/collections/lithium",
+        disabled: true,
+        images: [
+          "/assets/placeholders/products.png",
+        ],
+      },
       // {
       //   name: "OPZV Battery",
       //   href: "/collections/opzv",
@@ -56,7 +56,7 @@ export const ProductsLinks = [
   },
   {
     name: "Inverters",
-    href: "/collections/inverter",
+    href: "/collections/inverters",
     images: [
       "/assets/placeholders/products.png",
     ],
