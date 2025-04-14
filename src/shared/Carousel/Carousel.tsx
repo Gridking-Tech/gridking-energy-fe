@@ -59,7 +59,7 @@ export default function Carousel() {
   };
 
   return (
-    <div className="relative w-full h-[90%] overflow-hidden flex flex-col md:h-[100%]">
+    <div className="relative w-full h-[80%] overflow-hidden flex flex-col xl:h-[100%]">
       {!hasImages || !imageUrl || isLoading ? (
         <PlaceholderCarousel />
       ) : (

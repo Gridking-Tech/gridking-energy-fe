@@ -52,13 +52,13 @@ const ProductShowcase = () => {
       <div className="text-black font-black text-3xl md:text-5xl text-center mb-10">
         HOT SELL
       </div>
-      <div className="flex xl:flex-nowrap   flex-wrap justify-start md:space-x-6 space-x-7 mb-6 border-b pb-3">
+      <div className="flex flex-nowrap   justify-start md:space-x-6 space-x-10 mb-6 border-b pb-3">
         {hotSellData &&
           Object.keys(hotSellData).map((category) => {
             const name = getLastWord(category);
             return (
               <div
-                className="flex items-center relative flex-col text-2xl"
+                className="flex items-center  relative flex-col text-2xl"
                 key={category}
               >
                 <button
@@ -68,7 +68,7 @@ const ProductShowcase = () => {
                     }`}
                   onClick={() => handleTabClick(category)}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center text-[1rem] md:text-[1.4rem]  gap-2">
                     <div>{category}</div>
                   </div>
                 </button>

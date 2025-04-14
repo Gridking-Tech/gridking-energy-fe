@@ -27,9 +27,9 @@ export default function LoadCalculator() {
 
   return (
     <div className=' mt-20  md:mt-40 mb-20'>
-      <div className="flex flex-col gap-2 text-center mb-10 items-center justify-cen mx-auto  max-w-2xl">
+      <div className="flex flex-col gap-2 text-center mb-10 items-center justify-cen mx-auto  max-w-4xl">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-orange-500">Load Calculator</h1>
-        <p className="text-base sm:text-lg md:text-xl font-semibold text-gray-600">
+        <p className="text-base sm:text-lg md:text-xl w-[20rem] xl:w-full font-semibold text-gray-600">
           Know which inverter you need, what it can carry and for how long
         </p>
       </div>

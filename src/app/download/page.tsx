@@ -65,7 +65,7 @@ function DownloadPage() {
             <button
               key={item.category._id}
               onClick={() => handleCategoryClick(item.category._id)}
-              className={`block text-left font-black text-lg transition  cursor-pointer outline-0 border-0 ${
+              className={`block text-left font-bold text-lg transition  cursor-pointer outline-0 border-0 ${
                 selectedCategoryId === item.category._id
                   ? 'text-orange-600'
                   : 'text-gray-700 hover:text-orange-600'
@@ -87,12 +87,11 @@ function DownloadPage() {
           )}
         </div>
 
-        {/* Main content */}
         <div className="w-full md:w-3/4 px-10 pl-8 py-6 border-l-2">
           {isLoading ? (
             <div className="space-y-4">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="animate-pulse space-y-2">
+                <div key={i} className="animate-pulse space-y-3">
                   <div className="h-20 w-full bg-gray-300 rounded" />
                   <div className="h-20 w-full bg-gray-200 rounded" />
                 </div>

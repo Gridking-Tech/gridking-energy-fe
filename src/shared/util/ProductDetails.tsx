@@ -63,11 +63,11 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
 
             <div className="relative w-full h-[32rem]">
               <Image
-              src={ImageData?.[0]?.url}
-              alt="eds"
-              style={{ objectFit: "cover" }}
-              fill
-              className="absolute w-full h-full"
+                src={ImageData?.[0]?.url}
+                alt="eds"
+                style={{ objectFit: "cover" }}
+                fill
+                className="absolute w-full h-full"
               />
               <div className="absolute inset-0 bg-black/20"></div>
             </div>
@@ -81,7 +81,7 @@ const ProductDetails = ({ productTitle, productsData, ImageData }: ProductDetail
           {`PRODUCTS > ${product.name}`}
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4 h-[100%] md:h-[650px] w-full md:w-[90%]">
+      <div className="flex flex-col md:flex-row gap-6 justify-center mx-auto items-center px-4 h-[100%] mb-10 md:h-[650px] w-full md:w-[90%]">
         <div className="flex flex-col w-full md:w-1/2">
           {product.images?.length ? (
             <ImageZoom
