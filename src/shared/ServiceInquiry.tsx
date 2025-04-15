@@ -85,7 +85,7 @@ export default function TalkExpert() {
           <div className="flex items-center gap-3">
             <FaEnvelope className="text-red-500" size={25} />
             <span className="text-gray-800 cursor-pointer text-xl font-semibold">
-              <a href="mailto:">info@gridking.africa</a>
+              <a href="mailto:info@gridking.africa">info@gridking.africa</a>
             </span>
           </div>
           <div className="flex items-center gap-3">
