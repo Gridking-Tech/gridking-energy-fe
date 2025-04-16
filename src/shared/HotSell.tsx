@@ -62,10 +62,11 @@ const ProductShowcase = () => {
                 key={category}
               >
                 <button
-                  className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 outline-0 border-0 cursor-pointer ${selectedCategory === category
+                  className={`px-8 md:px-16 py-2 font-bold flex items-center gap-2 outline-0 border-0 cursor-pointer ${
+                    selectedCategory === category
                       ? "text-orange-500 border-b2 border-orange-500"
                       : "text-gray-700 border-b-transparent"
-                    }`}
+                  }`}
                   onClick={() => handleTabClick(category)}
                 >
                   <div className="flex items-center text-[1rem] md:text-[1.4rem]  gap-2">
@@ -80,11 +81,10 @@ const ProductShowcase = () => {
                   Learn More
                 </a>
               </div>
-            )
-          }
-          )}
+            );
+          })}
       </div>
-      <div className="relative w-full md:w-[90%] h-[550px] md:h-[950px]  shadow-lg border-shadow-2 border border-gray-300 flex justify-between items-center rounded-[2rem] shadow-md bg-gray-100 backdrop-blur-md overflow-hidden">
+      <div className="relative w-full md:w-[82%] h-[550px] md:h-[950px] flex justify-between items-center rounded-[2rem] bg-gray-50 backdrop-blur-md overflow-hidden opacity-90">
         <div
           className="relative w-1/2 h-full flex justify-center items-center"
           onClick={() => routes.push(`/products/${selectedProduct?.name}`)}
@@ -117,11 +117,11 @@ const ProductShowcase = () => {
           )}
         </div>
         <div className="xl:w-1/2 w-[80%] p-6 text-center">
-          <h2 className="text-2xl md:text-5xl font-bold mb-4 text-black">
+          <h2 className="text-xl md:text-3xl font-bold mb-4 text-black">
             {selectedProduct?.name ||
               "Powering the Future with Solar & Storage Tech ⚡️☀️"}
           </h2>
-          <p className="text-1xl md:text-3xl text-black p-6 italic">
+          <p className="text-1xl md:text-xl text-black p-6 italic">
             Making clean energy a no-brainer — for your squad, your fam, and
             your everyday grind.
             <br />

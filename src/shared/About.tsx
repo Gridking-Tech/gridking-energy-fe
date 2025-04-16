@@ -10,11 +10,11 @@ function About() {
         GRIDKING EXPERT GUIDE
       </div>
 
-      <div className="bg- w-[100%]   md:w-[100%] mx-auto p-4 md:py-0 ">
-        {!isVideoLoaded && <VideoPlaceholder width="100%" height="500px" />}
+      <div className="bg- w-[100%]   md:w-[82%] mx-auto p-4 md:py-0 ">
+        {!isVideoLoaded && <VideoPlaceholder width="100%" height="700px" />}
         <iframe
           width="100%"
-          height="500px"
+          height="700px"
           src="https://www.youtube.com/embed/p6hukTvPzfU?autoplay=1&mute=1&modestbranding=1&rel=0&playsinline=1"
           title="YouTube video player"
           frameBorder="0"

@@ -91,7 +91,7 @@ function NewArrivals() {
                   <div
                   key={product._id}
                   onClick={() => routes.push(`/products/${product.name}`)}
-                  className="flex items-center py-10 flex-row-reverse gap-3 mb-20 justify-between h-[160px] md:h-[200px] cursor-pointer p-6 rounded-2xl   w-full shadow-md bg-gray-100 backdrop-blur-md border"
+                  className="flex items-center py-10 flex-row-reverse gap-3 mb-20 justify-between h-[160px] md:h-[200px] cursor-pointer p-6 rounded-2xl   w-full bg-gray-50 backdrop-blur-md"
                 >
                   <div className="text-black w-[45%]">
                     <h3 className="text-xl font-bold line-clamp-2">

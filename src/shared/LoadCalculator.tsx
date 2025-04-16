@@ -33,7 +33,7 @@ export default function LoadCalculator() {
           Know which inverter you need, what it can carry and for how long
         </p>
       </div>
-      <div className="w-[95%] xl:w-[75%] mx-auto min-h-screen relative shadow-md bg-gray-100 backdrop-blur-md flex flex-col items-center justify-center px-4 sm:px-6  border-gray-300   p-5 rounded-lg">
+      <div className="w-[95%] xl:w-[75%] mx-auto min-h-screen relative bg-gray-50 backdrop-blur-md flex flex-col items-center justify-center px-4 sm:px-6 p-5 rounded-lg">
 
 
         <div className="w-full flex flex-col xl:flex-row gap-6">
