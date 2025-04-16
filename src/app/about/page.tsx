@@ -52,7 +52,7 @@ export default function AboutPage() {
                 <p className="text-gray-700  leading-10 text-lg">
                     At GridKing, we’re lighting up the future—literally. We’re a next-gen clean energy company
                     laser-focused on photovoltaic power generation and energy storage tech. Like our friends over at
-                    Felicity Solar, we’re deep in the solar game—researching, building, and delivering high-performance
+                    Gridking, we’re deep in the solar game—researching, building, and delivering high-performance
                     energy solutions that power everything from homes to businesses.
                 </p>
 
