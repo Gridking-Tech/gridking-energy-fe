@@ -37,7 +37,9 @@ export default function Footer() {
             <p>
               Email: info@gridking.africa | Tel:{" "}
               <a
-                href="https://wa.me/2349074422962"
+                href={`https://wa.me/2349074422962?text=${encodeURIComponent(
+                  "Hello Gridking Admin @ gridking.africa —\n\nI’d love to get a detailed quote for your gel batteries, inverters (2kW & 3kW), and solar panels.\n\nCould you also recommend what setup might work best for a home installation?"
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-500 flex items-center"
