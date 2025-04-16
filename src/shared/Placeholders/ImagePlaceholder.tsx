@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import GridBanner3 from "../../../public/assets/placeholders/GD003.svg";
+import GridBanner3 from "../../../public/assets/placeholders/GD001.png";
 
 interface ImagePlaceholderProps {
   width?: string | number;

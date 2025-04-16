@@ -4,6 +4,7 @@ import {
   FaTwitter,
   FaLinkedinIn,
   FaYoutube,
+  FaWhatsapp,
 } from "react-icons/fa";
 import logo from "../../public/assets/placeholders/logo-gridking.png";
 import Link from "next/link";
@@ -33,7 +34,17 @@ export default function Footer() {
           </div>
           <div>
             <p>Location - F1219, Alaba International Market, Lagos.</p>
-            <p>Email: info@gridking.africa | Tel: +2347074683973</p>
+            <p>
+              Email: info@gridking.africa | Tel:{" "}
+              <a
+                href="https://wa.me/2349074422962"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-500 flex items-center"
+              >
+                <FaWhatsapp className="mr-2" /> +2349074422962
+              </a>
+            </p>
           </div>
         </div>
         <div className="flex gap-4 text-xl">

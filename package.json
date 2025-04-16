@@ -31,7 +31,8 @@
     "tw-animate-css": "^1.2.5"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@svgr/webpack": "^6.5.1",
+    "@tailwindcss/postcss": "^4.0.0",
     "@types/axios": "^0.14.4",
     "@types/node": "^20",
     "@types/react": "^19",
