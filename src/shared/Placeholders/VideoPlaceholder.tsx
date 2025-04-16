@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import GridBanner1 from "../../../public/assets/placeholders/GD001.svg";
+import GridBanner1 from "../../../public/assets/placeholders/GD001.png";
 
 interface VideoPlaceholderProps {
   width?: string;

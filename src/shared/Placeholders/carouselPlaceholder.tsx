@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import GridBanner1 from "../../../public/assets/placeholders//GD001.svg";
-import GridBanner2 from "../../../public/assets/placeholders/GD002.svg";
-import GridBanner3 from "../../../public/assets/placeholders/GD003.svg";
+import GridBanner1 from "../../../public/assets/placeholders//GD001.png";
+import GridBanner2 from "../../../public/assets/placeholders/GD001.png";
+import GridBanner3 from "../../../public/assets/placeholders/GD001.png";
 import Image from "next/image";
 import NavBar from "../NavBar/NavBar";
 
