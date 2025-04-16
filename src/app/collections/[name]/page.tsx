@@ -3,7 +3,9 @@ import ProductsPage from "@/src/shared/ProductsPage";
 import { useParams, useRouter } from "next/navigation";
 
 const CategoryPage = () => {
-  const { name, subname } = useParams<{ name: string; subname: string }>();
+  const params = useParams<{ name: string; subname: string }>();
+  const name = params?.name || "";
+  const subname = params?.subname || "";
   return (
     <div>
       <ProductsPage name={decodeURIComponent(name)} />

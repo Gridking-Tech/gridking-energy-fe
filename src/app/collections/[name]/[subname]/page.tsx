@@ -3,7 +3,9 @@ import ProductsPage from "@/src/shared/ProductsPage";
 import { useParams } from "next/navigation";
 
 const SubCategoryPage = () => {
-  const { name, subname } = useParams<{ name: string; subname: string }>();
+  const params = useParams<{ name: string; subname: string }>();
+  const name = params?.name || "";
+  const subname = params?.subname || "";
 
   return (
     <div>
