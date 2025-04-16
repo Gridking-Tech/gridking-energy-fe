@@ -8,6 +8,12 @@ const nextConfig = {
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
+    // Add fallback for PostCSS plugins
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      module: false,
+    };
     return config;
   },
 };
