@@ -11,9 +11,9 @@ const GetStarted = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 2000); // Change text every second
+    }, 2000);
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -21,14 +21,14 @@ const GetStarted = () => {
       <div className="w-4/5 h-full flex">
         {/* Left Section */}
         <div className="w-1/2 h-full flex flex-col p-4 pt-40">
-          <h1 className="text-5xl font-bold leading-[1.1]">
+          <h1 className="text-5xl font-bold leading-[1]">
             Power Your Future
           </h1>
-          <h1 className="text-5xl font-bold leading-[1.1] mt-2">
+          <h1 className="text-5xl font-bold leading-[1] mt-2">
             with{" "}
             <span className="text-[#F47A2B]">{texts[currentTextIndex]}</span>
           </h1>
-          <p className="mt-6 w-[80%]">
+          <p className="mt-6 w-[80%] font-light">
             Take control of your energy future with high-performance inverters
             built for today&apos;s needs and tomorrow&apos;s possibilities.
           </p>
@@ -37,9 +37,9 @@ const GetStarted = () => {
           </button>
           <div className="flex flex-row mt-20">
             <div className="border flex w-1/2">
-              <div>
-                <p>Next-Gen Solar Technology</p>
-                <p>
+              <div className="p-6 w-1/2">
+                <p className="text-1xl font-bold">Next-Gen Solar Technology</p>
+                <p className="mt-6 text-sm font-light">
                   Designed with the latest innovations for reliable, smarter
                   energy solutions.
                 </p>
