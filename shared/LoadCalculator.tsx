@@ -33,11 +33,11 @@ export default function LoadCalculator() {
           Know which inverter you need, what it can carry and for how long
         </p>
       </div>
-      <div className="w-[95%] xl:w-[75%] mx-auto min-h-screen relative bg-gray-50 backdrop-blur-md flex flex-col items-center justify-center px-4 sm:px-6 p-5 rounded-lg">
+      <div className="w-[95%] xl:w-[75%] mx-auto min-h-screen relative bg-gray-50 backdrop-blur-md flex flex-col items-center justify-center px-4 sm:px-6 p-5 rounded-lg dark:bg-[#1E1E1E]">
 
 
         <div className="w-full flex flex-col xl:flex-row gap-6">
-          <div className="xl:w-1/2 w-full bg-white border-2 shadow-md rounded-lg p-6 flex flex-col justify-center items-center gap-6">
+          <div className="xl:w-1/2 w-full bg-white border-2 shadow-md rounded-lg p-6 flex flex-col justify-center items-center gap-6 dark:bg-inherit">
             <h2 className="text-2xl font-bold mb-2 text-center">Total Power Consumption</h2>
             <div className="text-4xl md:text-5xl font-extrabold text-green-600">{totalLoad} W</div>
           </div>
@@ -48,24 +48,24 @@ export default function LoadCalculator() {
               return (
                 <div
                   key={item.name}
-                  className="bg-white rounded-xl cursor-pointer shadow-md p-4 flex flex-col justify-between hover:bg-gray-100 relative transition-all duration-300 border border-gray-100"
+                  className="bg-white dark:bg-black/50  rounded-xl cursor-pointer shadow-md p-4 flex flex-col justify-between hover:bg-gray-100 relative transition-all duration-300 border border-gray-100 dark:border-gray-900"
                 >
                   <div className="bg-orange-300 w-8 h-8 md:w-8 md:h-8 flex items-center justify-center rounded-full absolute top-3 left-3">
                     <Icon className="text-black text-sm md:text-base" />
                   </div>
-                  <div className="text-right  font-black w-full text-sm sm:text-base mx-auto text-gray-700 mb-6">
+                  <div className="text-right  font-black w-full text-sm sm:text-base mx-auto text-gray-700 dark:text-white mb-6">
                     {item.name}
                   </div>
                   <div className="flex justify-between items-center mt-1">
                     <button
-                      className="bg-gray-200 px-2 rounded-full text-lg font-bold"
+                      className="bg-gray-200 dark:bg-[#1E1E1E] px-2 rounded-full text-lg font-bold"
                       onClick={() => updateQuantity(index, -1)}
                     >
                       −
                     </button>
                     <span className="text-xl sm:text-2xl font-bold">{item.quantity}</span>
                     <button
-                      className="bg-gray-200 px-2 rounded-full text-lg font-bold"
+                      className="bg-gray-200 dark:bg-[#1E1E1E] px-2 rounded-full text-lg font-bold"
                       onClick={() => updateQuantity(index, 1)}
                     >
                       +
@@ -89,9 +89,9 @@ export default function LoadCalculator() {
               <div className="text-4xl font-black text-green-600">{recommendedInverterVA} VA</div>
             </div>
             <div className="flex-1 px-4 py-6">
-              <label className="block mb-1 text-sm font-medium text-gray-900">Choose Battery Capacity</label>
+              <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Choose Battery Capacity</label>
               <select
-                className="w-full border border-black px-4 py-2 rounded text-gray-800"
+                className="w-full border border-black px-4 py-2 rounded text-gray-800 dark:text-white"
                 value={batteryCapacity}
                 onChange={e => setBatteryCapacity(Number(e.target.value))}
               >
@@ -106,7 +106,7 @@ export default function LoadCalculator() {
 
 
           <div className="lg:w-1/2 px-4 py-6">
-            <h3 className="text-lg sm:text-xl font-bold mb-4 text-gray-800">Explore Products</h3>
+            <h3 className="text-lg sm:text-xl font-bold mb-4 text-gray-800 dark:text-white">Explore Products</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {productCategories.map(product => {
                 const Icon = product.icon;
@@ -114,15 +114,15 @@ export default function LoadCalculator() {
                   <a
                     key={product.name}
                     href={product.href}
-                    className="shadow-md p-4 rounded-xl hover:scale-105 transition-transform bg-white"
+                    className="shadow-md p-4 rounded-xl hover:scale-105 transition-transform bg-white dark:bg-black/50 shadow-md"
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <div className="p-3 bg-orange-100 text-orange-500 rounded-full">
                         <Icon />
                       </div>
-                      <h4 className="text-base font-black text-gray-800">{product.name}</h4>
+                      <h4 className="text-base font-black text-gray-800 dark:text-white">{product.name}</h4>
                     </div>
-                    <p className="text-sm text-gray-700">{product.description}</p>
+                    <p className="text-sm text-gray-700 dark:text-white">{product.description}</p>
                   </a>
                 );
               })}
