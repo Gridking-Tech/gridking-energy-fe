@@ -1,5 +1,4 @@
 "use client";
-// Update the import path below if the actual location is different
 import About from "../shared/About";
 import Carousel from "../shared/Carousel/Carousel";
 import ProductShowcase from "../shared/HotSell";
