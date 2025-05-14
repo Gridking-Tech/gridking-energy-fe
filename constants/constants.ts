@@ -44,14 +44,6 @@ export const ProductsLinks = [
           "/assets/placeholders/products.png",
         ],
       },
-      // {
-      //   name: "OPZV Battery",
-      //   href: "/collections/opzv",
-      //   disabled: true,
-      //   images: [
-      //     "/assets/placeholders/products.png",
-      //   ],
-      // },
     ],
   },
   {
@@ -84,132 +76,16 @@ export const ProductsLinks = [
       "/assets/placeholders/products.png",
     ],
   },
-  // {
-  //   name: "Solar Light",
-  //   href: "/collections/solarlight",
-  //   images: [
-  //     "/assets/placeholders/products.png",
-  //   ],
-  //   subcategories: [
-  //     {
-  //       name: "All-in-One Solar Street Light",
-  //       href: "/collections/street-light",
-  //       images: [
-  //         "/assets/placeholders/products.png",
-  //       ],
-  //     },
-  //     {
-  //       name: "Flood Light",
-  //       href: "/collections/flood-light",
-  //       images: [
-  //         "/assets/placeholders/products.png",
-  //       ],
-  //     },
-  //   ],
-  // },
 
-  // {
-  //   name: "Accessories",
-  //   href: "/collections/accessories",
-  //   disabled: true,
-  //   images: [
-  //     "/assets/placeholders/products.png",
-  //   ],
-  //   subcategories: [
-  //     {
-  //       name: "Car Charger",
-  //       href: "/collections/car-charger",
-  //       disabled: true,
-  //       images: [
-  //         "/assets/placeholders/products.png",
-  //       ],
-  //     },
-  //     {
-  //       name: "WiFi Module",
-  //       href: "/collections/wifi-module",
-  //       disabled: true,
-  //       images: [
-  //         "/assets/placeholders/products.png",
-  //       ],
-  //     },
-  //     {
-  //       name: "Combiner Box",
-  //       href: "/collections/combiner-box",
-  //       disabled: true,
-  //       images: [
-  //         "/assets/placeholders/products.png",
-  //       ],
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: "MPPT Charge Controller",
-  //   disabled: true,
-  //   href: "/collections/mppt-charge-controller",
-  //   images: [
-  //     "/assets/placeholders/products.png",
-  //     "/assets/placeholders/products.png",
-  //     "/assets/placeholders/products.png",
-  //   ],
-  // },
-  // {
-  //   name: "All-in-One ESS",
-  //   href: "/collections/all-in-one-ess",
-  //   disabled: true,
-  //   images: [
-  //     "/assets/placeholders/products.png",
-  //     "/assets/placeholders/products.png",
-  //     "/assets/placeholders/products.png",
-  //   ],
-  //   subcategories: [
-  //     {
-  //       name: "Liquid Cooling System",
-  //       href: "/collections/all-in-one-ess/liquid-cooling",
-  //       disabled: true,
-  //       images: [
-  //         "/assets/placeholders/products.png",
-
-  //       ],
-  //     },
-  //     {
-  //       name: "Air Cooling System",
-  //       href: "/collections/all-in-one-ess/air-cooling",
-  //       disabled: true,
-  //       images: [
-  //         "/assets/placeholders/products.png",
-  //         "/assets/placeholders/products.png",
-  //         "/assets/placeholders/products.png",
-  //       ],
-  //     },
-  //   ],
-  // },
 
 ];
 
 export const SupportServiceLinks = [
-  // { name: "Blog", href: "/blog" },
   {
     name: "Download Manuals", href: "/download",routes:false, subcategories: [
-      // {
-      //   name: "PV1000-12 Inverter manual",
-      //   href: "hybrid",
-      //   routes: false,
-      //   images: [
-      //     "/assets/placeholders/products.png",
-      //   ],
-      // },
-      // {
-      //   name: "PV5000-24 Inverter manual",
-      //   href: "/off-grid",
-      //   routes: false,
-      //   images: [
-      //     "/assets/placeholders/products.png",
-      //   ],
-      // },
+
     ],
   },
-  // { name: "Technical Support", href: "/Technoical supprt", disabled:true },
-  // { name: "Anti-counterfieting Verify", href: "/anti-counterfieting verify" },
 ];
 
 export const ContactLinks = [
@@ -221,13 +97,7 @@ export const navLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Product", href: "", constant: ProductsLinks },
-  // { name: "Solution & Cases", href: "/solutions" },
-  {
-    name: "Support & Service",
-    href: "",
-    constant: SupportServiceLinks,
-  },
-  { name: "Contact Us", href: "/contact" },
+  { name: "Blog", href: "/blog" },
 ];
 
 export const products = [

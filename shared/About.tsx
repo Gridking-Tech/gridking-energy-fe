@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import { homePageApi } from "../api/homepage-api";
 import Image from "next/image";
 import ImagePlaceholder from "../shared/Placeholders/ImagePlaceholder";
 
-const SustainabilityCard = ({
+interface Props {
+  icon?: ReactNode;
+  title?: string;
+  subtitle?: string | ReactNode;
+  description?: string;
+  bgColor?: string;
+}
+const SustainabilityCard: React.FC<Props> = ({
   icon,
   title,
   subtitle,
@@ -42,9 +49,9 @@ export default function AboutPage() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   return (
-    <div className="bg-white text-black min-h-screen">
-      <section className="md:max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-3xl md:text-4xl mb-8 border-l-4 border-gray-300 pl-4">
+    <div className="bg-white dark:bg-[#393939] text-black min-h-screen py-20">
+      <section className="md:max-w-6xl mx-auto px-4 py-12 ">
+        <h2 className="text-3xl md:text-4xl mb-8 border-l-4 border-gray-300 pl-4 dark:text-white">
           Built for Sustainability
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -73,13 +80,13 @@ export default function AboutPage() {
       </section>
       <section className="md:max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-8 mt-25">
         <div className="flex-1 pr-20">
-          <h2 className="text-3xl md:text-4xl mb-6 border-l-4 border-gray-300 pl-4">
+          <h2 className="text-3xl md:text-4xl mb-6 border-l-4 border-gray-300 pl-4 dark:text-white">
             Built on Trust, Powered by Innovation
           </h2>
           <h3 className="text-xl font-semibold text-[#F57B2C] mb-4">
             Sustainable Energy Made Simple
           </h3>
-          <p className="text-gray-500 leading-7 text-sm">
+          <p className="text-gray-500 leading-7 text-sm dark:text-white">
             At GridKing, we believe energy freedom starts with technology you
             can trust. Founded with a mission to drive the global transition to
             renewable energy, we design and manufacture high-performance solar
