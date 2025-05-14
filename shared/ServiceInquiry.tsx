@@ -160,7 +160,7 @@ export default function SolarQuoteForm() {
         <button
           type="submit"
           disabled={!isFormValid}
-          className="md:w-[100%] mt-2 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition"
+          className="md:w-[100%] mt-2 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition cursor-pointer"
         >
           SUBMIT
         </button>

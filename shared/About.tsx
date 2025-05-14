@@ -93,7 +93,7 @@ export default function AboutPage() {
             inverters that meet the needs of homeowners, businesses, and solar
             professionals.
           </p>
-          <button className="mt-6 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition">
+          <button className="mt-6 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition cursor-pointer">
             Learn More About Us
           </button>
         </div>

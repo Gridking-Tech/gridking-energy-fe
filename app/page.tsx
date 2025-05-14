@@ -20,7 +20,7 @@ export default function Homepage() {
       <NewArrivals />
       {/* <ProductShowcase /> */}
       <TalkExpert />
-      <LoadCalculator />
+      {/* <LoadCalculator /> */}
       {/* <NewsShowcase /> */}
       <Footer />
     </div>
