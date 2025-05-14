@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import Button from "./util/Button";
-import Inputs from "./util/Inputs";
-import { FaEnvelope, FaPhone } from "react-icons/fa";
-import toast, { Toaster } from "react-hot-toast";
+import { CountryDropdown } from "react-country-region-selector";
+import Image from "next/image";
+import solar from "../public/assets/placeholders/solargird.png";
 
-export default function TalkExpert() {
+export default function SolarQuoteForm() {
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
     email: "",
+    phone: "",
     service: "",
-    country: "",
-    region: "",
+    location: "",
     message: "",
   });
 
@@ -25,168 +22,149 @@ export default function TalkExpert() {
     setIsFormValid(allFieldsFilled);
   }, [formData]);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCountryChange = (val: any) => {
-    setFormData({ ...formData, country: val, region: "" });
+  const handleCountryChange = (val:string) => {
+    setFormData({ ...formData, location: val });
   };
 
-  const handleRegionChange = (val: any) => {
-    setFormData({ ...formData, region: val });
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     if (isFormValid) {
-      setTimeout(() => {
-        toast.success("Form submitted successfully!");
-        setFormData({
-          name: "",
-          phone: "",
-          email: "",
-          service: "",
-          country: "",
-          region: "",
-          message: "",
-        });
-      }, 1000);
+      alert("Form submitted successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        location: "",
+        message: "",
+      });
     } else {
-      toast.error("Please fill all fields before submitting.");
+      alert("Please fill all fields before submitting.");
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center z-40 relative h-[100%] md:h-[80%] w-[100%] xl:w-[80%] mx-auto gap-6 xl:my-48 mb-20 justify-center md:justify-between p-6">
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          style: {
-            zIndex: 9999,
-          },
-        }}
-        containerStyle={{
-          top: "5rem",
-          zIndex: 9999,
-        }}
-      />
-
-      <div className="text-left max-w-md">
-        <h3 className="text-orange-500 md:text-4xl font-bold">Contact Us</h3>
-        <h1 className="md:text-5xl text-2xl font-bold mt-2 text-gray-900">
-          Talk to an Expert
-        </h1>
-        <p className="text-gray-600 mt-2">
-          We'll get back to you within a time to schedule a quick evaluation
-          call.
-        </p>
-        <div className="mt-4 space-y-4">
-          <div className="flex items-center gap-3">
-            <FaEnvelope className="text-red-500" size={25} />
-            <span className="text-gray-800 cursor-pointer text-xl font-semibold">
-              <a href="mailto:info@gridking.africa">info@gridking.africa</a>
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <FaPhone className="text-yellow-500" size={25} />
-            <span className="text-gray-800 text-xl cursor-pointer font-semibold">
-            <a href="https://wa.me/+2347074683973" target="_blank">+2347074683973</a>
-            </span>
-          </div>
+    <div className="md:max-w-6xl mx-auto p-6 bg-white  min-h-screen lg:mt-20 dark:bg-black/10">
+      <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
+        <div className="md:w-1/2 pr-25 leading-loose">
+          <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white">
+            Get Your Free Solar Quote Today
+          </h2>
+          <p className="text-[#F57B2C] text-lg font-semibold mt-4">
+            TAILORED SOLUTIONS FOR YOUR ENERGY NEEDS
+          </p>
+          <p className="text-gray-600 mt-4 text-sm">
+            Ready to make the switch to smarter, more sustainable power? Our
+            team will assess your needs and recommend the best Gridking inverter
+            solution — customized to your home or business.
+          </p>
+        </div>
+        <div className="h-[350px] w-full md:w-[500px] relative flex items-center justify-center">
+          <Image
+            src={solar}
+            alt="solar panel"
+            priority={true}
+            fill
+            style={{ objectFit: "contain" }}
+            className="rounded"
+          />
         </div>
       </div>
-
-      <div className="md:w-[600px] w-[380px] p-6 md:shadow-2xl border h-[800px] md:h-[750px] flex flex-col rounded-lg bg-white">
-        <h2 className="text-2xl font-black text-gray-900 text-center mb-6">
-          Service Inquiry
-        </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col relative h-[100%] xl:h-[86%] xl:justify-between"
-        >
-          <div className="overflow-y-hidden h-full gap-1 md:gap-3 flex flex-col">
-            <Inputs
+      <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div>
+            <label className="block text-gray mb-1">
+              Name
+            </label>
+            <input
+              type="text"
               name="name"
-              onChange={handleChange}
-              placeholder="john doe"
               value={formData.name}
-              showLabel
-              label="Name:"
-              className="w-full p-2 border rounded"
-            />
-            <Inputs
-              name="phone"
-              showLabel
-              label="Phone Number:"
-              placeholder="e.g 081293181869"
               onChange={handleChange}
-              value={formData.phone}
-              className="w-full p-2 border rounded"
+              placeholder="Enter your name"
+              className="w-full p-2 border border-gray-300 dark:border-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <Inputs
-              name="email"
-              showLabel
-              label="Email:"
-              type="email"
-              placeholder="e.g johndoe@gmail.com"
-              onChange={handleChange}
-              value={formData.email}
-              className="w-full p-2 border rounded"
-            />
-            <Inputs
-              name="service"
-              showLabel
-              label="Service Interested in:"
-              placeholder="e.g Gel battery, inverters, solar panel installations"
-              onChange={handleChange}
-              value={formData.service}
-              className="w-full p-2 border rounded"
-            />
-            <div className="w-full">
-              <label className="block text-gray-700 font-semibold mb-2">
-                Location:
-              </label>
-              <CountryDropdown
-                name="country"
-                value={formData.country}
-                onChange={handleCountryChange}
-                className="w-full p-2 border rounded mb-2"
-              />
-              <RegionDropdown
-                name="region"
-                country={formData.country}
-                value={formData.region}
-                onChange={handleRegionChange}
-                className="w-full p-2 border rounded"
-              />
-            </div>
-            <div className="flex flex-col">
-              <div className="text-gray-700 font-black mb-1">
-                Describe your inquiry
-              </div>
-              <textarea
-                name="message"
-                value={formData.message || ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-                placeholder="Tell us more about what you need"
-                className="border-2 rounded-md w-full p-2 min-h-[5rem] xl:min-h-[6rem]"
-              />
-            </div>
           </div>
-          <Button
-            title="Submit"
-            type="submit"
-            disabled={!isFormValid}
-            className={`w-full mt-0 xl:absolute -bottom-12 text-white ${isFormValid
-                ? "bg-blue-700 hover:bg-blue-600 cursor-pointer"
-                : "bg-gray-700 cursor-not-allowed"
-              }`}
-          />
-        </form>
-      </div>
+          <div>
+            <label className="block text-gray mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email address"
+              className="w-full p-2 border border-gray-300 dark:border-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block text-gray mb-1">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter your phone number"
+              className="w-full p-2 border border-gray-300 dark:border-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <div>
+            <label className="block text-gray mb-1">
+              Product/Service Interested in
+            </label>
+            <select
+              name="service"
+              value={formData.service}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 dark:border-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select product/service type</option>
+              <option value="solar">Solar Panels</option>
+              <option value="inverter">Inverters</option>
+              <option value="battery">Batteries</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-gray mb-1">
+              Location
+            </label>
+            <CountryDropdown
+              name="location"
+              value={formData.location}
+              onChange={handleCountryChange}
+              className="w-full p-2 border border-gray-300 dark:border-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+        <div>
+          <label className="block text-gray mb-1">
+            Describe the inquiry
+          </label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Tell us more about your energy needs"
+            className="w-full p-2 border border-gray-300 dark:border-gray-800 rounded min-h-[100px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          disabled={!isFormValid}
+          className="md:w-[100%] mt-2 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition"
+        >
+          SUBMIT
+        </button>
+      </form>
     </div>
   );
 }
