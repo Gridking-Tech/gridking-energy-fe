@@ -1,124 +1,105 @@
-"use client";
+import React from 'react';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
 
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { productsApi } from "../api";
-import { useRouter } from "next/navigation";
-import { INewArrival } from "../types";
 
-function NewArrivals() {
-  const [index, setIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [visibleProducts, setVisibleProducts] = useState<INewArrival[]>([]);
-  const [uniqueProducts, setUniqueProducts] = useState<INewArrival[]>([]);
-  const routes = useRouter();
-  const { data: productsData } = productsApi.useGetProducts() as {
-    data: { products: INewArrival[] };
-    isLoading: boolean;
-    error: any;
+const ProductSection: React.FC = () => {
+
+  const router = useRouter()
+
+  const products = [
+    {
+      image: 'https://via.placeholder.com/200x150?text=10kW+Hybrid+Battery',
+      title: '10kW Hybrid Lithium Ion Battery',
+      rating: '★★★★★ (99%)',
+      isNew: true,
+      to: '/product/10kw-hybrid-battery',
+      id: '1',
+    },
+    {
+      image: 'https://via.placeholder.com/200x150?text=SP+Series+Inverter',
+      title: 'SP Series 1800W 3000W 3800W Off Grid Solar Inverter',
+      rating: '★★★★★ (129)',
+      isNew: true,
+      to: '/product/sp-series-inverter',
+      id: '2',
+    },
+    {
+      image: 'https://via.placeholder.com/200x150?text=LiFePO4+Battery',
+      title: 'LiFePO4 Battery 50 Ah 12V 200Ah Solar Battery 48V',
+      rating: '★★★★★ (75)',
+      isNew: true,
+      to: '/product/lifepo4-battery',
+      id: '3',
+    },
+    {
+      image: 'https://via.placeholder.com/200x150?text=SP+Series+Inverter+80A',
+      title: 'SP Series Inverter 80A 50V-450V',
+      rating: '★★★★★ (99)',
+      isNew: true,
+      to: '/product/sp-series-inverter-80a',
+      id: '4',
+    },
+  ];
+
+  const handleCardClick = (title_id: string) => {
+    router.push(`/products/${title_id?.replace(/\s+/g, '-')}`);
   };
-  
-  useEffect(() => {
-    if (!productsData?.products) return;
-
-    const seenCategories = new Set();
-    const unique: INewArrival[] = [];
-
-    for (const product of productsData.products) {
-      const categoryId = product?.category?._id;
-      if (categoryId && !seenCategories.has(categoryId)) {
-        seenCategories.add(categoryId);
-        unique.push(product);
-      }
-    }
-    setUniqueProducts(unique);
-  }, [productsData]);
-
-  useEffect(() => {
-    if (isPaused || uniqueProducts.length === 0) return;
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % uniqueProducts.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isPaused, uniqueProducts]);
-
-  useEffect(() => {
-    const updateVisibleProducts = () => {
-      const nextProducts = [
-        uniqueProducts[index],
-        ...(window.innerWidth >= 768
-          ? [uniqueProducts[(index + 1) % uniqueProducts.length]]
-          : []),
-      ];
-      setVisibleProducts(nextProducts.filter(Boolean));
-    };
-
-    updateVisibleProducts();
-    window.addEventListener("resize", updateVisibleProducts);
-    return () => window.removeEventListener("resize", updateVisibleProducts);
-  }, [index, uniqueProducts]);
 
   return (
-    <div className="w-full md:h-[90%] xl:h-screen flex items-center justify-center bg-white overflow-hidden relative">
-      <div className="w-[80%] flex flex-col md:flex-row justify-between items-center">
-        <div className="w-full md:w-[40%] h-auto md:h-[450px] flex flex-col md:mt-0 mt-12 items-center md:items-start text-center md:text-left space-y-4">
-          <h2 className="text-black text-2xl md:text-4xl font-extrabold">NEW ARRIVAL</h2>
-          <div className="h-[4rem] md:h-[10rem] w-[3px] bg-orange-500"></div>
-          <p className="text-black md:text-lg font-medium">
-            GridKing focuses on the "PV+Energy Storage" industry chain,
-            specializing in LiFePO4 batteries, solar inverters, MPPT
-            controllers, and solar panels.
-          </p>
-        </div>
-        <div className="relative w-full md:w-[45%] h-[260px] md:h-[600px] mt-5 xl:mt-0 flex items-center overflow-hidden">
-          <AnimatePresence mode="popLayout">
-            <motion.div
+    <section className="py-8 px-4 bg-gray-100 dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold mb-6 pl-4 border-l-4 border-gray-800">
+          Powering Homes and Businesses with Excellence
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product, index) => (
+            <Card
               key={index}
-              initial={{ y: "50%", opacity: 1 }}
-              animate={{ y: "0%", opacity: 1 }}
-              exit={{ y: "-50%", opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="absolute w-full flex flex-col items-center space-y-5"
+              className="cursor-pointer hover:shadow-lg transition-shadow duration-300"
+              onClick={() => handleCardClick(product.title+" "+product.id)}
             >
-              {visibleProducts.map((product) => {
-                const primaryImage =
-                  (Array.isArray(product.images)
-                    ? product.images.find((img) => img.primary)
-                    : null) ||
-                  (Array.isArray(product.images) ? product.images[0] : null);
-                return (
-                  <div
-                  key={product._id}
-                  onClick={() => routes.push(`/products/${product.name}`)}
-                  className="flex items-center py-10 flex-row-reverse gap-3 mb-20 justify-between h-[160px] md:h-[200px] cursor-pointer p-6 rounded-2xl   w-full bg-gray-50 backdrop-blur-md"
-                >
-                  <div className="text-black w-[45%]">
-                    <h3 className="text-xl font-bold line-clamp-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-md line-clamp-1">
-                      {product.category?.name}
-                    </p>
-                  </div>
-                  {primaryImage && (
-                    <Image
-                      src={primaryImage.url}
-                      alt={product._id}
-                      width={200}
-                      height={300}
-                      className="rounded xl:h-[10rem] h-[8rem]  left-3 object-cover"
-                    />
-                  )}
-                </div>
-                );
-              })}
-            </motion.div>
-          </AnimatePresence>
+              <CardHeader className="relative">
+                {product.isNew && (
+                  <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">
+                    NEW
+                  </span>
+                )}
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="w-full h-48 object-cover rounded-t-xl"
+                />
+              </CardHeader>
+              <CardContent>
+                <CardTitle className="text-lg mb-2">{product.title}</CardTitle>
+                <CardDescription className="text-yellow-500 text-sm mb-2">
+                  {product.rating}
+                </CardDescription>
+              </CardContent>
+              <CardFooter className="justify-center">
+                <button className="w-full bg-gray-100 text-gray-800 py-2 rounded hover:bg-orange-500 hover:text-white transition-colors">
+                  View Details
+                </button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+        <div className="text-center mt-6">
+          <button className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors">
+            Explore Our Products
+          </button>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
 
-export default NewArrivals;
+export default ProductSection;
