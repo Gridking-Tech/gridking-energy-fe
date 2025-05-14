@@ -3,72 +3,107 @@ import {
   FaInstagram,
   FaTwitter,
   FaLinkedinIn,
-  FaYoutube,
-  FaWhatsapp,
+  FaPhone,
+  FaEnvelope,
 } from "react-icons/fa";
-import logo from "../public/assets/placeholders/logo-gridking.png";
-import Link from "next/link";
-const footerLinks = [
-  { name: "Contact Us", href: "/contact" },
-  // { name: "Trade Show", href: "#" },
-  { name: "Battery", href: "collections/battery" },
-  { name: "Inverter", href: "collections/inverters" },
-];
+import {DarkLogo} from "@/shared/Icons";
 
-const socialLinks = [
-  { icon: <FaFacebookF />, href: "#" },
-  { icon: <FaInstagram />, href: "#" },
-  { icon: <FaTwitter />, href: "#" },
-  { icon: <FaLinkedinIn />, href: "#" },
-  { icon: <FaYoutube />, href: "#" },
-];
-
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white p-16">
-      <div className="flex justify-between items-center flex-wrap">
-        <div className="flex flex-col">
-          {/* <img src="/gridking-logo.png" alt="GridKing" className="h-12 mr-4" /> */}
-          <div className="text-2xl font-black ">
-            <img src={logo.src} alt="logo" className="h-12 mr-4 mb-4" />
-          </div>
-          <div>
-            <p>Location - F1219, Alaba International Market, Lagos.</p>
-            <p>
-              Email: info@gridking.africa | Tel:{" "}
-              <a
-                href="https://wa.me/2349074422962"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-green-500 flex items-center"
-              >
-                <FaWhatsapp className="mr-2" /> +2349074422962
-              </a>
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-4 text-xl">
-          {socialLinks.map((link, index) => (
-            <div key={index} className="text-white">
-              <div>{link.icon}</div>
+    <footer className="bg-[#F47A2B] text-black py-8 px-4">
+      <div className="container mx-auto md:max-w-6xl px-4 py-12">
+        <div className="flex justify-between space-x-8 mb-6">
+          <div className="text-left mb-6">
+            <div className="mb-6">
+            <DarkLogo />
             </div>
-          ))}
+            <p className="text-sm flex items-center py-1">
+              <FaPhone className="mr-2" /> +234 907 468 5973
+            </p>
+            <p className="text-sm flex items-center py-1">
+              <FaEnvelope className="mr-2" /> info@gridking.africa
+            </p>
+            <div className="flex space-x-4 mt-2">
+              <a href="#" aria-label="Facebook">
+                <FaFacebookF />
+              </a>
+              <a href="#" aria-label="Instagram">
+                <FaInstagram />
+              </a>
+              <a href="#" aria-label="Twitter">
+                <FaTwitter />
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <FaLinkedinIn />
+              </a>
+            </div>
+          </div>
+          <div className="flex justify-between space-x-8 mb-6 ">
+            <div>
+              <h4 className="font-bold">EXPLORE</h4>
+              <ul className="text-sm">
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href="#">Products</a>
+                </li>
+                <li></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold">SUPPORT</h4>
+              <ul className="text-sm">
+                <li>
+                  <a href="#">Energy Solutions</a>
+                </li>
+                <li>
+                  <a href="#">Contact Support</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold">LEGAL</h4>
+              <ul className="text-sm">
+                <li>
+                  <a href="#">Privacy Policy</a>
+                </li>
+                <li>
+                  <a href="#">Cookie Policy</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-      <hr className="my-4 border-gray-700" />
-      <div className="flex justify-between flex-wrap cursor-pointer">
-        <div className="flex items-center">
-          {footerLinks.map((link, index) => (
-            <span key={index} className="flex items-center">
-              <Link href={link.href} className="text-white mx-2">{link.name}</Link>
-              {index < footerLinks.length - 1 && " | "}
-            </span>
-          ))}
+        <div 
+        style={{backgroundImage: `url(/assets/placeholders/footer-Bg.png)`}}
+        className="text-white p-28 rounded-sm max-w-6xl mx-auto border-4 border-[#F47A2B]">
+          <h3 className="text-4xl mb-4 text-center">
+            Subscribe To Our Newsletter
+          </h3>
+          <p className="text-xs mb-6 text-center">
+            Subscribe to get the latest updates on solar innovations,
+            energy-saving tips, exclusive offers, and more — straight to your
+            inbox!
+          </p>
+          <div className="relative flex justify-center items-center">
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              className="p-3 pr-28 w-full max-w-xs text-black bg-white rounded border-none outline-none"
+            />
+            <button className="absolute bg-[#F47A2B] text-white p-2 rounded-sm font-bold uppercase right-[18rem]">
+              Subscribe
+            </button>
+          </div>
         </div>
-        <div>
-          <p>&copy; Copyrights 2024-2025, All Rights Reserved</p>
+        <div className="flex justify-between text-sm mt-12">
+          <p>GridKing Solar & Renewable Energy</p>
+          <p>© Copyright © 2025. All rights reserved.</p>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
