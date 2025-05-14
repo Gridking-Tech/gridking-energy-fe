@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// Update the import path below if QueryProvider exists elsewhere, for example:
 import QueryProvider from "../shared/QueryProvider";
-// Or create the file at src/shared/QueryProvider.tsx if it does not exist.
 import Footer from "../shared/Footer";
+import { ThemeProvider } from './context/ThemeContext';
 
+// Satoshi
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+                </QueryProvider>
         <div className="">
       
         </div>
