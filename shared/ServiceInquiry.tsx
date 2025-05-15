@@ -48,7 +48,7 @@ export default function SolarQuoteForm() {
   };
 
   return (
-    <div className="md:max-w-6xl mx-auto p-6 bg-white  min-h-screen lg:mt-20 dark:bg-black/10">
+    <div className="md:max-w-6xl mx-auto bg-white  min-h-screen lg:mt-20 dark:bg-black/10">
       <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
         <div className="md:w-1/2 pr-25 leading-loose">
           <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white">
@@ -63,13 +63,13 @@ export default function SolarQuoteForm() {
             solution — customized to your home or business.
           </p>
         </div>
-        <div className="h-[350px] w-full md:w-[500px] relative flex items-center justify-center">
+        <div className="h-[300px] w-full md:w-[500px] relative flex items-center justify-center">
           <Image
             src={solar}
             alt="solar panel"
             priority={true}
             fill
-            style={{ objectFit: "contain" }}
+            objectFit="cover"
             className="rounded"
           />
         </div>
