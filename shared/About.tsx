@@ -2,8 +2,6 @@
 
 import React, { useState, ReactNode } from "react";
 import { homePageApi } from "../api/homepage-api";
-import Image from "next/image";
-import ImagePlaceholder from "../shared/Placeholders/ImagePlaceholder";
 
 interface Props {
   icon?: ReactNode;
