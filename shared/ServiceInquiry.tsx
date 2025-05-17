@@ -16,22 +16,28 @@ export default function SolarQuoteForm() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
+    // Validate that all fields have non-empty values
     const allFieldsFilled = Object.values(formData).every(
-      (value) => value.trim() !== ""
+      (value) => value && value.trim() !== ""
     );
     setIsFormValid(allFieldsFilled);
   }, [formData]);
 
-  const handleChange = (e:React.ChangeEvent<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCountryChange = (val:string) => {
-    setFormData({ ...formData, location: val });
+  const handleCountryChange = (val: string) => {
+    setFormData({ ...formData, location: val || "" }); // Ensure location is set to empty string if invalid
   };
 
-  const handleSubmit = () => {
-    // e.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 👈 prevents default form submission
+
     if (isFormValid) {
       alert("Form submitted successfully!");
       setFormData({
@@ -48,7 +54,7 @@ export default function SolarQuoteForm() {
   };
 
   return (
-    <div className="md:max-w-6xl mx-auto bg-white  min-h-screen lg:mt-20 dark:bg-black/10">
+    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-20 dark:bg-black/10">
       <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
         <div className="md:w-1/2 pr-25 leading-loose">
           <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white">
@@ -77,9 +83,7 @@ export default function SolarQuoteForm() {
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
           <div>
-            <label className="block text-gray mb-1">
-              Name
-            </label>
+            <label className="block text-gray mb-1">Name</label>
             <input
               type="text"
               name="name"
@@ -90,9 +94,7 @@ export default function SolarQuoteForm() {
             />
           </div>
           <div>
-            <label className="block text-gray mb-1">
-              Email Address
-            </label>
+            <label className="block text-gray mb-1">Email Address</label>
             <input
               type="email"
               name="email"
@@ -103,9 +105,7 @@ export default function SolarQuoteForm() {
             />
           </div>
           <div>
-            <label className="block text-gray mb-1">
-              Phone Number
-            </label>
+            <label className="block text-gray mb-1">Phone Number</label>
             <input
               type="tel"
               name="phone"
@@ -134,9 +134,7 @@ export default function SolarQuoteForm() {
             </select>
           </div>
           <div>
-            <label className="block text-gray mb-1">
-              Location
-            </label>
+            <label className="block text-gray mb-1">Location</label>
             <CountryDropdown
               name="location"
               value={formData.location}
@@ -146,9 +144,7 @@ export default function SolarQuoteForm() {
           </div>
         </div>
         <div>
-          <label className="block text-gray mb-1">
-            Describe the inquiry
-          </label>
+          <label className="block text-gray mb-1">Describe the inquiry</label>
           <textarea
             name="message"
             value={formData.message}
@@ -160,7 +156,11 @@ export default function SolarQuoteForm() {
         <button
           type="submit"
           disabled={!isFormValid}
-          className="md:w-[100%] mt-2 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition cursor-pointer"
+          className={`md:w-[100%] mt-2 font-semibold py-3 px-6 rounded transition ${
+            isFormValid
+              ? "bg-orange-500 text-white hover:bg-[#F57B2C] cursor-pointer"
+              : "bg-orange-300 text-white opacity-60 cursor-not-allowed"
+          }`}
         >
           SUBMIT
         </button>
