@@ -17,6 +17,7 @@ const ProductShowcase = () => {
     error: any;
   };
 
+  console.log(data, 'home page resources')
   function getLastWord(sentence: string) {
     const words = sentence.trim().split(/\s+/);
     return words[words.length - 1];
