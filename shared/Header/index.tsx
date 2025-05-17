@@ -1,13 +1,7 @@
 import { navLinks } from "../../constants/constants";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { CgProfile } from "react-icons/cg";
-import { FaGlobe } from "react-icons/fa";
-import { IoSearch } from "react-icons/io5";
-import SearchModals from "../Modals/SearchModals";
-import logo from "../../public/assets/placeholders/logo-gridking.png";
-import Image from "next/image";
 import Link from "next/link";
 import {Logo} from "../Icons";
 import ThemeToggle from '@/components/ThemeToggle';
