@@ -128,14 +128,14 @@ const ProductDetail: React.FC = () => {
                   <p className="text-sm">Return Delivery</p>
                 </div>
                 <p className="text-sm text-gray-600 pl-7">
-                  Free 30 Days Returns. Details
+                  Free 30 Days Returns
                 </p>
               </div>
             </CardContent>
 
             <CardFooter>
-              <button className="w-full bg-orange-500 text-white py-3 rounded-xl hover:bg-orange-600 transition-colors">
-                Proceed to Checkout
+              <button className="p-4 bg-[#F47A2B] text-white py-3 rounded hover:bg-orange-600 transition-colors">
+                PROCEED TO CHECKOUT
               </button>
             </CardFooter>
           </div>
