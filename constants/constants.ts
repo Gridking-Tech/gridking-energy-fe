@@ -1,9 +1,9 @@
 import {
   FaLightbulb, FaFan, FaTv, FaDesktop, FaLaptop, FaMusic,
-  FaSnowflake, FaGamepad, FaTooth
+  FaSnowflake, FaGamepad
 } from 'react-icons/fa'
-import { GiWashingMachine, GiToaster, GiVacuumCleaner, GiCooler } from 'react-icons/gi'
-import { MdOutlineLight, MdOutlinePower } from 'react-icons/md'
+import { GiWashingMachine, GiToaster } from 'react-icons/gi'
+import { MdOutlineLight } from 'react-icons/md'
 import { TbFridge } from 'react-icons/tb'
 
 export const imagesArr = [];
@@ -27,17 +27,9 @@ export const ProductsLinks = [
 
         ],
       },
-      {
-        name: "LifePo4 Battery",
-        href: "/collections/LifePo4",
-        // disabled: true,
-        images: [
-          "/assets/placeholders/products.png",
-        ],
-      },
 
       {
-        name: "Lithim Battery",
+        name: "Lithium Battery",
         href: "/collections/lithium",
         disabled: true,
         images: [
@@ -63,6 +55,7 @@ export const ProductsLinks = [
       {
         name: "Off-Grid Inverter",
         href: "/collections/off-grid",
+        disabled: true,
         images: [
           "/assets/placeholders/products.png",
         ],
@@ -75,8 +68,13 @@ export const ProductsLinks = [
     images: [
       "/assets/placeholders/products.png",
     ],
+    subcategories: [
+      {
+        name: "Off Grid Panels",
+        disabled: true,
+      },
+    ],
   },
-
 
 ];
 
@@ -95,9 +93,9 @@ export const ContactLinks = [
 
 export const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
   { name: "Product", href: "", constant: ProductsLinks },
-  { name: "Blog", href: "/blog" },
+  { name: "About Us", href: "/about" },
+  // { name: "Blog", href: "/blog" },
 ];
 
 export const products = [

@@ -1,18 +1,21 @@
 "use client";
-import Image from "next/image";
 import { homePageApi } from "../../api";
 import React, { useState, useEffect } from "react";
-import CarouselControls from "./CarouselController";
-import HeroBg from "../../public/assets/placeholders/hero-Bg.png";
 import SubHero from "../SubHero";
 import DesktopHeader from "@/shared/Header";
 import { useTheme } from "@/app/context/ThemeContext";
+import Link from "next/link";
 
-export default function HeroSection() {
+export default function HeroSection({
+  handleScrollToElement,
+}: {
+  handleScrollToElement: () => void;
+}) {
   const { theme, toggleTheme } = useTheme();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageUrl, setImageUrl] = useState<string>("");
+  console.log("imageUrl", imageUrl);
 
   const { data: carouselData, isLoading } = homePageApi.useGetcarousel() as {
     data: { _id: string }[];
@@ -64,15 +67,15 @@ export default function HeroSection() {
     }
   }, [hasImages, carouselData]);
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? carouselData.length - 1 : prevIndex - 1
-    );
-  };
+  // const handlePrev = () => {
+  //   setCurrentIndex((prevIndex) =>
+  //     prevIndex === 0 ? carouselData.length - 1 : prevIndex - 1
+  //   );
+  // };
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
-  };
+  // const handleNext = () => {
+  //   setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
+  // };
 
   return (
     <div className="relative h-full">
@@ -105,9 +108,14 @@ export default function HeroSection() {
               Take control of your energy future with high-performance inverters
               built for today's needs and tomorrow's possibilities.
             </p>
-            <button className="mt-6 px-2 py-3 bg-[#F47A2B] text-white text-1xl rounded-lg w-35 hover:bg-[#e66c23] transition duration-300 hover:cursor-pointer">
-              GET STARTED
-            </button>
+            
+              <button
+                onClick={handleScrollToElement}
+                className="mt-6 px-2 py-3 bg-[#F47A2B] text-white text-1xl rounded-lg w-35 hover:bg-[#e66c23] transition duration-300 hover:cursor-pointer"
+              >
+                GET STARTED
+              </button>
+           
           </div>
         </div>
         <div className="w-full bg-[#E7E7E7]  flex justify-center relative h-52 dark:bg-[#1E1E1E]">
