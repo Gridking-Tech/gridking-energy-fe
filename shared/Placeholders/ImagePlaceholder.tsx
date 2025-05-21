@@ -1,17 +1,17 @@
 import React from "react";
-import Image from "next/image";
-import GridBanner3 from "../../public/assets/placeholders/GD001.png";
+import Image, { StaticImageData } from "next/image";
+import defaultImg from "../../public/assets/placeholders/products.png";
 
 interface ImagePlaceholderProps {
   width?: string | number;
   height?: string | number;
-  src?: string;
+  src?: string | StaticImageData;
 }
 
 const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({
   width = "100%",
   height = "500px",
-  src = GridBanner3,
+  src = defaultImg,
 }) => {
   return (
     <div
@@ -29,9 +29,6 @@ const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({
         className="absolute"
         sizes="100vw"
       />
-      <div className="absolute w-full h-full bg-black/20 flex items-center justify-center">
-        <span className="text-white font-bold text-xl italic">Oops, no pic here!</span>
-      </div>
     </div>
   );
 };

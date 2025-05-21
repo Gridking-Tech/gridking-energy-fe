@@ -3,6 +3,7 @@ export type categoryType = {
 }
 
 export interface IProduct {
+  loading: boolean;
   name: string;
   id: string;
   category: categoryType;
@@ -12,8 +13,8 @@ export interface IProduct {
   slug:string;
   primaryImage: {
     publicId:string;
-    url:string
+    url:string;
   };
-  updatedAt?:string
-  attributes:  any[]
+  updatedAt?:string;
+  attributes:  any[];
 }
