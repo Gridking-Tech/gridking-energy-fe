@@ -7,12 +7,17 @@ import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
 const ProductSection = ({
   newArrivals,
   loading,
+
 }: {
   newArrivals: IProduct[];
   loading: boolean;
+  
 }) => {
   return (
-    <section className="py-8 px-4 bg-[#E7E7E7] dark:bg-[#393939] md:mb-40">
+    <section
+      className="py-8 px-4 bg-[#E7E7E7] dark:bg-[#393939] md:mb-40"
+      id="#new-arrivals"
+    >
       <div className="md:max-w-6xl mx-auto py-12">
         <h2 className="text-3xl md:text-4xl mb-8 border-l-4 border-gray-300 pl-4">
           Powering Homes and Businesses with Excellence
@@ -30,12 +35,13 @@ const ProductSection = ({
             : newArrivals?.map((p: IProduct, index: number) => (
                 <ProductCard
                   key={index}
+                  slug={p?.slug}
                   rating={4.5}
-                  name={p.name}
-                  reviewCount={99}
-                  productId={p._id}
-                  imageUrl={p.primaryImage.url}
-                  isNew={p.status === "NEW_ARRIVAL"}
+                  name={p?.name}
+                  reviewCount={7}
+                  productId={p?._id}
+                  imageUrl={p?.primaryImage.url}
+                  isNew={p?.status === "NEW_ARRIVAL"}
                 />
               ))}
         </div>

@@ -1,12 +1,11 @@
+"use client";
+import React, { useEffect, useState } from "react";
 import { navLinks } from "../../constants/constants";
 import { motion, useAnimation } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import {Logo} from "../Icons";
-import ThemeToggle from '@/components/ThemeToggle';
-
-
+import { Logo } from "../Icons";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function DesktopHeader() {
   const [isCategories, setIscategories] = useState(false);
@@ -96,8 +95,8 @@ export default function DesktopHeader() {
           <div className="flex items-center gap-8">
             <ThemeToggle />
             <Link
-              href={"/"}
-              className=" px-5 py-3 bg-[#F47A2B] text-white text-1xl rounded-lg w-max hover:bg-[#e66c23] transition duration-300 hover:cursor-pointer"
+              href={"/contact"}
+              className=" px-5 py-3 bg-[#F47A2B] text-white text-1xl rounded w-max hover:bg-[#e66c23] transition duration-300 hover:cursor-pointer"
             >
               {`LET'S CONNECT`}
             </Link>
