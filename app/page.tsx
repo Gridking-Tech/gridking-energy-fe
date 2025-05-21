@@ -5,7 +5,7 @@ import HeroSection from "../components/HeroSection";
 import ProductShowcase from "../shared/HotSell";
 import NewArrivals from "../shared/NewArrivals";
 import NewsShowcase from "../shared/NewShowcase";
-import TalkExpert from "../shared/ServiceInquiry";
+import TalkToExpert from "../shared/TalkToExpert";
 import Footer from "../shared/Footer";
 import LoadCalculator from "../shared/LoadCalculator";
 import NavBar from "../shared/NavBar/NavBar";
@@ -21,13 +21,15 @@ export default function Homepage() {
     error: any;
   };
 
+  console.log('new arrival', data)
+
   return (
     <div className="w-screen h-screen">
       <HeroSection />
       <About />
-      <NewArrivals newArrivals={data?.newArrivals?.data} />
+      <NewArrivals newArrivals={data?.newArrivals?.data} loading={isLoading} />
       {/* <ProductShowcase /> */}
-      <TalkExpert />
+      <TalkToExpert />
       <EnergyCalculator />
       {/* <LoadCalculator /> */}
       {/* <NewsShowcase /> */}
