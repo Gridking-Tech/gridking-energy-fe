@@ -7,6 +7,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import Link from 'next/link'
+import Image from 'next/image'
 
 const ProductDetail: React.FC = () => {
   const product = {
@@ -18,7 +20,8 @@ const ProductDetail: React.FC = () => {
     description:
       "Reliable and efficient. This high-capacity SP Series Inverter delivers 80A output with a wide input range of 55V-450V. Ideal for solar and energy systems, it ensures stable, efficient power performance for both residential and commercial use.",
     images: [
-      "https://via.placeholder.com/300x400?text=Main+Image",
+      // "https://via.placeholder.com/300x400?text=Main+Image",
+      'https://placehold.co/600x400',
       "https://via.placeholder.com/100x100?text=Thumbnail+1",
       "https://via.placeholder.com/100x100?text=Thumbnail+2",
       "https://via.placeholder.com/100x100?text=Thumbnail+3",
@@ -32,16 +35,26 @@ const ProductDetail: React.FC = () => {
     setQuantity((prev) => Math.max(1, prev + change));
   };
 
+  const handlePassProductToCheckout = (product: any)=> {
+    localStorage.setItem('checkout_product', JSON.stringify(product))
+  }
+
   return (
     <section className="py-32 px-4 bg-gray-100 dark:bg-black/50">
       <div className="max-w-5xl mx-auto">
         <Card className="flex flex-col md:flex-row gap-6">
           <div className="flex flex-col gap-4 w-full md:w-1/2">
-            <img
-              src={selectedImage}
-              alt={product.title}
-              className="w-full h-96 object-cover rounded-xl"
+            <div className='h-96 w-full relative'>
+               <Image
+                  fill
+                  priority
+                  objectFit='cover'
+                  src={selectedImage}
+                  alt={product.title}
+                  objectPosition='center'
+                  className="w-full h-96 object-cover rounded-xl"
             />
+            </div>
             <div className="flex gap-2">
               {product.images.slice(1).map((image, index) => (
                 <img
@@ -134,9 +147,9 @@ const ProductDetail: React.FC = () => {
             </CardContent>
 
             <CardFooter>
-              <button className="p-4 bg-[#F47A2B] text-white py-3 rounded hover:bg-orange-600 transition-colors">
+              <Link onClick={()=>handlePassProductToCheckout(product)} href={'/checkout'} className="p-4 bg-[#F47A2B] text-white py-3 rounded hover:bg-orange-600 transition-colors">
                 PROCEED TO CHECKOUT
-              </button>
+              </Link>
             </CardFooter>
           </div>
         </Card>
