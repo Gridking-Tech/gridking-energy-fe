@@ -1,33 +1,26 @@
-import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ImagePlaceholder from "../Placeholders/ImagePlaceholder"; // Import the placeholder
-
-// Define the props interface
 interface ProductCardProps {
   name: string;
+  slug: string;
   productId: string;
   rating: number;
   reviewCount: number;
-  imageUrl?: string; // Optional image URL
-  isNew?: boolean; // Optional flag for "NEW" label
-  goTo?: string
+  imageUrl?: string;
+  isNew?: boolean;
+  goTo?: string;
 }
 
-// Reusable ProductCard component
 const ProductCard: React.FC<ProductCardProps> = ({
   name,
+  slug,
   rating,
   productId,
-  goTo='#',
+  goTo = "#",
   reviewCount,
-  imageUrl = "/default-product-image.jpg", // Default image if none provided
+  imageUrl = "/default-product-image.jpg",
   isNew = false,
 }) => {
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [imgError, setImgError] = useState(false);
-
-  // Generate star rating based on the rating value (1-5)
   const renderStars = () => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -45,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <span key="half" className="text-yellow-400">
           ☆
         </span>
-      ); // Half star representation
+      );
     }
     while (stars.length < 5) {
       stars.push(
@@ -57,40 +50,37 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return stars;
   };
 
-  const routeId = (title_id: string) => {
-    return `/products/${title_id?.replace(/\s+/g, "-")}`
-  };
-
-  // Show placeholder if loading or error or imageUrl is falsy
-  const showPlaceholder = !imageUrl || imgError || !imgLoaded;
-
   return (
-    <div className="max-w-sm rounded overflow-hidden">
-      {/* Image Section */}
-      <Link href={`${routeId(name+" "+productId)}`|| goTo} className="relative w-full bg-white" style={{ aspectRatio: "3 / 3.2" }}>
-        {showPlaceholder ? (
-          <ImagePlaceholder width={400} height={400} />
-        ) : (
+    <div className="max-w-sm rounded overflow-hidden hover:shadow-md">
+      <Link href={`/products/${slug}-${productId}` || goTo}>
+        <div
+          className="relative w-full bg-white "
+          style={{ aspectRatio: "3 / 3.2" }}
+        >
           <Image
             fill
+            priority
+            sizes="100vw"
+            alt={`${slug}`}
+            objectPosition="center"
+            src={imageUrl as string}
             className="object-contain"
-            src={imageUrl}
-            alt={`${name} image`}
-            onLoad={() => setImgLoaded(true)}
-            onError={() => setImgError(true)}
+            blurDataURL="/assets/placeholders/products.png"
           />
-        )}
-        {isNew && (
-          <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
-            NEW
-          </span>
-        )}
+
+          {isNew && (
+            <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
+              NEW
+            </span>
+          )}
+        </div>
       </Link>
 
-      {/* Content Section */}
-      <div className="py-4">
-        <Link href={`${routeId(name+" "+productId)}`|| goTo}>
-          <h3 className="text-lg font-bold text-gray-800 hover:text-[#F57B2C]">{name}</h3>
+      <div className="py-4 px-1">
+        <Link href={`/products/${slug}-${productId}` || goTo}>
+          <h3 className="text-lg font-bold text-gray-800 hover:text-[#F57B2C]">
+            {name}
+          </h3>
         </Link>
 
         <div className="flex items-center mt-2">
