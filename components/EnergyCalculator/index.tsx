@@ -18,12 +18,24 @@ const EnergyCalculator = () => {
     "Washing Machine",
   ];
 
+  const consumptionRates = {
+    "Air Conditioner (1HP)": 746,
+    Refrigerator: 150,
+    "LED TV": 80,
+    "Washing Machine": 500,
+  };
+
   const handleAddAppliance = () => {
     if (appliance && quantity > 0) {
-      setSelectedAppliances([
-        ...selectedAppliances,
-        { name: appliance, quantity },
-      ]);
+      const existingIndex = selectedAppliances.findIndex(
+        (item) => item.name === appliance
+      );
+      let updatedAppliances = [...selectedAppliances];
+      if (existingIndex !== -1) {
+        updatedAppliances.splice(existingIndex, 1);
+      }
+      updatedAppliances = [{ name: appliance, quantity }, ...updatedAppliances];
+      setSelectedAppliances(updatedAppliances);
       setAppliance("");
       setQuantity(1.0);
     }
@@ -50,16 +62,16 @@ const EnergyCalculator = () => {
       setRecommendations(null);
     } finally {
       setIsLoading(false);
+      setSelectedAppliances([]);
     }
   };
 
   useEffect(() => {
     const consumption = selectedAppliances.reduce((sum, item) => {
-      if (item.name === "Air Conditioner (1HP)") {
-        return sum + item.quantity * 0.746;
-      }
-      return sum;
+      const wattage = consumptionRates[item.name] || 0;
+      return sum + (item.quantity * wattage) / 1000;
     }, 0);
+
     setTotalConsumption(consumption.toFixed(2));
   }, [selectedAppliances]);
 
@@ -80,7 +92,7 @@ const EnergyCalculator = () => {
             <h3 className="text-2xl font-semibold text-gray-900">
               Total Power Consumption
             </h3>
-            <p className="text-4xl font-bold text-orange-500 mt-2">
+            <p className="text-6xl font-bold text-orange-500 mt-2">
               {totalConsumption} kWh
             </p>
           </div>
@@ -90,13 +102,13 @@ const EnergyCalculator = () => {
             <div className="space-y-4">
               <div className="flex space-x-4">
                 <div className="w-1/2">
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block font-medium text-gray-700 mb-2">
                     Appliance
                   </label>
                   <select
                     value={appliance}
                     onChange={(e) => setAppliance(e.target.value)}
-                    className="w-full p-2 bg-white border border-gray-300 rounded text-gray-900"
+                    className="w-full p-2 border border-gray-300 rounded text-gray-900 cursor-pointer bg-[#F6F6F6]"
                   >
                     <option value="" disabled>
                       Select an Appliance
@@ -109,13 +121,13 @@ const EnergyCalculator = () => {
                   </select>
                 </div>
                 <div className="w-1/2">
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block font-medium text-gray-700 mb-2">
                     Quantity
                   </label>
                   <select
                     value={quantity}
                     onChange={(e) => setQuantity(parseFloat(e.target.value))}
-                    className="w-full p-2 bg-white border border-gray-300 rounded text-gray-900"
+                    className="w-full p-2 bg-[#F6F6F6] border border-gray-300 rounded text-gray-900 cursor-pointer"
                   >
                     {[1.0, 2.0, 3.0, 4.0, 5.0].map((q) => (
                       <option key={q} value={q}>
@@ -128,33 +140,34 @@ const EnergyCalculator = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={handleAddAppliance}
-                  className="w-1/2 p-2 bg-white border border-gray-300 rounded text-gray-900 hover:bg-gray-100"
+                  className="w-1/2 p-2 bg-white border border-gray-300 rounded text-gray-900 hover:bg-gray-100 cursor-pointer"
                 >
                   + Add Appliance
                 </button>
               </div>
             </div>
 
-            <div className="border-t border-gray-400 my-4"></div>
             <div className="space-y-4">
-              <h4 className="text-lg font-medium text-gray-900">
+              <label className="font-medium text-gray-700">
                 Selected Items
-              </h4>
+              </label>
+              <div className="border-t border-gray-400 my-4"></div>
+
               <div className="mt-2 max-h-40 overflow-y-auto border border-gray-300 rounded p-2 bg-[#E7E7E7]">
                 {selectedAppliances.length === 0 ? (
-                  <EmptyState text="Add an Appliance(s) to calculate energy usage" />
+                  <EmptyState text="You need to add an Appliance(s) to calculate energy usage" />
                 ) : (
                   selectedAppliances.map((item, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-2 rounded mb-2 text-gray-900"
+                      className="flex items-center justify-between p-2 rounded mb-1 text-gray-900" // changed mb-2 to mb-1
                     >
                       <span>
                         {item.name} x {item.quantity}
                       </span>
                       <button
                         onClick={() => handleRemoveAppliance(index)}
-                        className="text-gray-500 hover:text-gray-700"
+                        className="text-gray-500 hover:text-gray-700 cursor-pointer"
                       >
                         <svg
                           className="w-4 h-4"
@@ -178,7 +191,7 @@ const EnergyCalculator = () => {
             <button
               onClick={handleCalculate}
               disabled={isLoading || selectedAppliances.length === 0}
-              className={`w-full mt-4 p-2 bg-orange-500 rounded hover:bg-orange-600 text-white ${
+              className={`w-full mt-4 p-2 bg-[#F57B2C] rounded hover:bg-orange-600 text-white cursor-pointer ${
                 isLoading || selectedAppliances.length === 0
                   ? "opacity-50 cursor-not-allowed"
                   : ""
@@ -189,12 +202,18 @@ const EnergyCalculator = () => {
           </div>
         </div>
       </div>
-
-      <RecommendationsModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        recommendations={recommendations}
-      />
+      {isModalOpen && recommendations && (
+        <RecommendationsModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          energyUsage={{
+            totalConsumption: totalConsumption + " kWh",
+            recommendedInverterRating: recommendations.inverterRating,
+            recommendedBatteryCapacity: recommendations.battery,
+            recommendedBatteryCount: recommendations.solarPanel,
+          }}
+        />
+      )}
     </div>
   );
 };
