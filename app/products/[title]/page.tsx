@@ -18,7 +18,6 @@ const ProductsDescription = () => {
   return (
     <div>
       <DesktopHeader />
-
       <ProductDetail />
       <Footer />
     </div>
