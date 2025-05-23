@@ -2,9 +2,7 @@
 import { homePageApi } from "../../api";
 import React, { useState, useEffect } from "react";
 import SubHero from "../SubHero";
-import DesktopHeader from "@/shared/Header";
 import { useTheme } from "@/app/context/ThemeContext";
-import Link from "next/link";
 
 export default function HeroSection({
   handleScrollToElement,
@@ -15,9 +13,8 @@ export default function HeroSection({
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageUrl, setImageUrl] = useState<string>("");
-  console.log("imageUrl", imageUrl);
 
-  const { data: carouselData, isLoading } = homePageApi.useGetcarousel() as {
+  const { data: carouselData } = homePageApi.useGetcarousel() as {
     data: { _id: string }[];
     isLoading: boolean;
     error: unknown;
@@ -32,7 +29,7 @@ export default function HeroSection({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -67,18 +64,8 @@ export default function HeroSection({
     }
   }, [hasImages, carouselData]);
 
-  // const handlePrev = () => {
-  //   setCurrentIndex((prevIndex) =>
-  //     prevIndex === 0 ? carouselData.length - 1 : prevIndex - 1
-  //   );
-  // };
-
-  // const handleNext = () => {
-  //   setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
-  // };
-
   return (
-    <div className="relative h-full">
+    <div className="relative h-screen">
       <div
         style={{
           backgroundImage: `${
@@ -89,8 +76,6 @@ export default function HeroSection({
         }}
         className="bg-contain bg-top bg-no-repeat flex flex-col justify-between  h-full "
       >
-        <DesktopHeader />
-
         <div className="w-5/6 m-auto flex flex-col lg:flex-row  flex-1 mt-14">
           <div className="w-full lg:w-3/5 flex flex-col justify-center h-max ">
             <div className=" border-l-4 pl-4">
@@ -108,14 +93,13 @@ export default function HeroSection({
               Take control of your energy future with high-performance inverters
               built for today's needs and tomorrow's possibilities.
             </p>
-            
-              <button
-                onClick={handleScrollToElement}
-                className="mt-6 px-2 py-3 bg-[#F47A2B] text-white text-1xl rounded-lg w-35 hover:bg-[#e66c23] transition duration-300 hover:cursor-pointer"
-              >
-                GET STARTED
-              </button>
-           
+
+            <button
+              onClick={handleScrollToElement}
+              className="mt-6 px-2 py-3 bg-[#F47A2B] text-white text-1xl rounded-lg w-35 hover:bg-[#e66c23] transition duration-300 hover:cursor-pointer"
+            >
+              GET STARTED
+            </button>
           </div>
         </div>
         <div className="w-full bg-[#E7E7E7]  flex justify-center relative h-52 dark:bg-[#1E1E1E]">

@@ -5,9 +5,8 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ImagePlaceholder from "../shared/Placeholders/ImagePlaceholder";
 import { homePageApi, productsApi } from "../api";
-import Footer from "./Footer";
 import { useRouter } from "next/navigation";
-import {FadeLoader} from "react-spinners";
+import { FadeLoader } from "react-spinners";
 import SkeletonCard from "./util/SkeletonCard";
 import { CapitalizeFirstLetter } from "../lib";
 
@@ -15,7 +14,6 @@ interface ProductsPageProps {
   name: string;
   subname?: string;
 }
-
 
 const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   const router = useRouter();
@@ -31,9 +29,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
   }>({});
   const [isLoadingImages, setIsLoadingImages] = useState(true);
 
-
-
-  const { data: productsDataId,isLoading } = homePageApi.useGetCarouselById(
+  const { data: productsDataId, isLoading } = homePageApi.useGetCarouselById(
     "67ec910d2d2e858db2b1ca2a"
   ) as {
     data: any;
@@ -46,7 +42,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     isLoading: boolean;
     error: any;
   };
-
 
   const handleNavigation = (path: string) => {
     router.replace(path);
@@ -93,7 +88,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
       }
     }
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -155,7 +149,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                   });
                 }
               } catch (err) {
-                console.error("Failed to fetch product for subcategory", sub.name, err);
+                console.error(
+                  "Failed to fetch product for subcategory",
+                  sub.name,
+                  err
+                );
               }
             })
           );
@@ -172,10 +170,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
     fetchData();
   }, [name, subname, ProductsContainer]);
 
-  if (isLoading) return <div className="text-center h-screen w-scren flex justify-center items-center  font-black mt-10">
-    <FadeLoader height={15} />
-  </div>;
-
+  if (isLoading)
+    return (
+      <div className="text-center h-screen w-scren flex justify-center items-center  font-black mt-10">
+        <FadeLoader height={15} />
+      </div>
+    );
 
   return (
     <div className="w-full">
@@ -193,13 +193,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
             <div className="absolute inset-0 bg-black/20"></div>
           </div>
         ) : (
-          <ImagePlaceholder/>
+          <ImagePlaceholder />
         )}
         <div className="text-gray-600 font-black flex items-center px-10 w-full bg-gray-300/40 h-[3rem]">
           {`Home > ${decodeURIComponent(CapitalizeFirstLetter(name))}`}
           {typeof subname !== "undefined" &&
-            subname !== "" &&
-            subname !== "undefined"
+          subname !== "" &&
+          subname !== "undefined"
             ? ` > ${decodeURIComponent(subname)}`
             : ""}
         </div>
@@ -215,13 +215,15 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                   <button
                     onClick={() => router.push(`/collections/${category.name}`)}
                     className={`block font-semibold 
-                      ${category.disabled
-                        ? "pointer-not-allowed text-gray-500"
-                        : "cursor-pointer"
+                      ${
+                        category.disabled
+                          ? "pointer-not-allowed text-gray-500"
+                          : "cursor-pointer"
                       } 
-                      ${category.name === name
-                        ? "text-orange-500"
-                        : "text-gray-700"
+                      ${
+                        category.name === name
+                          ? "text-orange-500"
+                          : "text-gray-700"
                       }`}
                   >
                     {category.name}
@@ -259,10 +261,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
                                   `/collections/${category.name}/${sub.name}`
                                 )
                               }
-                              className={`text-sm  cursor-pointer hover:text-orange-500 ${subname === sub.name
-                                ? "text-orange-500 font-semibold"
-                                : "text-gray-600"
-                                }`}
+                              className={`text-sm  cursor-pointer hover:text-orange-500 ${
+                                subname === sub.name
+                                  ? "text-orange-500 font-semibold"
+                                  : "text-gray-600"
+                              }`}
                             >
                               {sub.name}
                             </button>
@@ -286,7 +289,9 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:h-[40rem]">
             {isLoadingImages ? (
-              Array.from({ length: 6 }).map((_, index) => <SkeletonCard key={index} />)
+              Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonCard key={index} />
+              ))
             ) : selectedImages.length > 0 ? (
               selectedImages.map((imageData, index) => (
                 <div
@@ -309,12 +314,9 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ name, subname }) => {
             ) : (
               <p className="text-gray-500">No products found.</p>
             )}
-
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

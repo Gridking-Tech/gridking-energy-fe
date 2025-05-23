@@ -14,7 +14,7 @@ const ProductSection = ({
   
 }) => {
   return (
-    <section
+    <div
       className="py-8 px-4 bg-[#E7E7E7] dark:bg-[#393939] md:mb-40"
       id="#new-arrivals"
     >
@@ -47,14 +47,14 @@ const ProductSection = ({
         </div>
         <div className="text-left mt-6">
           <Link
-            href={"/collections"}
+            href={"/categories"}
             className="bg-[#F57B2C] text-white px-6 py-2 rounded hover:bg-orange-600 transition-colors cursor-pointer hover:shadow-lg"
           >
             Explore Our Products
           </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
