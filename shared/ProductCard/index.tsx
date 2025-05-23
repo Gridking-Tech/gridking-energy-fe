@@ -1,5 +1,8 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import {useCheckout} from "@/app/context";
 interface ProductCardProps {
   name: string;
   slug: string;
@@ -21,6 +24,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageUrl = "/default-product-image.jpg",
   isNew = false,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const { addToCheckout } = useCheckout();
+
   const renderStars = () => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -50,8 +57,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return stars;
   };
 
+  const handleAddToCheckout = () => {
+    addToCheckout({
+      productId,
+      name,
+      slug,
+      imageUrl,
+    });
+  };
+
   return (
-    <div className="max-w-sm rounded overflow-hidden hover:shadow-md">
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="max-w-sm rounded overflow-hidden hover:shadow-md"
+    >
       <Link href={`/products/${slug}-${productId}` || goTo}>
         <div
           className="relative w-full bg-white "
@@ -83,9 +103,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </h3>
         </Link>
 
-        <div className="flex items-center mt-2">
-          {renderStars()}
-          <span className="ml-2 text-sm text-gray-600">({reviewCount})</span>
+        <div className="mt-2 flex justify-between items-center">
+          <div className="flex items-center ">
+            {renderStars()}
+            <span className="ml-2 text-sm text-gray-600">({reviewCount})</span>
+          </div>
+
+          <div className="h-12">
+            {isHovered && (
+              <button
+                onClick={handleAddToCheckout}
+                className="text-xs cursor-pointer font-bold border-gray-500 bg-orange-500 hover:bg-orange-700 text-white p-2 rounded-sm"
+              >
+                Add to Checkout
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

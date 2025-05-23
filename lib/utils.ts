@@ -28,3 +28,15 @@ export function flattenObjectArrays(obj:any) {
       : []
   );
 }
+
+export function retrieveIdFromTitle(titleStr: string) {
+  const parts = titleStr.split("-");
+  const lastPart = parts[parts.length - 1];
+  return lastPart || null;
+}
+
+export function retrieveTitle(titleStr: string) {
+  const parts = titleStr.split("-");
+  const firstPart = parts[0];
+  return firstPart || null;
+}
