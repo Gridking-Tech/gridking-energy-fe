@@ -23,17 +23,19 @@ const Pricing = () => {
       : null;
   }, []);
 
+  const defaultFormData: FormData = {
+    firstName: "",
+    companyName: "",
+    streetAddress: "",
+    apartment: "",
+    townCity: "",
+    phoneNumber: "",
+    emailAddress: "",
+    saveInfo: false,
+  };
 
   const [formData, setFormData] = useState<FormData>(
-    storedFormData || {
-      firstName: "",
-      companyName: "",
-      streetAddress: "",
-      apartment: "",
-      townCity: "",
-      phoneNumber: "",
-      emailAddress: "",
-    }
+    storedFormData ? { ...defaultFormData, ...storedFormData } : defaultFormData
   );
 
   const [saveInfo, setSaveInfo] = useState<boolean>(
@@ -42,15 +44,12 @@ const Pricing = () => {
 
   const order =
     typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("checkout_product") as string)
+      ? JSON.parse(localStorage.getItem("checkout_product") || "null")
       : null;
 
-  useEffect(()=>{
-
-    if(Object.keys(order || {}).length === 0)
-      router.replace('/') 
-
-  },[order])
+  useEffect(() => {
+    if (!order || Object.keys(order).length === 0) router.replace("/");
+  }, [order, router]);
 
   const handleInputChange = (e: InputChangeEvent) => {
     const { name, value } = e.target;
@@ -70,26 +69,49 @@ const Pricing = () => {
 
   const handleSubmit = () => {
     try {
-      const { _, ...rest } = order;
+      const { _, ...rest } = order || {};
       const quotePayload = {
         order: { ...rest },
         customer_details: { ...formData },
       };
       handleSaveInfo();
     } catch (err) {
+      console.error("Error submitting quote:", err);
     } finally {
       localStorage.removeItem("checkout_product");
       router.replace("/");
+      alert("Quote request submitted successfully");
+    }
+  };
+
+  const isFormValid = useMemo(() => {
+    return (
+      formData.firstName.trim() !== "" &&
+      formData.streetAddress.trim() !== "" &&
+      formData.townCity.trim() !== "" &&
+      formData.phoneNumber.trim() !== "" &&
+      formData.emailAddress.trim() !== ""
+    );
+  }, [formData]);
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isFormValid) {
+      handleSubmit();
     }
   };
 
   return (
-    <div className="py-8 px-30">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row overflow-hidden">
-        <div className="md:w-[50%] md:w-2/3 p-8">
-          <h2 className="text-3xl mb-8 text-gray-800">Pricing Details</h2>
-          <form>
-            <div className="mb-5">
+    <div className="py-8 px-40">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl mb-8 text-gray-800">Pricing Details</h2>
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col md:flex-row gap-6"
+        >
+          {/* Left Column - Form Fields */}
+          <div className="w-full md:w-1/2">
+            <div className="mb-2">
               <label
                 htmlFor="firstName"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -102,16 +124,21 @@ const Pricing = () => {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleInputChange}
-                className="h-[70%] bg-[#F6F6F6] w-full p-3 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[40px] w-full p-3 bg-[#F6F6F6] text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
+              {formData.firstName.trim() === "" && (
+                <p className="text-red-500 text-xs mt-1">
+                  This field is required
+                </p>
+              )}
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <label
                 htmlFor="companyName"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Company Name
+                Company Name (optional)
               </label>
               <input
                 type="text"
@@ -119,10 +146,10 @@ const Pricing = () => {
                 name="companyName"
                 value={formData.companyName}
                 onChange={handleInputChange}
-                className="h-[70%] bg-[#F6F6F6] w-full p-3 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400"
               />
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <label
                 htmlFor="streetAddress"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -135,11 +162,16 @@ const Pricing = () => {
                 name="streetAddress"
                 value={formData.streetAddress}
                 onChange={handleInputChange}
-                className="h-[70%] bg-[#F6F6F6] w-full p-3 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
+              {formData.streetAddress.trim() === "" && (
+                <p className="text-red-500 text-xs mt-1">
+                  This field is required
+                </p>
+              )}
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <label
                 htmlFor="apartment"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -152,10 +184,10 @@ const Pricing = () => {
                 name="apartment"
                 value={formData.apartment}
                 onChange={handleInputChange}
-                className="h-[70%] bg-[#F6F6F6] w-full p-3 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400"
               />
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <label
                 htmlFor="townCity"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -168,11 +200,16 @@ const Pricing = () => {
                 name="townCity"
                 value={formData.townCity}
                 onChange={handleInputChange}
-                className="h-[70%] bg-[#F6F6F6] w-full p-3 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
+              {formData.townCity.trim() === "" && (
+                <p className="text-red-500 text-xs mt-1">
+                  This field is required
+                </p>
+              )}
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <label
                 htmlFor="phoneNumber"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -185,11 +222,16 @@ const Pricing = () => {
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
-                className="h-[70%] bg-[#F6F6F6] w-full p-3 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
+              {formData.phoneNumber.trim() === "" && (
+                <p className="text-red-500 text-xs mt-1">
+                  This field is required
+                </p>
+              )}
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <label
                 htmlFor="emailAddress"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -202,9 +244,14 @@ const Pricing = () => {
                 name="emailAddress"
                 value={formData.emailAddress}
                 onChange={handleInputChange}
-                className="h-[70%] bg-[#F6F6F6] w-full p-3 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
+              {formData.emailAddress.trim() === "" && (
+                <p className="text-red-500 text-xs mt-1">
+                  This field is required
+                </p>
+              )}
             </div>
             <div className="flex items-center mt-6">
               <input
@@ -222,59 +269,63 @@ const Pricing = () => {
                 Save this information for faster check-out next time
               </label>
             </div>
-          </form>
-        </div>
-
-        <div className="w-full md:w-1/3 p-8 flex flex-col md:mt-[10%]">
-          <div>
-            <div className="flex items-center mb-6">
-              <div className="w-10 h-10 flex items-center justify-center rounded-md mr-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6 text-gray-600"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 18v-5.25a4.5 4.5 0 0 0-4.5 4.5V18m7.5-6v-.75A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-4.5 4.5v.75m7.5 0v.75m-7.5-.75h-.75M12 15h.008v.008H12Zm0 0v-.75a4.5 4.5 0 0 0 4.5-4.5V9"
-                  />
-                </svg>
-              </div>
-              <span className="text-sm text-gray-800 font-medium">
-                {order?.productName}
-              </span>
-              <span className="ml-auto text-sm text-gray-800 font-medium">
-                <span>{"Not Available"}</span>
-              </span>{" "}
-            </div>
-            <div className="pt-4 border-t border-gray-200">
-              <div className="flex justify-between text-sm text-gray-700 mb-3">
-                <span>Subtotal:</span>
-                <span>{"Not Available"}</span>
-              </div>
-              <div className="flex justify-between text-sm text-gray-600 mb-3">
-                <span>Shipping:</span>
-                <span>{"Not Available"}</span>
-              </div>
-              <div className="flex justify-between text-sm text-gray-600 mt-6 pt-4 border-t border-gray-200">
-                <span>Total:</span>
-                <span>{"Not Available"}</span>
-              </div>
-            </div>
           </div>
-          <button
-            onClick={handleSubmit}
-            type="submit"
-            className="mt-4 w-full py-2 bg-[#F57B2C] text-white font-semibold rounded hover:bg-orange-600 transition-colors cursor-pointer"
-            disabled={!formData}
-          >
-            GET QUOTE
-          </button>
-        </div>
+
+          {/* Right Column - Product and Pricing Details */}
+          <div className="w-full md:w-1/2 justify-between py-4 px-8">
+            <div>
+              <div className="flex items-center mb-6">
+                <div className="w-10 h-10 flex items-center justify-center rounded-md mr-3 bg-gray-200">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 text-gray-600"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 18v-5.25a4.5 4.5 0 0 0-4.5 4.5V18m7.5-6v-.75A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-4.5 4.5v.75m7.5 0v.75m-7.5-.75h-.75M12 15h.008v.008H12Zm0 0v-.75a4.5 4.5 0 0 0 4.5-4.5V9"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm text-gray-800 font-medium">
+                  {order?.productName || "Not Available"}
+                </span>
+                <span
+                  className={`ml-auto text-sm font-semibold   ${
+                    order ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  {order ? "In Stock" : "Out of stock"}
+                </span>
+              </div>
+              <div className="pt-4 border-t border-gray-200">
+                <div className="flex justify-between text-sm text-gray-700 mb-3">
+                  <span>Subtotal:</span>
+                  <span>{order ? "Not Available" : "N/A"}</span>
+                </div>
+                <div className="flex justify-between text-sm text-gray-600 mb-3">
+                  <span>Shipping:</span>
+                  <span>{order ? "Not Available" : "N/A"}</span>
+                </div>
+                <div className="flex justify-between text-sm text-gray-600 mt-6 pt-4 border-t border-gray-200">
+                  <span>Total:</span>
+                  <span>{order ? "Not Available" : "N/A"}</span>
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="w-full mt-4 py-2 bg-[#F57B2C] text-white font-semibold rounded hover:bg-orange-600 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
+              disabled={!isFormValid}
+            >
+              GET QUOTE
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
