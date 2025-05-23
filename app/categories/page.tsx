@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import Banner from "@/components/Banner";
 import ProductCategories from "@/components/ProductCategories";
 
