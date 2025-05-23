@@ -54,7 +54,7 @@ export default function TalkToExpert() {
   };
 
   return (
-    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-20 dark:bg-black/10 mb-20">
+    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-10 dark:bg-black/10 ">
       <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
         <div className="md:w-1/2 pr-25 leading-loose">
           <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white">

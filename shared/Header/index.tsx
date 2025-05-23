@@ -9,7 +9,6 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 export default function DesktopHeader() {
   const [isCategories, setIscategories] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
   const pathname = usePathname();
   const [activeCategory, setActiveCategory] = useState<any>(null);
   const routes = useRouter();
@@ -115,14 +114,12 @@ export default function DesktopHeader() {
             >
               <ul className="w-full flex flex-wrap gap-8 justify-between">
                 {" "}
-                {/* Ensure categories are evenly spaced */}
                 {activeCategory?.map((category: any, index: any) => (
                   <div
                     key={index}
                     className="flex flex-col items-start flex-1 min-w-[20%] space-y-2"
                   >
                     {" "}
-                    {/* Adjusted to allow flexible width for each category */}
                     <li
                       className={`text-black text-[1.04rem] font-black mb-2 ${
                         category.disabled
@@ -133,7 +130,8 @@ export default function DesktopHeader() {
                         routes.push(
                           !category.routes
                             ? category.href
-                            : `/collections/${category.name}`
+                            : `categories`
+                          // : `/collections/${category.name}`
                         )
                       }
                     >
@@ -150,7 +148,8 @@ export default function DesktopHeader() {
                           }`}
                           onClick={() =>
                             routes.push(
-                              `/collections/${category.name}/${sub.name}`
+                              `/categories/inverter-682d0c902d1c5c0c1a21433d`
+                              // `/categories/${category.name}/${sub.name}`
                             )
                           }
                         >

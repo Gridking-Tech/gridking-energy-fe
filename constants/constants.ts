@@ -1,17 +1,11 @@
-import {
-  FaLightbulb, FaFan, FaTv, FaDesktop, FaLaptop, FaMusic,
-  FaSnowflake, FaGamepad
-} from 'react-icons/fa'
-import { GiWashingMachine, GiToaster } from 'react-icons/gi'
-import { MdOutlineLight } from 'react-icons/md'
-import { TbFridge } from 'react-icons/tb'
+
 
 export const imagesArr = [];
 
 export const ProductsLinks = [
   {
     name: "Battery",
-    href: "/collections/battery",
+    href: "/categories",
     images: [
       "/assets/placeholders/products.png",
       "/assets/placeholders/products.png",
@@ -20,7 +14,7 @@ export const ProductsLinks = [
     subcategories: [
       {
         name: "Gel Battery",
-        href: "/collections/gel",
+        href: "/categories",
 
         images: [
           "/assets/placeholders/products.png",
@@ -30,7 +24,7 @@ export const ProductsLinks = [
 
       {
         name: "Lithium Battery",
-        href: "/collections/lithium",
+        href: "/categories",
         disabled: true,
         images: [
           "/assets/placeholders/products.png",
@@ -40,21 +34,21 @@ export const ProductsLinks = [
   },
   {
     name: "Inverters",
-    href: "/collections/inverters",
+    href: "/categories",
     images: [
       "/assets/placeholders/products.png",
     ],
     subcategories: [
       {
         name: "Hybrid Inverter",
-        href: "/collections/hybrid",
+        href: "/categories",
         images: [
           "/assets/placeholders/products.png",
         ],
       },
       {
         name: "Off-Grid Inverter",
-        href: "/collections/off-grid",
+        href: "/categories",
         disabled: true,
         images: [
           "/assets/placeholders/products.png",
@@ -64,7 +58,7 @@ export const ProductsLinks = [
   },
   {
     name: "Solar Panel",
-    href: "/collections/solar-panel",
+    href: "/categories",
     images: [
       "/assets/placeholders/products.png",
     ],
@@ -128,53 +122,6 @@ export const productTabs = [
   },
 ];
 
-export const newsItems = [
-  {
-    id: 1,
-    date: "Nov 20, 2023",
-    image: [],
-  },
-  {
-    id: 2,
-    date: "Nov 16, 2023",
-    image: [],
-  },
-  {
-    id: 3,
-    date: "Nov 16, 2023",
-    image: [],
-  },
-];
-type Appliance = {
-  name: string
-  quantity: number
-  power: number
-  icon: any
-}
-
-export const LoadAppliances: Appliance[] = [
-  { name: "Normal Bulb", quantity: 0, power: 60, icon: FaLightbulb },
-  { name: "Tube Light", quantity: 0, power: 40, icon: MdOutlineLight },
-  { name: "LED Lamp", quantity: 0, power: 10, icon: FaLightbulb },
-  { name: "Fan", quantity: 0, power: 75, icon: FaFan },
-  { name: "Music System", quantity: 0, power: 100, icon: FaMusic },
-  { name: "LCD/LED TV (< 42\")", quantity: 0, power: 80, icon: FaTv },
-  { name: "LCD/LED TV (> 42\")", quantity: 0, power: 150, icon: FaTv },
-  { name: "Desktop Computer", quantity: 0, power: 200, icon: FaDesktop },
-  { name: "Laptop", quantity: 0, power: 65, icon: FaLaptop },
-  { name: "Refrigerator (165–250Ltr)", quantity: 0, power: 150, icon: TbFridge },
-  { name: "Refrigerator (250–350Ltr)", quantity: 0, power: 200, icon: TbFridge },
-  { name: "Refrigerator (350–450Ltr)", quantity: 0, power: 250, icon: TbFridge },
-  { name: "Refrigerator (> 450Ltr)", quantity: 0, power: 300, icon: TbFridge },
-  { name: "AC – 1HP", quantity: 0, power: 1000, icon: FaSnowflake },
-  { name: "AC – 1.5HP", quantity: 0, power: 1500, icon: FaSnowflake },
-  { name: "AC – 2HP", quantity: 0, power: 2000, icon: FaSnowflake },
-  { name: "Toaster", quantity: 0, power: 800, icon: GiToaster },
-  { name: "Washing Machine", quantity: 0, power: 500, icon: GiWashingMachine },
-  { name: "Gaming Console", quantity: 0, power: 150, icon: FaGamepad },
-  { name: "Microwave Oven", quantity: 0, power: 1000, icon: GiWashingMachine }
-]
-
 import { FaSolarPanel, FaBatteryFull, FaBolt } from 'react-icons/fa'
 
 export const productCategories = [
@@ -182,19 +129,19 @@ export const productCategories = [
     name: 'Inverter',
     description: 'Efficient and reliable inverter systems for your power needs.',
     icon: FaBolt,
-    href: '/collections/inverters',
+    href: "/categories",
   },
   {
     name: 'Battery',
     description: 'Durable batteries for longer power backup.',
     icon: FaBatteryFull,
-    href: '/collections/battery',
+    href: "/categories",
   },
   {
     name: 'Solar Panel',
     description: 'High-performance solar panels to harness the sun.',
     icon: FaSolarPanel,
-    href: '/collections/solar-panel',
+    href: "/categories",
   },
 ];
 
