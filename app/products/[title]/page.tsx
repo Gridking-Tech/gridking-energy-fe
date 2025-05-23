@@ -1,8 +1,6 @@
 "use client";
 import { productsApi } from "../../../api";
 import ProductDetail from "@/components/ProductDetail";
-import Footer from "@/shared/Footer";
-import DesktopHeader from "@/shared/Header";
 import { useParams } from "next/navigation";
 import { IProduct } from "@/types";
 
@@ -22,9 +20,7 @@ const ProductsDescription = () => {
 
   return (
     <div>
-      <DesktopHeader />
       <ProductDetail product={data as IProduct} />
-      <Footer />
     </div>
   );
 };
