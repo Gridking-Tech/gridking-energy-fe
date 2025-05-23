@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RecommendationsModal from "./components/Recommendations";
 import EmptyState from "../EmptyState";
+import mockData from "@/mockData.json";
 
 const EnergyCalculator = () => {
   const [totalConsumption, setTotalConsumption] = useState(0.0);
@@ -11,25 +12,21 @@ const EnergyCalculator = () => {
   const [recommendations, setRecommendations] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const appliances = [
-    "Air Conditioner (1HP)",
-    "Refrigerator",
-    "LED TV",
-    "Washing Machine",
-  ];
-
-  const consumptionRates = {
-    "Air Conditioner (1HP)": 746,
-    Refrigerator: 150,
-    "LED TV": 80,
-    "Washing Machine": 500,
-  };
+  const appliancesList = mockData.appliances || [];
+  const appliances = appliancesList.map((item) => item.name);
+  const consumptionRates = appliancesList.reduce<Record<string, number>>(
+    (acc, item) => {
+      acc[item.name] = item.wattage;
+      return acc;
+    },
+    {}
+  );
 
   const handleAddAppliance = () => {
     const parsedQuantity = parseFloat(quantity);
     if (appliance && parsedQuantity > 0 && !isNaN(parsedQuantity)) {
       const existingIndex = selectedAppliances.findIndex(
-        (item) => item.name === appliance
+        (item) => item?.name === appliance
       );
       let updatedAppliances = [...selectedAppliances];
       if (existingIndex !== -1) {
@@ -72,15 +69,15 @@ const EnergyCalculator = () => {
 
   useEffect(() => {
     const consumption = selectedAppliances.reduce((sum, item) => {
-      const wattage = consumptionRates[item.name] || 0;
-      return sum + (item.quantity * wattage) / 1000;
+      const wattage = consumptionRates[item?.name] || 0;
+      return sum + (item?.quantity * wattage) / 1000;
     }, 0);
 
-    setTotalConsumption(consumption.toFixed(2));
+    setTotalConsumption(consumption?.toFixed(2));
   }, [selectedAppliances]);
 
   return (
-    <div className="bg-white text-gray-900 px-4 py-8 mb-45">
+    <div className="bg-white text-gray-900 px-4 py-4 mb-45">
       <div className="max-w-6xl mx-auto flex">
         <div className="w-1/2 pr-8 sticky top-8">
           <span className="w-1 h-12 bg-gray-400 mr-4 inline-block"></span>
@@ -142,7 +139,7 @@ const EnergyCalculator = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={handleAddAppliance}
-                  className="w-1/2 p-2 bg-white border border-gray-300 rounded text-gray-900 hover:bg-gray-100 cursor-pointer"
+                  className="w-full p-2 bg-white border border-gray-300 rounded text-gray-900 hover:bg-gray-100 cursor-pointer"
                 >
                   + Add Appliance
                 </button>
@@ -155,21 +152,22 @@ const EnergyCalculator = () => {
               </label>
               <div className="border-t border-gray-400 my-4"></div>
 
-              <div className="mt-2 max-h-40 overflow-y-auto border border-gray-300 rounded p-2 bg-[#E7E7E7]">
+              <div className="mt-2 max-h-40 flex flex-wrap gap-2 overflow-y-auto ">
                 {selectedAppliances.length === 0 ? (
+
                   <EmptyState text="You need to add an Appliance(s) to calculate energy usage" />
                 ) : (
                   selectedAppliances.map((item, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-2 rounded mb-1 text-gray-900"
+                      className="flex items-center justify-between gap-6 px-2 py-1 rounded w-max mb-1 text-gray-900 bg-[#E7E7E7]"
                     >
                       <span>
-                        {item.name} x {item.quantity}
+                        {item?.name} x {item?.quantity}
                       </span>
                       <button
                         onClick={() => handleRemoveAppliance(index)}
-                        className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                        className="text-gray-500 hover:text-gray-700 cursor-pointer hover:text-red-600"
                       >
                         <svg
                           className="w-4 h-4"
