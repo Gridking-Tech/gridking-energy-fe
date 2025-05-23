@@ -1,14 +1,10 @@
 "use client";
 
-import React from "react";
-import Footer from "../../shared/Footer";
-import DesktopHeader from "@/shared/Header";
 import Banner from "@/components/Banner";
 
 export default function AboutPage() {
   return (
     <div className="bg-white text-black min-h-screen">
-      <DesktopHeader />
       <Banner />
       <section className="md:max-w-3xl  mx-auto px-4 py-18 xl:h-[46rem] text-center">
         <h2 className="text-xl md:text-2xl font-bold mb-6">About GridKing</h2>
@@ -39,8 +35,6 @@ export default function AboutPage() {
           GridKing: Powering hope, one panel at a time.
         </p>
       </section>
-
-      <Footer />
     </div>
   );
 }

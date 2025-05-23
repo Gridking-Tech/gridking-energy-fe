@@ -1,13 +1,12 @@
 "use client";
-import About from "../shared/About";
 import HeroSection from "../components/HeroSection";
 import NewArrivals from "../shared/NewArrivals";
 import TalkToExpert from "../shared/TalkToExpert";
-import Footer from "../shared/Footer";
 import { homePageApi } from "@/api";
 import { IProduct } from "@/types";
 import EnergyCalculator from "@/components/EnergyCalculator";
 import { useRef } from "react";
+import ProductHighlights from "@/components/ProductHighlights";
 
 export default function Homepage() {
   const { data, isLoading } = homePageApi.useGetHomePageResource() as {
@@ -15,18 +14,18 @@ export default function Homepage() {
     isLoading: boolean;
     error: any;
   };
+
   const targetRef = useRef<HTMLDivElement>(null);
   const handleScrollToElement = () => {
     if (targetRef.current) {
       targetRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  console.log("new arrival", data);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-full">
       <HeroSection handleScrollToElement={handleScrollToElement} />
-      <About />
+      <ProductHighlights />
       <div ref={targetRef}>
         <NewArrivals
           newArrivals={data?.newArrivals?.data}
@@ -35,7 +34,6 @@ export default function Homepage() {
       </div>
       <TalkToExpert />
       <EnergyCalculator />
-      <Footer />
     </div>
   );
 }

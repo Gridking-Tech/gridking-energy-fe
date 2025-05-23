@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import QueryProvider from "../shared/QueryProvider";
-import Footer from "../shared/Footer";
-import { ThemeProvider } from './context/ThemeContext';
+import Provider from "./provider";
 
 // Satoshi
 const geistSans = Geist({
@@ -31,12 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>
-        <ThemeProvider>{children}</ThemeProvider>
-                </QueryProvider>
-        <div className="">
-      
-        </div>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
