@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 
 const Banner = () => {
@@ -34,7 +35,7 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 2000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [slides.length]);
   return (

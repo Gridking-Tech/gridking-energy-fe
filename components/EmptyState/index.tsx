@@ -11,11 +11,11 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   text = "No items to display",
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-4 min-h-[120px]">
+    <div className="flex flex-col w-full bg-gray-50 items-center justify-center p-4 min-h-[120px]">
       <div className="flex justify-center mb-2">
         <BatteryIcon />
       </div>
-      <p className="text-center text-gray-500 md:w-[50%]">{text}</p>
+      <p className="text-center text-gray-500 md:w-[50%] italic">{text}</p>
     </div>
   );
 };
