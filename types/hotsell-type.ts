@@ -18,4 +18,5 @@ export interface IProduct {
   updatedAt?:string;
   attributes:  any[];
   images: string[]
+  description: string
 }
