@@ -1,10 +1,8 @@
-'use client';
-import { homePageApi, productsApi } from '../../api';
-import NavBar from '../../shared/NavBar/NavBar';
-import ImagePlaceholder from '../../shared/Placeholders/ImagePlaceholder';
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Footer from '../../shared/Footer';
+"use client";
+import { homePageApi, productsApi } from "../../api";
+import ImagePlaceholder from "../../shared/Placeholders/ImagePlaceholder";
+import React, { useState } from "react";
+import Image from "next/image";
 
 function DownloadPage() {
   const { data: downloadData, isLoading } = productsApi.useGetDownload() as {
@@ -16,13 +14,17 @@ function DownloadPage() {
     error: any;
   };
 
-  const { data: ImageId } = homePageApi.useGetCarouselById("67ec910d2d2e858db2b1ca2a") as {
+  const { data: ImageId } = homePageApi.useGetCarouselById(
+    "67ec910d2d2e858db2b1ca2a"
+  ) as {
     data: any;
     isLoading: boolean;
     error: any;
   };
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null
+  );
 
   const handleCategoryClick = (categoryId: string) => {
     setSelectedCategoryId(categoryId);
@@ -35,7 +37,6 @@ function DownloadPage() {
   return (
     <div className="w-full min-h-screen">
       <div className="h-0">
-        <NavBar />
       </div>
       <div className="w-full">
         {ImageId?.[0]?.url?.length > 0 ? (
@@ -44,22 +45,21 @@ function DownloadPage() {
               src={ImageId[0].url}
               alt="Banner"
               fill
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
               className="absolute w-full h-full"
             />
             <div className="absolute inset-0 bg-black/30" />
           </div>
         ) : (
-          <ImagePlaceholder height={'25.5rem'} />
+          <ImagePlaceholder height={"25.5rem"} />
         )}
       </div>
 
       <div className="w-full flex pl-20 font-bold justify-center text-gray-600 flex-col h-[3.5rem] bg-gray-200 text-center md:text-left">
-        {'HOME > DOWNLOADS'}
+        {"HOME > DOWNLOADS"}
       </div>
 
       <div className="w-full flex flex-col md:flex-row">
-
         <div className="w-full md:w-1/4 pl-10 pt-5 text-sm space-y-4">
           {downloadData?.downloadWithCategory.map((item) => (
             <button
@@ -67,8 +67,8 @@ function DownloadPage() {
               onClick={() => handleCategoryClick(item.category._id)}
               className={`block text-left font-bold text-lg transition  cursor-pointer outline-0 border-0 ${
                 selectedCategoryId === item.category._id
-                  ? 'text-orange-600'
-                  : 'text-gray-700 hover:text-orange-600'
+                  ? "text-orange-600"
+                  : "text-gray-700 hover:text-orange-600"
               }`}
             >
               {item.category.name}
@@ -79,7 +79,9 @@ function DownloadPage() {
             <button
               onClick={() => setSelectedCategoryId(null)}
               className={`block text-left font-black text-lg transition cursor-pointer outline-0 border-0 ${
-                !selectedCategoryId ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                !selectedCategoryId
+                  ? "text-orange-600"
+                  : "text-gray-700 hover:text-orange-600"
               }`}
             >
               Gel Battery
@@ -99,17 +101,52 @@ function DownloadPage() {
             </div>
           ) : (
             <div className="h-[30rem] w-full">
-              {selectedCategoryId ? (
-                filteredCategory?.products?.map((prod: any) =>
-                  prod.downloads.map((file: any) => (
+              {selectedCategoryId
+                ? filteredCategory?.products?.map((prod: any) =>
+                    prod.downloads.map((file: any) => (
+                      <div
+                        key={file._id}
+                        id={file._id}
+                        className="p-4 border my-3 rounded-lg hover:shadow-sm flex w-full justify-between transition-all scroll-mt-20"
+                      >
+                        <div>
+                          <div className="font-semibold text-lg text-orange-600">
+                            {file.title}
+                          </div>
+                          <p className="text-gray-600 text-sm mt-1">
+                            {file.description}
+                          </p>
+                          <div className="text-sm text-gray-400 mt-1">
+                            {(file.fileSize / (1024 * 1024)).toFixed(2)} MB
+                          </div>
+                        </div>
+                        <div>
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={file.url}
+                            download
+                            className="mt-2 inline-block font-black text-sm text-white bg-orange-500 px-4 py-3 rounded hover:bg-orange-600"
+                          >
+                            Download PDF
+                          </a>
+                        </div>
+                      </div>
+                    ))
+                  )
+                : downloadData?.downloadWithoutCategory.map((file) => (
                     <div
                       key={file._id}
                       id={file._id}
-                      className="p-4 border my-3 rounded-lg hover:shadow-sm flex w-full justify-between transition-all scroll-mt-20"
+                      className="p-4 border rounded-lg hover:shadow-sm flex w-full justify-between transition-all scroll-mt-20"
                     >
                       <div>
-                        <div className="font-semibold text-lg text-orange-600">{file.title}</div>
-                        <p className="text-gray-600 text-sm mt-1">{file.description}</p>
+                        <div className="font-semibold text-lg text-orange-600">
+                          {file.title}
+                        </div>
+                        <p className="text-gray-600 text-sm mt-1">
+                          {file.description}
+                        </p>
                         <div className="text-sm text-gray-400 mt-1">
                           {(file.fileSize / (1024 * 1024)).toFixed(2)} MB
                         </div>
@@ -126,41 +163,11 @@ function DownloadPage() {
                         </a>
                       </div>
                     </div>
-                  ))
-                )
-              ) : (
-                downloadData?.downloadWithoutCategory.map((file) => (
-                  <div
-                    key={file._id}
-                    id={file._id}
-                    className="p-4 border rounded-lg hover:shadow-sm flex w-full justify-between transition-all scroll-mt-20"
-                  >
-                    <div>
-                      <div className="font-semibold text-lg text-orange-600">{file.title}</div>
-                      <p className="text-gray-600 text-sm mt-1">{file.description}</p>
-                      <div className="text-sm text-gray-400 mt-1">
-                        {(file.fileSize / (1024 * 1024)).toFixed(2)} MB
-                      </div>
-                    </div>
-                    <div>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={file.url}
-                        download
-                        className="mt-2 inline-block font-black text-sm text-white bg-orange-500 px-4 py-3 rounded hover:bg-orange-600"
-                      >
-                        Download PDF
-                      </a>
-                    </div>
-                  </div>
-                ))
-              )}
+                  ))}
             </div>
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

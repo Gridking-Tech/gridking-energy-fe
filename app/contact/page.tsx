@@ -1,6 +1,4 @@
 "use client";
-import DesktopHeader from "@/shared/Header";
-import Footer from "../../shared/Footer";
 import React from "react";
 import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
@@ -38,7 +36,6 @@ const features = [
 export default function CustomSection() {
   return (
     <div className="w-screen">
-      <DesktopHeader />
       <Banner />
       <section className="mx-auto w-full max-w-4xl px-6 py-12 md:py-36">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
@@ -58,7 +55,6 @@ export default function CustomSection() {
           ))}
         </div>
       </section>
-      <Footer />
     </div>
   );
 }
