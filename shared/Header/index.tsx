@@ -128,9 +128,7 @@ export default function DesktopHeader() {
                       }`}
                       onClick={() =>
                         routes.push(
-                          !category.routes
-                            ? category.href
-                            : `categories`
+                          !category.routes ? category.href : `categories`
                           // : `/collections/${category.name}`
                         )
                       }

@@ -122,27 +122,5 @@ export const productTabs = [
   },
 ];
 
-import { FaSolarPanel, FaBatteryFull, FaBolt } from 'react-icons/fa'
-
-export const productCategories = [
-  {
-    name: 'Inverter',
-    description: 'Efficient and reliable inverter systems for your power needs.',
-    icon: FaBolt,
-    href: "/categories",
-  },
-  {
-    name: 'Battery',
-    description: 'Durable batteries for longer power backup.',
-    icon: FaBatteryFull,
-    href: "/categories",
-  },
-  {
-    name: 'Solar Panel',
-    description: 'High-performance solar panels to harness the sun.',
-    icon: FaSolarPanel,
-    href: "/categories",
-  },
-];
 
 
