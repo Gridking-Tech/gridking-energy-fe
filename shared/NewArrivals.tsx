@@ -7,11 +7,9 @@ import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
 const ProductSection = ({
   newArrivals,
   loading,
-
 }: {
   newArrivals: IProduct[];
   loading: boolean;
-  
 }) => {
   return (
     <div

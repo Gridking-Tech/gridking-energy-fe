@@ -1,12 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const NewsletterSubscription = () => {
   const [email, setEmail] = useState("");
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const handleSubscribe = () => {
+    toast.success("You have subscribed successfully!");
+    setEmail("");
   };
 
   return (
@@ -30,6 +36,7 @@ const NewsletterSubscription = () => {
         <button
           className="absolute bg-[#F47A2B] text-white p-2 rounded-sm font-bold uppercase right-[18rem] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={!isValidEmail(email)}
+          onClick={handleSubscribe}
         >
           Subscribe
         </button>

@@ -5,56 +5,34 @@ import ProductCard from "@/shared/ProductCard";
 import { productsApi } from "@/api";
 import { IProduct } from "@/types";
 import { retrieveIdFromTitle, retrieveTitle } from "@/lib/utils";
+import defaultImg from "@/public/assets/placeholders/products.png";
+ 
 
 const ProductLists = ({ category }: { category: string }) => {
-  const inverters = [
+  const products = [
     {
       id: 1,
-      name: "SP Series Inverter 1kVA 55V-450V",
-      rating: 5,
-      reviews: 99,
-      image: "https://via.placeholder.com/300x300?text=Inverter+1kVA",
+      name: "2kVA Inverter 55V-450V:Sample Product",
+      rating: 4.8,
+      reviews: 9,
+      image: defaultImg,
       isNew: true,
     },
     {
       id: 2,
-      name: "SP Series Inverter 2kVA 55V-450V",
-      rating: 4.5,
-      reviews: 25,
-      image: "https://via.placeholder.com/300x300?text=Inverter+2kVA",
-      isNew: false,
+      name: "3kVA Inverter 55V-450V: Sample Product",
+      rating: 5,
+      reviews: 7,
+      image: defaultImg,
+      isNew: true,
     },
     {
       id: 3,
-      name: "SP Series Inverter 3kVA 55V-450V",
-      rating: 4.7,
-      reviews: 45,
-      image: "https://via.placeholder.com/300x300?text=Inverter+3kVA",
-      isNew: false,
-    },
-    {
-      id: 4,
-      name: "SP Series Inverter 4kVA 55V-450V",
-      rating: 4.8,
-      reviews: 78,
-      image: "https://via.placeholder.com/300x300?text=Inverter+4kVA",
-      isNew: false,
-    },
-    {
-      id: 5,
-      name: "SP Series Inverter 5kVA 55V-450V",
-      rating: 4.6,
-      reviews: 34,
-      image: "https://via.placeholder.com/300x300?text=Inverter+5kVA",
-      isNew: false,
-    },
-    {
-      id: 6,
-      name: "SP Series Inverter 6kVA 55V-450V",
-      rating: 4.9,
-      reviews: 56,
-      image: "https://via.placeholder.com/300x300?text=Inverter+6kVA",
-      isNew: false,
+      name: "12V Gel Battery: Sample Product",
+      rating: 4,
+      reviews: 5,
+      image: defaultImg,
+      isNew: true,
     },
   ];
   const categoryId = retrieveIdFromTitle(category as string);
@@ -62,16 +40,11 @@ const ProductLists = ({ category }: { category: string }) => {
   const { data, isLoading } = productsApi.useGetCategoryById(
     categoryId as string
   );
-  // as {
-  //   data: { newArrivals: Record<string, IProduct[]> };
-  //   isLoading: boolean;
-  //   error: any;
-  // };
 
   console.log(data, "data");
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4">
+    <div className="mx auto min-h-screen bg-gray-100 py-8 px-40">
       <div className="max-w-7xl mx-auto">
         <nav className="text-sm text-gray-600 mb-6">
           <Link href="/categories" className="hover:text-orange-500">
@@ -80,8 +53,8 @@ const ProductLists = ({ category }: { category: string }) => {
           /{" "}
           <span className="text-gray-900 font-medium capitalize">{title}</span>
         </nav>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {inverters.map((i, idx) => (
+        <div className="px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((i, idx) => (
             <ProductCard
               name={i.name}
               productId={i?.id?.toString()}
