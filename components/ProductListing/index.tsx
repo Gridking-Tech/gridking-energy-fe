@@ -60,7 +60,7 @@ const ProductLists = ({ category }: { category: string }) => {
               productId={i?.id?.toString()}
               rating={i.rating}
               reviewCount={i.reviews}
-              imageUrl={i.image}
+              imageUrl={typeof i.image === "string" ? i.image : i.image.src}
               isNew={i.isNew}
               slug={i.name}
               key={idx}

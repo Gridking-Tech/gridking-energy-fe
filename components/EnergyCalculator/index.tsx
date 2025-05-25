@@ -5,11 +5,13 @@ import mockData from "@/mockData.json";
 
 const EnergyCalculator = () => {
   const [totalConsumption, setTotalConsumption] = useState(0.0);
-  const [selectedAppliances, setSelectedAppliances] = useState([]);
+  type SelectedAppliance = { name: string; quantity: number };
+  const [selectedAppliances, setSelectedAppliances] = useState<SelectedAppliance[]>([]);
   const [appliance, setAppliance] = useState("");
   const [quantity, setQuantity] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [recommendations, setRecommendations] = useState(null);
+  type Recommendations = { inverterRating: string; battery: string; qty: string };
+  const [recommendations, setRecommendations] = useState<Recommendations | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const appliancesList = mockData.appliances || [];
@@ -42,7 +44,11 @@ const EnergyCalculator = () => {
     }
   };
 
-  const handleRemoveAppliance = (index) => {
+  interface RemoveApplianceHandler {
+    (index: number): void;
+  }
+
+  const handleRemoveAppliance: RemoveApplianceHandler = (index) => {
     setSelectedAppliances(selectedAppliances.filter((_, i) => i !== index));
   };
 
@@ -73,7 +79,7 @@ const EnergyCalculator = () => {
       return sum + (item?.quantity * wattage) / 1000;
     }, 0);
 
-    setTotalConsumption(consumption?.toFixed(2));
+    setTotalConsumption(Number(consumption?.toFixed(2)));
   }, [selectedAppliances]);
 
   return (
