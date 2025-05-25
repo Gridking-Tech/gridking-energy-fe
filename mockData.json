@@ -1,0 +1,144 @@
+{
+  "categories": [
+    {
+      "number": "01",
+      "title": "Inverters",
+      "description": "Efficient & reliable inverter systems for your power needs.",
+      "image": "https://via.placeholder.com/300x200?text=Inverter"
+    },
+    {
+      "number": "02",
+      "title": "Batteries",
+      "description": "Durable batteries for longer power backup.",
+      "image": "https://via.placeholder.com/300x200?text=Battery"
+    },
+    {
+      "number": "03",
+      "title": "Solar Panels",
+      "description": "High-performance solar panels to harness the sun.",
+      "image": "https://via.placeholder.com/300x200?text=Solar+Panel"
+    }
+  ],
+  "products": {
+    "inverters": [
+      {
+        "id": 1,
+        "name": "SP Series Inverter 1kVA 55V-450V",
+        "rating": 5,
+        "reviews": 99,
+        "image": "https://via.placeholder.com/300x300?text=Inverter+1kVA",
+        "isNew": true
+      },
+      {
+        "id": 2,
+        "name": "SP Series Inverter 2kVA 55V-450V",
+        "rating": 4.5,
+        "reviews": 25,
+        "image": "https://via.placeholder.com/300x300?text=Inverter+2kVA",
+        "isNew": false
+      },
+      {
+        "id": 3,
+        "name": "SP Series Inverter 3kVA 55V-450V",
+        "rating": 4.7,
+        "reviews": 45,
+        "image": "https://via.placeholder.com/300x300?text=Inverter+3kVA",
+        "isNew": false
+      },
+      {
+        "id": 4,
+        "name": "SP Series Inverter 4kVA 55V-450V",
+        "rating": 4.8,
+        "reviews": 78,
+        "image": "https://via.placeholder.com/300x300?text=Inverter+4kVA",
+        "isNew": false
+      },
+      {
+        "id": 5,
+        "name": "SP Series Inverter 5kVA 55V-450V",
+        "rating": 4.6,
+        "reviews": 34,
+        "image": "https://via.placeholder.com/300x300?text=Inverter+5kVA",
+        "isNew": false
+      },
+      {
+        "id": 6,
+        "name": "SP Series Inverter 6kVA 55V-450V",
+        "rating": 4.9,
+        "reviews": 56,
+        "image": "https://via.placeholder.com/300x300?text=Inverter+6kVA",
+        "isNew": false
+      }
+    ],
+    "batteries": [
+      {
+        "id": 1,
+        "name": "SP Series Battery 100Ah 12V",
+        "rating": 4.6,
+        "reviews": 45,
+        "image": "https://via.placeholder.com/300x300?text=Battery+100Ah",
+        "isNew": true
+      },
+      {
+        "id": 2,
+        "name": "SP Series Battery 200Ah 12V",
+        "rating": 4.7,
+        "reviews": 67,
+        "image": "https://via.placeholder.com/300x300?text=Battery+200Ah",
+        "isNew": false
+      },
+      {
+        "id": 3,
+        "name": "SP Series Battery 300Ah 12V",
+        "rating": 4.8,
+        "reviews": 23,
+        "image": "https://via.placeholder.com/300x300?text=Battery+300Ah",
+        "isNew": false
+      }
+    ],
+    "solarPanels": [
+      {
+        "id": 1,
+        "name": "SP Series Solar Panel 300W",
+        "rating": 4.7,
+        "reviews": 34,
+        "image": "https://via.placeholder.com/300x300?text=Solar+Panel+300W",
+        "isNew": true
+      },
+      {
+        "id": 2,
+        "name": "SP Series Solar Panel 400W",
+        "rating": 4.9,
+        "reviews": 56,
+        "image": "https://via.placeholder.com/300x300?text=Solar+Panel+400W",
+        "isNew": false
+      },
+      {
+        "id": 3,
+        "name": "SP Series Solar Panel 500W",
+        "rating": 4.6,
+        "reviews": 12,
+        "image": "https://via.placeholder.com/300x300?text=Solar+Panel+500W",
+        "isNew": false
+      }
+    ]
+  },
+  "appliances": [
+    {
+      "name": "Air Conditioner (1HP)",
+      "wattage": 746
+    },
+    {
+      "name": "Refrigerator",
+      "wattage": 150
+    },
+    {
+      "name": "LED TV",
+      "wattage": 80
+    },
+    {
+      "name": "Washing Machine",
+      "wattage": 500
+    }
+  ]
+}

@@ -1,7 +1,6 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-images: {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
     domains: ["res.cloudinary.com", 'via.placeholder.com', 'placehold.co', 'picsum.photos'],
   },
   webpack(config) {
@@ -18,4 +17,4 @@ images: {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
