@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import React, { useState, useMemo, useEffect } from "react";
 
+import toast from "react-hot-toast";
+
 interface FormData {
   firstName: string;
   companyName: string;
@@ -75,12 +77,15 @@ const Pricing = () => {
         customer_details: { ...formData },
       };
       handleSaveInfo();
+      toast.success("Your quote has been submitted successfully");
     } catch (err) {
       console.error("Error submitting quote:", err);
+      toast.error(
+        "There was an error submitting your quote. Please try again."
+      );
     } finally {
       localStorage.removeItem("checkout_product");
       router.replace("/");
-      alert("Quote request submitted successfully");
     }
   };
 
@@ -124,7 +129,7 @@ const Pricing = () => {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleInputChange}
-                className="h-[40px] w-full p-3 bg-[#F6F6F6] text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
+                className="h-[30px] w-full p-3 bg-[#F6F6F6] text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
               {formData.firstName.trim() === "" && (
@@ -146,7 +151,7 @@ const Pricing = () => {
                 name="companyName"
                 value={formData.companyName}
                 onChange={handleInputChange}
-                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[30px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400"
               />
             </div>
             <div className="mb-2">
@@ -162,7 +167,7 @@ const Pricing = () => {
                 name="streetAddress"
                 value={formData.streetAddress}
                 onChange={handleInputChange}
-                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
+                className="h-[30px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
               {formData.streetAddress.trim() === "" && (
@@ -184,7 +189,7 @@ const Pricing = () => {
                 name="apartment"
                 value={formData.apartment}
                 onChange={handleInputChange}
-                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                className="h-[30px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400"
               />
             </div>
             <div className="mb-2">
@@ -222,7 +227,7 @@ const Pricing = () => {
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
-                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
+                className="h-[30px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
               {formData.phoneNumber.trim() === "" && (
@@ -244,7 +249,7 @@ const Pricing = () => {
                 name="emailAddress"
                 value={formData.emailAddress}
                 onChange={handleInputChange}
-                className="h-[40px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
+                className="h-[30px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
               {formData.emailAddress.trim() === "" && (

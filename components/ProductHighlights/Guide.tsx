@@ -1,9 +1,12 @@
 "use client";
 
 import { homePageApi } from "@/api";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Guide: React.FC = () => {
+  const router = useRouter();
+
   const { data: ImageId } = homePageApi.useGetCarouselById(
     "67ec910d2d2e858db2b1ca2a"
   ) as {
@@ -11,6 +14,8 @@ const Guide: React.FC = () => {
     isLoading: boolean;
     error: any;
   };
+
+  console.log("ImageId:", ImageId);
 
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
@@ -30,7 +35,10 @@ const Guide: React.FC = () => {
           inverters that meet the needs of homeowners, businesses, and solar
           professionals.
         </p>
-        <button className="mt-6 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition cursor-pointer">
+        <button
+          className="mt-6 bg-orange-500 text-white font-semibold py-3 px-6 rounded hover:bg-[#F57B2C] transition cursor-pointer"
+          onClick={() => router.push("/contact")}
+        >
           Learn More About Us
         </button>
       </div>

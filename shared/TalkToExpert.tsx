@@ -1,8 +1,9 @@
-'use-client'
+"use-client";
 import React, { useState, useEffect } from "react";
 import { CountryDropdown } from "react-country-region-selector";
 import Image from "next/image";
 import solar from "../public/assets/placeholders/solarExpert.jpg";
+import toast from "react-hot-toast";
 
 export default function TalkToExpert() {
   const [formData, setFormData] = useState({
@@ -39,7 +40,9 @@ export default function TalkToExpert() {
     e.preventDefault();
 
     if (isFormValid) {
-      alert("Form submitted successfully!");
+      toast.success(
+        "Your inquiry has been received. Our team will assess your needs and get back to you ASAP."
+      );
       setFormData({
         name: "",
         email: "",
@@ -49,7 +52,7 @@ export default function TalkToExpert() {
         message: "",
       });
     } else {
-      alert("Please fill all fields before submitting.");
+      toast.error("Please fill all fields before submitting.");
     }
   };
 
@@ -69,13 +72,12 @@ export default function TalkToExpert() {
             solution — customized to your home or business.
           </p>
         </div>
-        <div className="h-[300px] w-full md:w-[400px] relative flex items-center justify-center">
+        <div className="h-[200px] w-full md:w-[300px] relative flex items-center justify-center">
           <Image
             src={solar}
             alt="solar panel"
             priority={true}
             fill
-            // objectFit="cover"
             className="rounded"
           />
         </div>
@@ -128,9 +130,9 @@ export default function TalkToExpert() {
               className="w-full p-2 border border-gray-300 dark:border-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F6F6F6]"
             >
               <option value="">Select product/service type</option>
-              <option value="solar">Solar Panels</option>
-              <option value="inverter">Inverters</option>
+              {/* <option value="solar">Solar Panels</option> */}
               <option value="battery">Batteries</option>
+              <option value="inverter">Inverters</option>
             </select>
           </div>
           <div>

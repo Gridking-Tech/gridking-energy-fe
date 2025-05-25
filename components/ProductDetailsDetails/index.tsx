@@ -27,6 +27,7 @@ const ProductDetailsDetails = ({ product }: { product: any }) => {
   };
 
   return (
+    // <div className="md:w-2xl md:w-1/2">
     <div className="w-full md:w-1/2">
       <CardHeader>
         <CardTitle className="text-2xl">{product?.name}</CardTitle>
