@@ -1,7 +1,6 @@
 import Image from "next/image";
-import GridKingInverters from "../../public/assets/placeholders/SP Series Inverter 80A 55V-450V 1.png";
 import SolarPanel from "../../public/assets/placeholders/Solar Panel 1 2.png";
-import Battery from "../../public/assets/placeholders/Gel Battery 12V 100Ah 1.png";
+import Battery from "../../public/assets/placeholders/Gel battery var01.png";
 
 const SubHero = () => {
   return (
