@@ -2,7 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import {useCheckout} from "@/app/context";
+import { useCheckout } from "@/app/context";
+import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
+
 interface ProductCardProps {
   name: string;
   slug: string;
@@ -25,6 +27,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isNew = false,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const { addToCheckout } = useCheckout();
 
@@ -72,12 +76,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
       onMouseLeave={() => setIsHovered(false)}
       className="max-w-sm rounded overflow-hidden hover:shadow-md"
     >
-      <Link href={`/products/$${productId}` || goTo}>
-      {/* <Link href={`/products/${slug}-${productId}` || goTo}> */}
+      <Link href={`/products/${slug}-${productId}` || goTo}>
         <div
-          className="relative w-full bg-white "
+          className="relative w-full bg-white pt-10"
           style={{ aspectRatio: "3 / 3.2" }}
         >
+          {(!imageLoaded || imageError) && (
+            <ImagePlaceholder
+              width={300}
+              height={300}
+              className="flex items-center justify-center mx-auto my-auto"
+            />
+          )}
           <Image
             fill
             priority
@@ -85,10 +95,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
             alt={`${slug}`}
             objectPosition="center"
             src={imageUrl as string}
-            className="object-contain"
+            className={`object-contain transition-opacity duration-300 ${
+              imageLoaded && !imageError ? "opacity-100" : "opacity-0"
+            }`}
             blurDataURL="/assets/placeholders/products.png"
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageError(true)}
           />
-
           {isNew && (
             <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
               NEW
