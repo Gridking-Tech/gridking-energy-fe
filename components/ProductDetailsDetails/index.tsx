@@ -27,19 +27,16 @@ const ProductDetailsDetails = ({ product }: { product: any }) => {
   };
 
   return (
-    // <div className="md:w-2xl md:w-1/2">
     <div className="w-full md:w-1/2">
       <CardHeader>
-        <CardTitle className="text-2xl">{product?.name}</CardTitle>
+        <CardTitle className="text-3xl">{product?.name}</CardTitle>
         <CardDescription className="flex items-center gap-2 text-sm">
           <span className="text-yellow-500">{product?.rating}</span>
-          <span
-            className={`${
-              product?.inStock ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            {product?.inStock ? "In Stock" : "Out of Stock"}
+          <span className="mt-4">
+            <span className="text-sm font-bold text-orange-700 ml-[-4]">Status:</span>{" "}
+            <span className="text-green-600">{product?.status}</span>
           </span>
+          <span></span>
         </CardDescription>
       </CardHeader>
 
@@ -62,6 +59,11 @@ const ProductDetailsDetails = ({ product }: { product: any }) => {
           >
             +
           </button>
+        </div>
+        <div className="mb-6 text-sm">
+          Reliable and efficient. Ideal for solar and energy systems, it ensures
+          stable, efficient power performance for both residential and
+          commercial use.
         </div>
         <div className="flex flex-col gap-2 mb-6 border border-gray-300 p-4">
           <div className="flex items-center gap-2">
