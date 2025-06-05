@@ -38,7 +38,7 @@ const ProductSection = ({
                   name={p?.name}
                   reviewCount={7}
                   productId={p?._id}
-                  imageUrl={p?.primaryImage.url}
+                  imageUrl={p?.primaryImage?.url}
                   isNew={p?.status === "NEW_ARRIVAL"}
                 />
               ))}

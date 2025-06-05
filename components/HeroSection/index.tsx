@@ -3,6 +3,7 @@ import { homePageApi } from "../../api";
 import React, { useState, useEffect } from "react";
 import SubHero from "../SubHero";
 import { useTheme } from "@/app/context/ThemeContext";
+import DesktopHeader from "@/shared/Header";
 
 export default function HeroSection({
   handleScrollToElement,
@@ -24,12 +25,17 @@ export default function HeroSection({
   const currentId = carouselData?.[currentIndex]?._id;
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
   const texts = ["Clean Energy", "GridKing", "Smart Solutions"];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 5000);
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+        setIsFading(false);
+      }, 400);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -66,6 +72,7 @@ export default function HeroSection({
 
   return (
     <div className="relative h-screen">
+      <DesktopHeader />
       <div
         style={{
           backgroundImage: `${
@@ -84,7 +91,15 @@ export default function HeroSection({
               </h1>
               <h1 className="text-6xl font-bold leading-tight mt-2 dark:text-white">
                 with{" "}
-                <span className="text-[#F47A2B]">
+                <span
+                  className={`text-[#F47A2B] transition-all duration-400 ease-in-out inline-block
+                    ${
+                      isFading
+                        ? "opacity-0 translate-y-6"
+                        : "opacity-100 translate-y-0"
+                    }
+                  `}
+                >
                   {texts[currentTextIndex]}
                 </span>
               </h1>

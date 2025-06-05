@@ -3,6 +3,7 @@ import React from "react";
 import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import Banner from "@/components/Banner";
+import DesktopHeader from "@/shared/Header";
 
 const features = [
   {
@@ -36,6 +37,7 @@ const features = [
 export default function CustomSection() {
   return (
     <div className="w-screen">
+      <DesktopHeader isBannerPage/>
       <Banner />
       <section className="mx-auto w-full max-w-4xl px-6 py-12 md:py-36">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">

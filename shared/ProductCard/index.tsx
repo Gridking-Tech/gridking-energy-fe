@@ -72,7 +72,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
       onMouseLeave={() => setIsHovered(false)}
       className="max-w-sm rounded overflow-hidden hover:shadow-md"
     >
-      <Link href={`/products/${slug}-${productId}` || goTo}>
+      <Link href={`/products/$${productId}` || goTo}>
+      {/* <Link href={`/products/${slug}-${productId}` || goTo}> */}
         <div
           className="relative w-full bg-white "
           style={{ aspectRatio: "3 / 3.2" }}

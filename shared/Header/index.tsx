@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Logo } from "../Icons";
 import ThemeToggle from "@/components/ThemeToggle";
 
-export default function DesktopHeader() {
+export default function DesktopHeader({ isBannerPage = false }: { isBannerPage?: boolean }) {
   const [isCategories, setIscategories] = useState(false);
   const pathname = usePathname();
   const [activeCategory, setActiveCategory] = useState<any>(null);
@@ -50,25 +50,27 @@ export default function DesktopHeader() {
 
   return (
     <div>
-      <div className="flex-col justify-center flex items-center bg-transparent">
+      <div className={`flex-col justify-center flex items-center pt-4 pb-8 ${isBannerPage ? "bg-black" : "bg-[#F8F8F8]"}`}>
         <div className="w-5/6 h-[10vh] rounded-[0.5rem] flex  justify-between items-center">
           <div
-            className="text-black text-xl font-bold cursor-pointer"
+            className={`text-xl font-bold cursor-pointer ${isBannerPage ? "text-white" : "text-black"}`}
             onClick={() => routes.push("/")}
           >
             <Logo />
           </div>
           <div>
-            <ul className="text-black flex gap-10">
+            <ul className={`flex gap-10 ${isBannerPage ? "text-white" : "text-black"}`}>
               {navLinks.map((link, index) => {
                 const isActive = pathname === link.href;
                 return (
                   <li
                     key={index}
                     onClick={() => routes.push(`${link.href}`)}
-                    className={`text-[0.95rem] cursor-pointer  hover:text-[#F47A2B]/70  ${
+                    className={`text-[0.95rem] cursor-pointer hover:text-[#F47A2B]/70 ${
                       isActive
                         ? "text-[#F47A2B] border-orange-500 font-bold"
+                        : isBannerPage
+                        ? "text-white"
                         : "text-[#1E1E1E] dark:text-white"
                     }`}
                     onMouseEnter={(e) => {

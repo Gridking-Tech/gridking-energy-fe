@@ -3,6 +3,7 @@ import { productsApi } from "../../../api";
 import ProductDetail from "@/components/ProductDetail";
 import { useParams } from "next/navigation";
 import { IProduct } from "@/types";
+import DesktopHeader from "@/shared/Header";
 
 function retrieveIdFromTitle(titleStr: string) {
   const parts = titleStr.split("-");
@@ -20,6 +21,7 @@ const ProductsDescription = () => {
 
   return (
     <div>
+      <DesktopHeader />
       <ProductDetail product={data as IProduct} />
     </div>
   );
