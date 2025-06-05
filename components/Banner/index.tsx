@@ -35,7 +35,7 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, [slides.length]);
   return (
