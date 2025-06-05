@@ -11,12 +11,13 @@ function retrieveIdFromTitle(titleStr: string) {
   const lastPart = parts[parts.length - 1];
   console.log(lastPart, "lastPart");
 
-  return lastPart || null;
+  return lastPart ? decodeURIComponent(lastPart) : null;
 }
 
 const ProductsDescription = () => {
   const { title } = useParams<any>();
   const id = retrieveIdFromTitle(title);
+
   const { data } = productsApi.useGetProductsById(id as string);
 
   return (
