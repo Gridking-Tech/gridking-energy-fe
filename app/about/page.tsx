@@ -1,10 +1,12 @@
 "use client";
 
 import Banner from "@/components/Banner";
+import DesktopHeader from "@/shared/Header";
 
 export default function AboutPage() {
   return (
     <div className="bg-white text-black min-h-screen">
+      <DesktopHeader isBannerPage />
       <Banner />
       <section className="md:max-w-3xl  mx-auto px-4 py-18 xl:h-[46rem] text-center">
         <h2 className="text-xl md:text-2xl font-bold mb-6">About GridKing</h2>
