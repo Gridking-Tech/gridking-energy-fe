@@ -1,10 +1,11 @@
 "use client";
 
+import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 import Image from "next/image";
 import { useState } from "react";
 
 interface ProductImageGalleryProps {
-  images: string[];
+  images: any[];
   alt?: string;
 }
 
@@ -12,17 +13,20 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
   images,
   alt = "product image",
 }) => {
+  const imageUrls = images?.map((img: any) =>
+    typeof img === "string" ? img : img?.url
+  );
+
   const [activeImage, setActiveImage] = useState(0);
-  if (images?.length < 3) {
-    return (
-      <div className="text-red-500">Please provide at least 3 images.</div>
-    );
+
+  if (!imageUrls || imageUrls.length < 3) {
+    return <ImagePlaceholder />;
   }
 
   return (
     <div className="flex gap-2 w-full ">
       <div className="grid grid-row-3 flex-col gap-4 justify-start">
-        {images.map((image: string, index: number) => (
+        {imageUrls.map((image: string, index: number) => (
           <div
             key={index}
             className={`relative w-32 h-32 bg-white dark:bg-inherit rounded cursor-pointer transition-all ${
@@ -49,7 +53,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
           width={400}
           height={500}
           objectPosition="bottom"
-          src={images[activeImage]}
+          src={imageUrls[activeImage]}
           className="object-contain bg-[#f4f4f4] h-104 "
           priority={activeImage === 0}
           alt={`${alt} - view ${activeImage + 1}`}
