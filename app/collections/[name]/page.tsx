@@ -1,4 +1,5 @@
 "use client";
+import DesktopHeader from "@/shared/Header";
 import ProductsPage from "../../../shared/ProductsPage";
 import { useParams, useRouter } from "next/navigation";
 
@@ -8,6 +9,7 @@ const CategoryPage = () => {
   const subname = params?.subname || "";
   return (
     <div>
+      <DesktopHeader isBannerPage/>
       <ProductsPage name={decodeURIComponent(name)} />
     </div>
   );
