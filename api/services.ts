@@ -1,6 +1,6 @@
 'use client'
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosInstance } from "axios";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, UseMutationOptions ,keepPreviousData} from "@tanstack/react-query";
 
 const APIBaseURL = process.env.NEXT_PUBLIC_APP_BASE_URL || "";
 
@@ -33,18 +33,22 @@ export default class ApiSchema {
   }
 
   useFetchRequest<T>(key: string, url: string, config?: AxiosRequestConfig) {
-    return useQuery(key, () => this.request<T>("get", url, undefined, config), {
-      keepPreviousData: true,
+    return useQuery({
+      queryKey: [key],
+      queryFn: () => this.request<T>("get", url, undefined, config),
+      placeholderData: keepPreviousData,
     });
   }
 
   useSendRequest<T>(
     method: "post" | "put" | "patch",
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
+    option?: UseMutationOptions<any, any, any> 
   ) {
-    return useMutation((data: any) =>
-      this.request<T>(method, url, data, config)
-    );
+    return useMutation({
+      mutationFn: (data: any) => this.request<T>(method, url, data, config),
+      ...option,
+    });
   }
 }
