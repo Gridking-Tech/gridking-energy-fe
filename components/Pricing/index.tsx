@@ -1,17 +1,16 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState, useMemo, useEffect } from "react";
-
 import toast from "react-hot-toast";
-
+import { useMutation } from "@tanstack/react-query";
+import { productsApi } from "@/api";
 interface FormData {
-  firstName: string;
+  fullName: string;
   companyName: string;
-  streetAddress: string;
   apartment: string;
   townCity: string;
   phoneNumber: string;
-  emailAddress: string;
+  email: string;
   saveInfo: boolean;
 }
 
@@ -19,39 +18,77 @@ interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
 const Pricing = () => {
   const router = useRouter();
+
+  const { mutate, isPending } = productsApi.useSendQuote({
+    mutationKey: ["sendQuote"],
+    onSuccess: () => {
+      toast.success("Your quote has been submitted successfully");
+      localStorage.removeItem("checkout_products");
+      window.location.href = "/";
+    },
+    onError: (error: any) => {
+      console.error(
+        "Error submitting quote:",
+        error?.data?.response?.data?.errors?.[0] || error
+      );
+
+      toast.error(
+        error?.response?.data?.errors?.[0] ||
+          "An error occurred while submitting your quote. Please try again later."
+      );
+    },
+  });
+
+  // Get cart items from localStorage and ensure it's always an array
+  const storedCart = useMemo(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const cart = JSON.parse(
+          localStorage.getItem("checkout_products") || "[]"
+        );
+        return Array.isArray(cart) ? cart : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  }, []);
+
+  // Get stored form data (if any)
   const storedFormData = useMemo(() => {
-    return typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("quote_info") || "{}")
-      : null;
+    if (typeof window !== "undefined") {
+      try {
+        return JSON.parse(localStorage.getItem("quote_info") || "{}");
+      } catch {
+        return {};
+      }
+    }
+    return {};
   }, []);
 
   const defaultFormData: FormData = {
-    firstName: "",
+    fullName: "",
     companyName: "",
-    streetAddress: "",
     apartment: "",
     townCity: "",
     phoneNumber: "",
-    emailAddress: "",
+    email: "",
     saveInfo: false,
   };
 
-  const [formData, setFormData] = useState<FormData>(
-    storedFormData ? { ...defaultFormData, ...storedFormData } : defaultFormData
-  );
+  // Only merge form data with storedFormData, not with cart
+  const [formData, setFormData] = useState<FormData>({
+    ...defaultFormData,
+    ...storedFormData,
+  });
 
   const [saveInfo, setSaveInfo] = useState<boolean>(
     Object.keys(storedFormData || {}).length > 0
   );
 
-  const order =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("checkout_product") || "null")
-      : null;
-
   useEffect(() => {
-    if (!order || Object.keys(order).length === 0) router.replace("/");
-  }, [order, router]);
+    if (!storedCart || storedCart.length === 0) router.replace("/");
+  }, [storedCart, router]);
 
   const handleInputChange = (e: InputChangeEvent) => {
     const { name, value } = e.target;
@@ -69,35 +106,32 @@ const Pricing = () => {
     }
   };
 
-  const handleSubmit = () => {
-    try {
-      const { _, ...rest } = order || {};
-      const quotePayload = {
-        order: { ...rest },
-        customer_details: { ...formData },
-      };
-      handleSaveInfo();
-      toast.success("Your quote has been submitted successfully");
-    } catch (err) {
-      console.error("Error submitting quote:", err);
-      toast.error(
-        "There was an error submitting your quote. Please try again."
-      );
-    } finally {
-      localStorage.removeItem("checkout_product");
-      router.replace("/");
-    }
-  };
-
   const isFormValid = useMemo(() => {
     return (
-      formData.firstName.trim() !== "" &&
-      formData.streetAddress.trim() !== "" &&
+      formData.fullName.trim() !== "" &&
       formData.townCity.trim() !== "" &&
       formData.phoneNumber.trim() !== "" &&
-      formData.emailAddress.trim() !== ""
+      formData.email.trim() !== ""
     );
   }, [formData]);
+
+  const handleSubmit = () => {
+    if (!isFormValid) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const { saveInfo, ...formDataToSave } = formData;
+    const quotePayload = {
+      lineItems: storedCart?.map((item: any) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+      })),
+      ...formDataToSave,
+    };
+    handleSaveInfo();
+    mutate(quotePayload);
+  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,6 +139,12 @@ const Pricing = () => {
       handleSubmit();
     }
   };
+
+  // Calculate total items (storedCart is always an array now)
+  const totalItems = storedCart.reduce(
+    (sum: any, item: any) => sum + (item.quantity || 0),
+    0
+  );
 
   return (
     <div className="py-8 px-40">
@@ -118,21 +158,21 @@ const Pricing = () => {
           <div className="w-full md:w-1/2">
             <div className="mb-2">
               <label
-                htmlFor="firstName"
+                htmlFor="fullName"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Full Name
               </label>
               <input
                 type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
+                id="fullName"
+                name="fullName"
+                value={formData.fullName}
                 onChange={handleInputChange}
                 className="h-[30px] w-full p-3 bg-[#F6F6F6] text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
-              {formData.firstName.trim() === "" && (
+              {formData.fullName.trim() === "" && (
                 <p className="text-red-500 text-xs mt-1">
                   This field is required
                 </p>
@@ -143,7 +183,7 @@ const Pricing = () => {
                 htmlFor="companyName"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Company Name (optional)
+                Company Name
               </label>
               <input
                 type="text"
@@ -156,32 +196,10 @@ const Pricing = () => {
             </div>
             <div className="mb-2">
               <label
-                htmlFor="streetAddress"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Street Address
-              </label>
-              <input
-                type="text"
-                id="streetAddress"
-                name="streetAddress"
-                value={formData.streetAddress}
-                onChange={handleInputChange}
-                className="h-[30px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
-                required
-              />
-              {formData.streetAddress.trim() === "" && (
-                <p className="text-red-500 text-xs mt-1">
-                  This field is required
-                </p>
-              )}
-            </div>
-            <div className="mb-2">
-              <label
                 htmlFor="apartment"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Apartment, floor, etc. (optional)
+                Apartment, floor, etc.
               </label>
               <input
                 type="text"
@@ -245,14 +263,14 @@ const Pricing = () => {
               </label>
               <input
                 type="email"
-                id="emailAddress"
-                name="emailAddress"
-                value={formData.emailAddress}
+                id="email"
+                name="email"
+                value={formData.email}
                 onChange={handleInputChange}
                 className="h-[30px] w-full p-3 bg-[#F6F6F6]  text-gray-800 focus:outline-none focus:ring-1 focus:ring-orange-400 invalid:border-red-500 invalid:ring-red-500"
                 required
               />
-              {formData.emailAddress.trim() === "" && (
+              {formData.email.trim() === "" && (
                 <p className="text-red-500 text-xs mt-1">
                   This field is required
                 </p>
@@ -279,55 +297,50 @@ const Pricing = () => {
           {/* Right Column - Product and Pricing Details */}
           <div className="w-full md:w-1/2 justify-between py-4 px-8">
             <div>
-              <div className="flex items-center mb-6">
-                <div className="w-10 h-10 flex items-center justify-center rounded-md mr-3 bg-gray-200">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 text-gray-600"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 18v-5.25a4.5 4.5 0 0 0-4.5 4.5V18m7.5-6v-.75A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-4.5 4.5v.75m7.5 0v.75m-7.5-.75h-.75M12 15h.008v.008H12Zm0 0v-.75a4.5 4.5 0 0 0 4.5-4.5V9"
-                    />
-                  </svg>
+              {/* List all products in cart */}
+              {storedCart && storedCart.length > 0 ? (
+                <div>
+                  {storedCart.map((item: any) => (
+                    <div
+                      key={item.productId}
+                      className="flex items-center mb-4 border-b pb-2"
+                    >
+                      {item.imageUrl && (
+                        <img
+                          src={item.imageUrl}
+                          alt={item.name}
+                          className="w-10 h-10 object-contain rounded mr-3"
+                        />
+                      )}
+                      <div className="flex-1">
+                        <span className="text-sm text-gray-800 font-medium">
+                          {item.name}
+                        </span>
+                      </div>
+                      <span className="text-xs text-gray-600 ml-2">
+                        Qty: {item.quantity}
+                      </span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between text-sm font-semibold mt-4">
+                    <span>Total Items:</span>
+                    <span>{totalItems}</span>
+                  </div>
                 </div>
-                <span className="text-sm text-gray-800 font-medium">
-                  {order?.productName || "Not Available"}
-                </span>
-                <span
-                  className={`ml-auto text-sm font-semibold   ${
-                    order ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {order ? "In Stock" : "Out of stock"}
-                </span>
-              </div>
-              <div className="pt-4 border-t border-gray-200">
-                <div className="flex justify-between text-sm text-gray-700 mb-3">
-                  <span>Subtotal:</span>
-                  <span>{order ? "Not Available" : "N/A"}</span>
-                </div>
-                <div className="flex justify-between text-sm text-gray-600 mb-3">
-                  <span>Shipping:</span>
-                  <span>{order ? "Not Available" : "N/A"}</span>
-                </div>
-                <div className="flex justify-between text-sm text-gray-600 mt-6 pt-4 border-t border-gray-200">
-                  <span>Total:</span>
-                  <span>{order ? "Not Available" : "N/A"}</span>
-                </div>
-              </div>
+              ) : (
+                <div className="text-red-500 text-sm">No items in cart.</div>
+              )}
             </div>
             <button
               type="submit"
+              onClick={handleFormSubmit}
+              aria-label="Get Quote"
+              data-testid="get-quote-button"
+              disabled={isPending || !isFormValid || storedCart.length === 0}
+              onKeyDown={handleFormSubmit}
               className="w-full mt-4 py-2 bg-[#F57B2C] text-white font-semibold rounded hover:bg-orange-600 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
-              disabled={!isFormValid}
             >
-              GET QUOTE
+              {isPending ? "Loading..." : "GET QUOTE"}
             </button>
           </div>
         </form>
