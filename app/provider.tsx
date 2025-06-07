@@ -4,7 +4,6 @@ import QueryProvider from "../shared/QueryProvider";
 import { ThemeProvider, CheckoutProvider } from "./context";
 import Footer from "@/shared/Footer/Footer";
 import CheckoutItems from "@/components/CheckOutItems";
-// Satoshi
 
 export default function Provider({
   children,
@@ -12,14 +11,14 @@ export default function Provider({
   children: React.ReactNode;
 }>) {
   return (
-    <QueryProvider>
-      <ThemeProvider>
-        <CheckoutProvider> 
+    <ThemeProvider>
+      <QueryProvider>
+        <CheckoutProvider>
           <CheckoutItems />
-        {children}
-        <Footer />
+          {children}
+          <Footer />
         </CheckoutProvider>
-      </ThemeProvider>
-    </QueryProvider>
+      </QueryProvider>
+    </ThemeProvider>
   );
 }

@@ -11,9 +11,11 @@ const ProductSection = ({
   newArrivals: IProduct[];
   loading: boolean;
 }) => {
+  console.log(newArrivals, "NA");
   return (
     <div
-      className="py-8 px-4 bg-[#E7E7E7] dark:bg-[#393939] md:mb-40"
+      className="py-8 px-
+  4 bg-[#E7E7E7] dark:bg-[#393939] md:mb-40"
       id="#new-arrivals"
     >
       <div className="md:max-w-6xl mx-auto py-12">
@@ -38,7 +40,11 @@ const ProductSection = ({
                   name={p?.name}
                   reviewCount={7}
                   productId={p?._id}
-                  imageUrl={p?.primaryImage?.url}
+                  imageUrl={
+                    p?.primaryImage
+                      ? p?.primaryImage?.url
+                      : p?.images?.find((i) => i.primary === true)?.url
+                  }
                   isNew={p?.status === "NEW_ARRIVAL"}
                 />
               ))}

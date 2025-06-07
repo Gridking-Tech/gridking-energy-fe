@@ -2,6 +2,7 @@
 
 import { useCheckout } from "@/app/context";
 import { CloseIcon } from "@/shared/Icons";
+import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 import { Product } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,15 +15,19 @@ const CheckoutItems: React.FC = () => {
   const [open, setOpen] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
   const router = useRouter();
-  const [selectedProduct, setSelectedProduct] = useState<Product[]>([]);
-
-  useEffect(() => {
-    setSelectedProduct(checkoutProducts);
-  }, [checkoutProducts]);
+  
 
   if (!open || checkoutProducts.length === 0) return null;
 
   const handleProceed = () => {
+    // Save checkout products to localStorage
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "checkout_products",
+        JSON.stringify(checkoutProducts)
+      );
+    }
+    setOpen(false); // Close the modal
     router.push("/checkout");
     console.log("Proceeding to checkout with:", checkoutProducts);
   };
@@ -31,10 +36,18 @@ const CheckoutItems: React.FC = () => {
     setIsMinimized((prev) => !prev);
   };
 
+  // Calculate total items
+  const totalItems = checkoutProducts.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+
   return (
     <div className="fixed bottom-4 right-4 w-76 bg-white shadow-2xl rounded z-50 drop-shadow-2xl">
       <div className="bg-orange-500 text-white p-4 rounded flex justify-between items-center relative">
-        <h2 className="text-base font-bold">Checkout Items {`(${checkoutProducts?.length})`}</h2>
+        <h2 className="text-base font-bold">
+          Checkout Items {`(${checkoutProducts?.length})`}
+        </h2>
         <button
           className="absolute right-4 top-5 text-white text-xl hover:text-gray-200 cursor-pointer"
           onClick={toggleMinimize}
@@ -57,7 +70,7 @@ const CheckoutItems: React.FC = () => {
                 className="flex items-center border relative rounded-md justify-between mb-4 pb-2 shadow-sm"
               >
                 <div className="flex items-center justify-center space-y-3 gap-3 w-full">
-                  {item.imageUrl && (
+                  {item.imageUrl ? (
                     <div className="p-2">
                       <Image
                         src={item.imageUrl}
@@ -65,7 +78,22 @@ const CheckoutItems: React.FC = () => {
                         width={40}
                         height={40}
                         className="object-contain"
+                        placeholder="empty"
+                        onError={(e) => {
+                          // @ts-ignore
+                          e.target.onerror = null;
+                          // @ts-ignore
+                          e.target.src = "";
+                        }}
+                        loading="lazy"
                       />
+                    </div>
+                  ) : (
+                    <div
+                      className="p-2 flex items-center justify-center"
+                      style={{ width: 40, height: 40 }}
+                    >
+                      <ImagePlaceholder width={40} height={40} />
                     </div>
                   )}
                   <div className="w-full">
@@ -78,7 +106,7 @@ const CheckoutItems: React.FC = () => {
                         className="bg-gray-200 text-gray-600 px-2  h-6 rounded-l cursor-pointer"
                         disabled={item.quantity <= 1}
                       >
-                        
+                        -
                       </button>
                       <span className="bg-gray-100 px-3 h-6 text-sm text-gray-600">
                         {item.quantity}
@@ -105,6 +133,12 @@ const CheckoutItems: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Total Items */}
+          <div className="px-4 pb-2 flex justify-between items-center text-sm font-semibold">
+            <span>Total Items:</span>
+            <span>{totalItems}</span>
           </div>
 
           <div className="p-4 border-t">
