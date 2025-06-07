@@ -11,12 +11,17 @@ export interface IProduct {
   hotSell: boolean;
   _id:string;
   slug:string;
-  primaryImage: {
-    publicId:string;
-    url:string;
+  primaryImage?: {
+    publicId?:string;
+    url?:string;
   };
   updatedAt?:string;
   attributes:  any[];
-  images: string[]
+  images: {
+    publicId?: string;
+    primary?: boolean;
+    url?: string;
+  }[];
   description: string
+  rating?: number;
 }
