@@ -37,7 +37,7 @@ const SustainabilityCard: React.FC<SustainabilityCardProps> = ({
 
 const Highlights: React.FC = () => {
   return (
-    <div className="md:max-w-6xl mx-auto px-4 py-12">
+    <div className="md:max-w-6xl mx-auto px-4 py-20 mt-20">
       <h2 className="text-3xl md:text-4xl mb-8 border-l-4 border-gray-300 pl-4 dark:text-white">
         Built for Sustainability
       </h2>
