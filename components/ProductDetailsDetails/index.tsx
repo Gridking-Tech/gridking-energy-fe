@@ -6,24 +6,58 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-const ProductDetailsDetails = ({ product }: { product: any }) => {
-  const router = useRouter();
+import { useState, useEffect } from "react"; // Added useEffect
+import { useCheckout } from "@/app/context";
+import { IProduct } from "@/types";
 
-  const [quantity, setQuantity] = useState(0);
+const ProductDetailsDetails = ({ product }: { product: IProduct }) => {
+  const router = useRouter();
+  const {
+    addToCheckout,
+    updateQuantity,
+    removeFromCheckout,
+    checkoutProducts,
+  } = useCheckout();
+
+  // Initialize quantity based on checkoutProducts
+  const filteredCheckoutProduct = checkoutProducts.find(
+    (item) => item.productId === product?._id
+  );
+  const [quantity, setQuantity] = useState(
+    filteredCheckoutProduct?.quantity || 0
+  );
+
+  // Sync local quantity state when checkoutProducts changes
+  useEffect(() => {
+    setQuantity(filteredCheckoutProduct?.quantity || 0);
+  }, [filteredCheckoutProduct]);
 
   const handleQuantityChange = (change: number) => {
-    setQuantity((prev) => Math.max(0, prev + change));
+    const newQuantity = Math.max(0, quantity + change);
+    setQuantity(newQuantity);
+
+    // Update checkoutProducts in context
+    if (newQuantity === 0 && filteredCheckoutProduct) {
+      removeFromCheckout(product._id);
+    } else if (filteredCheckoutProduct) {
+      updateQuantity(product._id, newQuantity);
+    } else if (newQuantity > 0) {
+      addToCheckout({
+        productId: product._id,
+        name: product.name,
+        slug: product.slug,
+        imageUrl: product.images?.find((i) => i.primary === true)?.url || "",
+      });
+    }
   };
 
-  const handlePassProductToCheckout = (product: any) => {
-    const order = {
-      productName: product.name,
-      productId: product._id,
-      quantity,
-    };
-    localStorage.setItem("checkout_product", JSON.stringify(order));
-    router.push("/checkout");
+  const handlePassProductToCheckout = () => {
+if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "checkout_products",
+        JSON.stringify(checkoutProducts)
+      );
+    }    router.push("/checkout");
   };
 
   return (
@@ -33,10 +67,11 @@ const ProductDetailsDetails = ({ product }: { product: any }) => {
         <CardDescription className="flex items-center gap-2 text-sm">
           <span className="text-yellow-500">{product?.rating}</span>
           <span className="mt-4">
-            <span className="text-sm font-bold text-orange-700 ml-[-4]">Status:</span>{" "}
+            <span className="text-sm font-bold text-orange-700 ml-[-4]">
+              Status:
+            </span>{" "}
             <span className="text-green-600">{product?.status}</span>
           </span>
-          <span></span>
         </CardDescription>
       </CardHeader>
 
@@ -85,14 +120,14 @@ const ProductDetailsDetails = ({ product }: { product: any }) => {
           </div>
           <p className="text-sm text-gray-600">
             Our team will contact you shortly after your submission with your
-            personalized quote and all relevant installation details.{" "}
+            personalized quote and all relevant installation details.
           </p>
         </div>
       </CardContent>
 
       <CardFooter>
         <button
-          onClick={() => handlePassProductToCheckout(product)}
+          onClick={handlePassProductToCheckout}
           className="p-4 bg-[#F47A2B] text-white py-3 rounded cursor-pointer hover:bg-orange-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
           disabled={quantity === 0}
         >
