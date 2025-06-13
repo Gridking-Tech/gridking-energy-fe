@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import SubHero from "../SubHero";
 import { useTheme } from "@/app/context/ThemeContext";
 import DesktopHeader from "@/shared/Header";
+import Image from "next/image";
 
 export default function HeroSection({
   handleScrollToElement,
@@ -23,6 +24,7 @@ export default function HeroSection({
 
   const hasImages = carouselData && carouselData.length > 0;
   const currentId = carouselData?.[currentIndex]?._id;
+  const mobileHeroImage = "/assets/placeholders/hero-mobile.png";
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
@@ -31,7 +33,6 @@ export default function HeroSection({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Set initial value and update on resize
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -127,8 +128,20 @@ export default function HeroSection({
             </button>
           </div>
         </div>
-        <div className="w-full bg-[#E7E7E7]  flex justify-center relative h-52 dark:bg-[#1E1E1E]">
-          <div className="absolute w-5/6 -top-[80%]">
+        {isMobile && (
+          <div className="p-6 flex justify-center">
+            <Image
+              src={imageUrl || mobileHeroImage}
+              alt="Hero Image"
+              width={400}
+              height={400}
+              className="object-contain rounded-lg w-[90%]"
+              priority
+            />
+          </div>
+        )}
+        <div className="w-full bg-[#E7E7E7]  flex justify-center lg:relative h-52 dark:bg-[#1E1E1E]">
+          <div className="lg:absolute w-5/6 -top-[80%]">
             <SubHero />
           </div>
         </div>
