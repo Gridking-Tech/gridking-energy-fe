@@ -28,6 +28,16 @@ export default function HeroSection({
   const [isFading, setIsFading] = useState(false);
   const texts = ["Clean Energy", "GridKing", "Smart Solutions"];
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Set initial value and update on resize
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsFading(true);
@@ -75,21 +85,21 @@ export default function HeroSection({
       <DesktopHeader />
       <div
         style={{
-          backgroundImage: `${
-            theme === "light"
-              ? `url(/assets/placeholders/hero-Bg.png)`
-              : `url(/assets/placeholders/hero-bg-dark.png)`
-          }`,
+          backgroundImage: isMobile
+            ? "none"
+            : theme === "light"
+            ? `url(/assets/placeholders/hero-Bg.png)`
+            : `url(/assets/placeholders/hero-bg-dark.png)`,
         }}
-        className="bg-contain bg-top bg-no-repeat flex flex-col justify-between  h-full "
+        className="bg-contain bg-top bg-no-repeat flex flex-col justify-between h-full"
       >
         <div className="w-5/6 m-auto flex flex-col lg:flex-row  flex-1 mt-14">
           <div className="w-full lg:w-3/5 flex flex-col justify-center h-max ">
-            <div className=" border-l-4 pl-4">
-              <h1 className="text-6xl font-bold text-gray-800 leading-tight dark:text-white">
+            <div className="text-5xl sm:text-5xl lg:text-6xl  lg:border-l-4 lg:pl-4">
+              <h1 className="font-bold text-gray-800 leading-tight dark:text-white">
                 Power Your Future
               </h1>
-              <h1 className="text-6xl font-bold leading-tight mt-2 dark:text-white">
+              <h1 className="font-bold leading-tight mt-2 dark:text-white">
                 with{" "}
                 <span
                   className={`text-[#F47A2B] transition-all duration-400 ease-in-out inline-block
