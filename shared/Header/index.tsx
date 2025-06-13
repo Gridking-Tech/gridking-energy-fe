@@ -57,9 +57,11 @@ export default function DesktopHeader({
   const Hamburger = ({
     open,
     onClick,
+    isBannerPage,
   }: {
     open: boolean;
     onClick: () => void;
+    isBannerPage: boolean;
   }) => (
     <button
       className="md:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none"
@@ -67,19 +69,19 @@ export default function DesktopHeader({
       onClick={onClick}
     >
       <span
-        className={`block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
+        className={`block h-0.5 w-6 transform transition duration-300 ease-in-out ${
           open ? "rotate-45 translate-y-1.5" : ""
-        }`}
+        } ${isBannerPage ? "bg-white" : "bg-current"}`}
       />
       <span
-        className={`block h-0.5 w-6 bg-current my-1 transition-all duration-300 ease-in-out ${
+        className={`block h-0.5 w-6 my-1 transition-all duration-300 ease-in-out ${
           open ? "opacity-0" : ""
-        }`}
+        } ${isBannerPage ? "bg-white" : "bg-current"}`}
       />
       <span
-        className={`block h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
+        className={`block h-0.5 w-6 transform transition duration-300 ease-in-out ${
           open ? "-rotate-45 -translate-y-1.5" : ""
-        }`}
+        } ${isBannerPage ? "bg-white" : "bg-current"}`}
       />
     </button>
   );
@@ -144,6 +146,7 @@ export default function DesktopHeader({
             <Hamburger
               open={mobileMenuOpen}
               onClick={() => setMobileMenuOpen((v) => !v)}
+              isBannerPage={isBannerPage}
             />
           </div>
           <div className="flex items-center gap-8">
@@ -220,7 +223,7 @@ export default function DesktopHeader({
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-[200] md:hidden">
             <div
-              className="absolute inset-0 bg-black bg-opacity-40"
+              className="absolute inset-0"
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
@@ -228,7 +231,7 @@ export default function DesktopHeader({
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.25 }}
-              className={`fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-[201] flex flex-col`}
+              className="fixed top-0 left-0 h-full w-full bg-white shadow-lg z-[201] flex flex-col"
             >
               <div className="flex items-center justify-between px-4 py-4 border-b">
                 <div
@@ -248,7 +251,7 @@ export default function DesktopHeader({
                   <span className="text-2xl">&times;</span>
                 </button>
               </div>
-              <nav className="flex-1 px-4 py-6">
+              <nav className="flex-1 px-4 py-6 w-full">
                 <ul className="flex flex-col gap-6">
                   {navLinks.map((link, idx) => (
                     <React.Fragment key={idx}>
