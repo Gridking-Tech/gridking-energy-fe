@@ -20,9 +20,9 @@ const Guide: React.FC = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   return (
-    <div className="md:max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-8 mt-25">
+    <div className="md:max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-8 lg:mt-25">
       <div className="flex-1 pr-20">
-        <h2 className="text-3xl md:text-4xl mb-6 border-l-4 border-gray-300 pl-4 dark:text-white">
+        <h2 className="text-5xl lg:text-3xl md:text-4xl mb-6 border-l-4 border-gray-300 pl-4 dark:text-white">
           Built on Trust, Powered by Innovation
         </h2>
         <h3 className="text-xl font-semibold text-[#F57B2C] mb-4">
