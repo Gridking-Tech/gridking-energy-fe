@@ -4,7 +4,7 @@ import Battery from "../../public/assets/placeholders/Gel battery var01.png";
 
 const SubHero = () => {
   return (
-    <div className="w-full flex lg:flex-row items-end gap-6">
+    <div className="lg:flex w-full flex-row items-end gap-6">
       {/* ============== */}
       <div className="rounded-md flex items-end justify-between bg-white shadow-sm h-54 w-[300px] ">
         <div className="w-1/2 p-4 h-full grid items-center">
@@ -28,7 +28,7 @@ const SubHero = () => {
         </div>
       </div>
       {/* ============== */}
-      <div className="rounded-md flex flex-col h-max w-max items-center justify-between bg-[#393939] shadow-sm relative ">
+      <div className="hidden md:flex rounded-md flex-col h-max w-max items-center justify-between bg-[#393939] shadow-sm relative ">
         <div className="absolute -top-11 -right-10 ">
           <svg
             width="105"

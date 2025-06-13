@@ -96,7 +96,7 @@ export default function HeroSection({
       >
         <div className="w-5/6 m-auto flex flex-col lg:flex-row  flex-1 mt-14">
           <div className="w-full lg:w-3/5 flex flex-col justify-center h-max ">
-            <div className="text-5xl sm:text-5xl lg:text-6xl  lg:border-l-4 lg:pl-4">
+            <div className="text-3xl sm:text-5xl lg:text-6xl  lg:border-l-4 lg:pl-4">
               <h1 className="font-bold text-gray-800 leading-tight dark:text-white">
                 Power Your Future
               </h1>
