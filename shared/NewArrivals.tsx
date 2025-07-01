@@ -147,8 +147,10 @@ const ProductSection = ({
         </div>
         <div className="text-left mt-6">
           <Link
-            href={"/categories"}
-            className="bg-[#F57B2C] text-white px-6 py-2 rounded hover:bg-orange-600 transition-colors cursor-pointer hover:shadow-lg"
+            href={loading ? "#" : "/categories"}
+            className={`bg-[#F57B2C] text-white px-6 py-2 rounded transition-colors cursor-pointer hover:shadow-lg ${loading ? 'opacity-50 pointer-events-none cursor-not-allowed' : 'hover:bg-orange-600'}`}
+            tabIndex={loading ? -1 : 0}
+            aria-disabled={loading}
           >
             Explore Our Products
           </Link>
