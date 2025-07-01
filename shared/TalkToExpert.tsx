@@ -57,7 +57,7 @@ export default function TalkToExpert() {
   };
 
   return (
-    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-10 dark:bg-black/10 px-4 pb-10 pt-6 md:px-8 md:pb-16 md:pt-10">
+    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-10 dark:bg-black/10 px-4 pt-6 md:px-8 md:pt-10" style={{paddingBottom: 0, marginBottom: 0}}>
       <div className="flex flex-col md:flex-row justify-between gap-6 items-center text-center md:text-left">
         <div className="md:w-1/2 pr-0 md:pr-25 leading-loose flex flex-col items-center md:items-start">
           <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white w-full md:w-auto">

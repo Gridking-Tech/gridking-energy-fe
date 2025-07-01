@@ -83,7 +83,7 @@ const EnergyCalculator = () => {
   }, [selectedAppliances]);
 
   return (
-    <div className="bg-white text-gray-900 px-4 py-4 mb-45">
+    <div className="bg-white text-gray-900 px-4 py-4 mb-35 mt-10 md:mt-0">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row">
         {/* Energy Usage Summary - always on top for mobile */}
         <div className="w-full md:w-1/2 pr-0 md:pr-8 top-8 order-1 md:order-none mb-8 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
