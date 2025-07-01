@@ -20,7 +20,7 @@ const ProductSection = ({
       setCurrentIndex((prevIndex) =>
         prevIndex === (newArrivals?.length || 3) - 1 ? 0 : prevIndex + 1
       );
-    }, 2000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [newArrivals?.length]);
 
