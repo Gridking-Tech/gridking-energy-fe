@@ -11,7 +11,7 @@ import NewsletterSubscription from "@/components/NewsLetterSub";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#F47A2B] text-black py-8 px-4 min-h-[60vh]">
+    <footer className="bg-[#F47A2B] text-black py-8 px-4 min-h-[60vh] mt-20">
       <div className="container mx-auto md:max-w-6xl px-2 md:px-4 py-8 md:py-12">
         <div className="flex flex-col md:flex-row md:justify-between md:space-x-8 mb-6">
           <div className="text-left mb-6 md:mb-0 md:w-1/3 flex-shrink-0 flex flex-col items-center md:items-start">
