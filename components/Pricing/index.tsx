@@ -147,15 +147,15 @@ const Pricing = () => {
   );
 
   return (
-    <div className="py-8 px-40">
+    <div className="py-8 px-2 md:px-40">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl mb-8 text-gray-800">Pricing Details</h2>
         <form
           onSubmit={handleFormSubmit}
-          className="flex flex-col md:flex-row gap-6"
+          className="flex flex-col gap-6"
         >
-          {/* Left Column - Form Fields */}
-          <div className="w-full md:w-1/2">
+          {/* Form Fields - always first, full width, padded */}
+          <div className="w-full bg-white rounded shadow-sm p-4 md:p-0">
             <div className="mb-2">
               <label
                 htmlFor="fullName"
@@ -294,8 +294,8 @@ const Pricing = () => {
             </div>
           </div>
 
-          {/* Right Column - Product and Pricing Details */}
-          <div className="w-full md:w-1/2 justify-between py-4 px-8">
+          {/* Cart and Submit - always after, full width, padded */}
+          <div className="w-full bg-white rounded shadow-sm p-4 md:p-8 mt-4">
             <div>
               {/* List all products in cart */}
               {storedCart && storedCart.length > 0 ? (
