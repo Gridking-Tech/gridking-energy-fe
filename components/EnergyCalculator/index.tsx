@@ -86,9 +86,9 @@ const EnergyCalculator = () => {
     <div className="bg-white text-gray-900 px-4 py-4 mb-45">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row">
         {/* Energy Usage Summary - always on top for mobile */}
-        <div className="w-full md:w-1/2 pr-0 md:pr-8 sticky top-8 order-1 md:order-none mb-8 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
-          <span className="w-1 h-12 bg-gray-400 mr-4 inline-block md:mr-4 md:inline-block hidden md:block"></span>
-          <h2 className="text-3xl font-bold inline text-gray-900 w-full md:w-auto">
+        <div className="w-full md:w-1/2 pr-0 md:pr-8 top-8 order-1 md:order-none mb-8 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
+          {/* <span className="w-1 h-12 bg-gray-400 mr-4 inline-block md:mr-4 md:inline-block hidden md:block"></span> */}
+          <h2 className="text-3xl font-bold inline text-gray-900 w-full md:w-auto border-l-4 pl-4">
             Energy Usage Calculator
           </h2>
           <p className="text-sm text-gray-600 mt-2 w-full md:w-auto">
