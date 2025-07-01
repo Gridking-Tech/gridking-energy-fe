@@ -84,18 +84,19 @@ const EnergyCalculator = () => {
 
   return (
     <div className="bg-white text-gray-900 px-4 py-4 mb-45">
-      <div className="max-w-6xl mx-auto flex">
-        <div className="w-1/2 pr-8 sticky top-8">
-          <span className="w-1 h-12 bg-gray-400 mr-4 inline-block"></span>
-          <h2 className="text-3xl font-bold inline text-gray-900">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row">
+        {/* Energy Usage Summary - always on top for mobile */}
+        <div className="w-full md:w-1/2 pr-0 md:pr-8 sticky top-8 order-1 md:order-none mb-8 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
+          <span className="w-1 h-12 bg-gray-400 mr-4 inline-block md:mr-4 md:inline-block hidden md:block"></span>
+          <h2 className="text-3xl font-bold inline text-gray-900 w-full md:w-auto">
             Energy Usage Calculator
           </h2>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-gray-600 mt-2 w-full md:w-auto">
             Take the guesswork out of your solar setup. Use our easy Energy
             Usage Calculator to discover exactly what size inverter you need
             based on your daily energy consumption.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 w-full md:w-auto">
             <h3 className="text-2xl font-semibold text-gray-900">
               Total Power Consumption
             </h3>
@@ -104,11 +105,12 @@ const EnergyCalculator = () => {
             </p>
           </div>
         </div>
-        <div className="w-1/2 pl-8 sticky top-8">
+        {/* Form Section - always below on mobile */}
+        <div className="w-full md:w-1/2 pl-0 md:pl-8 sticky top-8 order-2 md:order-none">
           <div className="space-y-6">
             <div className="space-y-4">
-              <div className="flex space-x-4">
-                <div className="w-1/2">
+              <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
+                <div className="w-full md:w-1/2">
                   <label className="block font-medium text-gray-700 mb-2">
                     Appliance
                   </label>
@@ -127,7 +129,7 @@ const EnergyCalculator = () => {
                     ))}
                   </select>
                 </div>
-                <div className="w-1/2">
+                <div className="w-full md:w-1/2">
                   <label className="block font-medium text-gray-700 mb-2">
                     Quantity
                   </label>
@@ -160,7 +162,6 @@ const EnergyCalculator = () => {
 
               <div className="mt-2 max-h-40 flex flex-wrap gap-2 overflow-y-auto ">
                 {selectedAppliances.length === 0 ? (
-
                   <EmptyState text="You need to add an Appliance(s) to calculate energy usage" />
                 ) : (
                   selectedAppliances.map((item, index) => (
