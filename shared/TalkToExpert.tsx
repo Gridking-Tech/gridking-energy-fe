@@ -4,6 +4,7 @@ import { CountryDropdown } from "react-country-region-selector";
 import Image from "next/image";
 import solar from "../public/assets/placeholders/solarExpert.jpg";
 import toast from "react-hot-toast";
+import ImagePlaceholder from "../shared/Placeholders/ImagePlaceholder";
 
 export default function TalkToExpert() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export default function TalkToExpert() {
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
     const allFieldsFilled = Object.values(formData).every(
@@ -73,12 +75,16 @@ export default function TalkToExpert() {
           </p>
         </div>
         <div className="h-[200px] w-full md:w-[300px] relative flex items-center justify-center mt-6 md:mt-0">
+          {!imgLoaded && (
+            <ImagePlaceholder width={300} height={200} />
+          )}
           <Image
             src={solar}
             alt="solar panel"
             priority={true}
             fill
-            className="rounded"
+            className={`rounded transition-opacity duration-300 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoadingComplete={() => setImgLoaded(true)}
           />
         </div>
       </div>
