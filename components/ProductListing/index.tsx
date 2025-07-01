@@ -43,18 +43,20 @@ const ProductLists = ({ category }: { category: string }) => {
 
   console.log(data, "data");
 
+  const [visibleCount, setVisibleCount] = React.useState(5);
+  const handleLoadMore = () => setVisibleCount((prev) => prev + 5);
+
   return (
-    <div className="mx auto min-h-screen bg-gray-100 py-8 px-40">
+    <div className="min-h-screen bg-gray-100 py-8 px-2 md:px-40">
       <div className="max-w-7xl mx-auto">
-        <nav className="text-sm text-gray-600 mb-6">
+        <nav className="text-sm text-gray-600 mb-6 px-2 md:px-0">
           <Link href="/categories" className="hover:text-orange-500">
             Home
-          </Link>{" "}
-          /{" "}
+          </Link>{" "}/ {" "}
           <span className="text-gray-900 font-medium capitalize">{title}</span>
         </nav>
-        <div className="px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((i, idx) => (
+        <div className="px-0 md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+          {products.slice(0, visibleCount).map((i, idx) => (
             <ProductCard
               name={i.name}
               productId={i?.id?.toString()}
@@ -67,6 +69,16 @@ const ProductLists = ({ category }: { category: string }) => {
             />
           ))}
         </div>
+        {products.length > visibleCount && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={handleLoadMore}
+              className="px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 font-semibold"
+            >
+              Load More
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

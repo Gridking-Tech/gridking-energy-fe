@@ -57,22 +57,22 @@ export default function TalkToExpert() {
   };
 
   return (
-    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-10 dark:bg-black/10 ">
-      <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
-        <div className="md:w-1/2 pr-25 leading-loose">
-          <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white">
+    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-10 dark:bg-black/10 px-4 pt-6 md:px-8 md:pt-10" style={{paddingBottom: 0, marginBottom: 0}}>
+      <div className="flex flex-col md:flex-row justify-between gap-6 items-center text-center md:text-left">
+        <div className="md:w-1/2 pr-0 md:pr-25 leading-loose flex flex-col items-center md:items-start">
+          <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white w-full md:w-auto">
             Get Your Free Solar Quote Today
           </h2>
-          <p className="text-[#F57B2C] text-lg font-semibold mt-4">
+          <p className="text-[#F57B2C] text-lg font-semibold mt-4 w-full md:w-auto">
             TAILORED SOLUTIONS FOR YOUR ENERGY NEEDS
           </p>
-          <p className="text-gray-600 mt-4 text-sm">
+          <p className="text-gray-600 mt-4 text-sm w-full md:w-auto">
             Ready to make the switch to smarter, more sustainable power? Our
             team will assess your needs and recommend the best Gridking inverter
             solution — customized to your home or business.
           </p>
         </div>
-        <div className="h-[200px] w-full md:w-[300px] relative flex items-center justify-center">
+        <div className="h-[200px] w-full md:w-[300px] relative flex items-center justify-center mt-6 md:mt-0">
           <Image
             src={solar}
             alt="solar panel"
@@ -82,8 +82,11 @@ export default function TalkToExpert() {
           />
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-8 space-y-4 flex flex-col items-center w-full"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 w-full">
           <div>
             <label className="block text-gray mb-1">Name</label>
             <input
@@ -118,7 +121,7 @@ export default function TalkToExpert() {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full">
           <div>
             <label className="block text-gray mb-1">
               Product/Service Interested in
@@ -145,7 +148,7 @@ export default function TalkToExpert() {
             />
           </div>
         </div>
-        <div>
+        <div className="w-full">
           <label className="block text-gray mb-1">Describe the inquiry</label>
           <textarea
             name="message"
@@ -158,7 +161,7 @@ export default function TalkToExpert() {
         <button
           type="submit"
           disabled={!isFormValid}
-          className={`md:w-[100%] mt-2 font-semibold py-3 px-6 rounded transition ${
+          className={`w-full md:w-[100%] mt-2 font-semibold py-3 px-6 rounded transition ${
             isFormValid
               ? "bg-orange-500 text-white hover:bg-[#F57B2C] cursor-pointer"
               : "bg-orange-300 text-white opacity-60 cursor-not-allowed"

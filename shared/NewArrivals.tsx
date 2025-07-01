@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { IProduct } from "@/types";
 import ProductCard from "@/shared/ProductCard";
@@ -11,43 +11,139 @@ const ProductSection = ({
   newArrivals: IProduct[];
   loading: boolean;
 }) => {
-  console.log(newArrivals, "NA");
+  const [currentIndex, setCurrentIndex] = useState(0); 
+  const [visibleCount, setVisibleCount] = useState(5); 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === (newArrivals?.length || 3) - 1 ? 0 : prevIndex + 1
+      );
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [newArrivals?.length]);
+
+  const handleDotClick = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 5);
+  };
+
   return (
     <div
-      className="py-8 px-
-  4 bg-[#E7E7E7] dark:bg-[#393939] md:mb-40"
+      className="py-8 px-4 lg:bg-[#E7E7E7] dark:bg-[#393939] md:mb-40"
       id="#new-arrivals"
     >
       <div className="md:max-w-6xl mx-auto py-12">
         <h2 className="text-3xl md:text-4xl mb-8 border-l-4 border-gray-300 pl-4">
           Powering Homes and Businesses with Excellence
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]">
-          {loading
-            ? Array.from({ length: 3 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="flex justify-center items-center min-h-[300px]"
-                >
-                  <ImagePlaceholder width={400} height={300} />
-                </div>
-              ))
-            : newArrivals?.map((p: IProduct, index: number) => (
-                <ProductCard
-                  key={index}
-                  slug={p?.slug}
-                  rating={4.5}
-                  name={p?.name}
-                  reviewCount={7}
-                  productId={p?._id}
-                  imageUrl={
-                    p?.primaryImage
-                      ? p?.primaryImage?.url
-                      : p?.images?.find((i) => i.primary === true)?.url
-                  }
-                  isNew={p?.status === "NEW_ARRIVAL"}
-                />
-              ))}
+        {/* Mobile Carousel */}
+        <div className="block md:hidden">
+          <div className="relative">
+            <div
+              ref={containerRef}
+              className="overflow-hidden min-h-[300px] w-full"
+            >
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(-${currentIndex * 100}%)`,
+                }}
+              >
+                {loading
+                  ? Array.from({ length: 3 }).map((_, idx) => (
+                      <div
+                        key={idx}
+                        className="flex-shrink-0 w-full flex justify-center items-center min-h-[300px]"
+                      >
+                        <ImagePlaceholder width={400} height={300} />
+                      </div>
+                    ))
+                  : newArrivals?.map((p: IProduct, index: number) => (
+                      <div
+                        key={index}
+                        className="flex-shrink-0 w-full flex justify-center"
+                      >
+                        <ProductCard
+                          slug={p?.slug}
+                          rating={4.5}
+                          name={p?.name}
+                          reviewCount={7}
+                          productId={p?._id}
+                          imageUrl={
+                            p?.primaryImage?.url
+                              ? p?.primaryImage?.url
+                              : p?.images?.find((i) => i.primary === true)
+                                  ?.url || ""
+                          }
+                          isNew={p?.status === "NEW_ARRIVAL"}
+                        />
+                      </div>
+                    ))}
+              </div>
+            </div>
+            {!loading && newArrivals?.length > 1 && (
+              <div className="flex justify-center mt-4 space-x-2">
+                {newArrivals.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleDotClick(index)}
+                    className={`w-3 h-3 rounded-full ${
+                      currentIndex === index ? "bg-[#F57B2C]" : "bg-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        {/* Desktop Grid with Load More */}
+        <div className="hidden md:block">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]">
+            {loading
+              ? Array.from({ length: 3 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="flex justify-center items-center min-h-[300px] w-full"
+                  >
+                    <ImagePlaceholder width={400} height={300} />
+                  </div>
+                ))
+              : newArrivals
+                  ?.slice(0, visibleCount)
+                  .map((p: IProduct, index: number) => (
+                    <div key={index} className="w-full flex justify-center">
+                      <ProductCard
+                        slug={p?.slug}
+                        rating={4.5}
+                        name={p?.name}
+                        reviewCount={7}
+                        productId={p?._id}
+                        imageUrl={
+                          p?.primaryImage?.url
+                            ? p?.primaryImage?.url
+                            : p?.images?.find((i) => i.primary === true)?.url ||
+                              ""
+                        }
+                        isNew={p?.status === "NEW_ARRIVAL"}
+                      />
+                    </div>
+                  ))}
+          </div>
+          {!loading && newArrivals?.length > visibleCount && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={handleLoadMore}
+                className="bg-[#F57B2C] text-white px-6 py-2 rounded hover:bg-orange-600 transition-colors cursor-pointer hover:shadow-lg"
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </div>
         <div className="text-left mt-6">
           <Link
