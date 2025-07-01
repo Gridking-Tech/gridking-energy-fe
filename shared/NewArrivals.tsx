@@ -11,11 +11,10 @@ const ProductSection = ({
   newArrivals: IProduct[];
   loading: boolean;
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0); // for mobile carousel
-  const [visibleCount, setVisibleCount] = useState(5); // for desktop load more
+  const [currentIndex, setCurrentIndex] = useState(0); 
+  const [visibleCount, setVisibleCount] = useState(5); 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-swipe for mobile carousel
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
