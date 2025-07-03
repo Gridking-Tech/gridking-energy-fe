@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,45 +7,38 @@ import { productsApi } from "@/api";
 import { IProduct } from "@/types";
 import { retrieveIdFromTitle, retrieveTitle } from "@/lib/utils";
 import defaultImg from "@/public/assets/placeholders/products.png";
- 
+
+type CategoryWithProducts = {
+  products: any[];
+  [key: string]: any;
+};
 
 const ProductLists = ({ category }: { category: string }) => {
-  const products = [
-    {
-      id: 1,
-      name: "2kVA Inverter 55V-450V:Sample Product",
-      rating: 4.8,
-      reviews: 9,
-      image: defaultImg,
-      isNew: true,
-    },
-    {
-      id: 2,
-      name: "3kVA Inverter 55V-450V: Sample Product",
-      rating: 5,
-      reviews: 7,
-      image: defaultImg,
-      isNew: true,
-    },
-    {
-      id: 3,
-      name: "12V Gel Battery: Sample Product",
-      rating: 4,
-      reviews: 5,
-      image: defaultImg,
-      isNew: true,
-    },
-  ];
-  const categoryId = retrieveIdFromTitle(category as string);
-  const title = retrieveTitle(category as string);
-  const { data, isLoading } = productsApi.useGetCategoryById(
-    categoryId as string
-  );
-
-  console.log(data, "data");
+  const categoryId = category;
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = productsApi.useGetCategoryById(categoryId) as {
+    data: CategoryWithProducts;
+    isLoading: boolean;
+    error: any;
+  };
 
   const [visibleCount, setVisibleCount] = React.useState(5);
   const handleLoadMore = () => setVisibleCount((prev) => prev + 5);
+
+  const productList: any[] = Array.isArray((products as any)?.data?.products)
+    ? (products as any).data.products
+    : [];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-xl text-gray-600">
+        Loading categories...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-2 md:px-40">
@@ -52,24 +46,30 @@ const ProductLists = ({ category }: { category: string }) => {
         <nav className="text-sm text-gray-600 mb-6 px-2 md:px-0">
           <Link href="/categories" className="hover:text-orange-500">
             Home
-          </Link>{" "}/ {" "}
-          <span className="text-gray-900 font-medium capitalize">{title}</span>
+          </Link>{" "}
+          /{" "}
+          <span className="text-gray-900 font-medium capitalize">
+            {categoryId}
+          </span>
         </nav>
         <div className="px-0 md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-          {products.slice(0, visibleCount).map((i, idx) => (
+          {productList.slice(0, visibleCount).map((i: any, idx: number) => (
             <ProductCard
               name={i.name}
-              productId={i?.id?.toString()}
+              productId={i?._id?.toString()}
               rating={i.rating}
               reviewCount={i.reviews}
-              imageUrl={typeof i.image === "string" ? i.image : i.image.src}
+              imageUrl={
+                i.primaryImage?.url ||
+                (typeof i.image === "string" ? i.image : i.image?.src)
+              }
               isNew={i.isNew}
-              slug={i.name}
+              slug={i.slug || i.name}
               key={idx}
             />
           ))}
         </div>
-        {products.length > visibleCount && (
+        {productList.length > visibleCount && (
           <div className="flex justify-center mt-8">
             <button
               onClick={handleLoadMore}
