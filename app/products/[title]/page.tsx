@@ -7,9 +7,7 @@ import DesktopHeader from "@/shared/Header";
 
 function retrieveIdFromTitle(titleStr: string) {
   const parts = titleStr.split("-");
-  console.log(parts, "parts");
   const lastPart = parts[parts.length - 1];
-  console.log(lastPart, "lastPart");
 
   return lastPart ? decodeURIComponent(lastPart) : null;
 }
