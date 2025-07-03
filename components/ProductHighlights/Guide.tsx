@@ -15,8 +15,6 @@ const Guide: React.FC = () => {
     error: any;
   };
 
-  console.log("ImageId:", ImageId);
-
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   return (
