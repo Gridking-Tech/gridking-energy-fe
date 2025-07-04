@@ -101,14 +101,14 @@ export default function DesktopHeader({
         }`}
       >
         <div className="w-5/6 h-[10vh] rounded-[0.5rem] flex justify-between items-center relative">
-          <div
+            <div
             className={`text-xl font-bold cursor-pointer ${
               isBannerPage ? "text-white" : "text-black"
-            } ${"md:static absolute left-4 top-1/2 -translate-y-1/2"}`}
+            } md:static md:left-0 md:top-0 md:translate-y-0 absolute left-0 top-1/2 -translate-y-1/2`}
             onClick={() => routes.push("/")}
-          >
+            >
             <Logo />
-          </div>
+            </div>
           {/* Desktop nav */}
           <div className="hidden md:block">
             <ul
