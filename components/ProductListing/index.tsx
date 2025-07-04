@@ -7,6 +7,7 @@ import { productsApi } from "@/api";
 import { IProduct } from "@/types";
 import { retrieveIdFromTitle, retrieveTitle } from "@/lib/utils";
 import defaultImg from "@/public/assets/placeholders/products.png";
+import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 
 type CategoryWithProducts = {
   products: any[];
@@ -34,8 +35,10 @@ const ProductLists = ({ category }: { category: string }) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-xl text-gray-600">
-        Loading categories...
+      <div className="min-h-screen flex items-center justify-center w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          <ImagePlaceholder count={3} width={400} height={300} />
+        </div>
       </div>
     );
   }

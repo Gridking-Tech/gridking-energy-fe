@@ -5,6 +5,7 @@ import Link from "next/link";
 import { productsApi } from "@/api";
 import { IProduct } from "@/types";
 import defaultImg from "@/public/assets/placeholders/products.png";
+import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 
 const ProductCategories = () => {
   const { data, isLoading } = productsApi.useGetCategory() as {
@@ -15,8 +16,10 @@ const ProductCategories = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-xl text-gray-600">
-        Loading categories...
+      <div className="min-h-screen flex items-center justify-center w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full justify-items-center items-center">
+          <ImagePlaceholder count={3} width={400} height={200} />
+        </div>
       </div>
     );
   }
@@ -29,10 +32,7 @@ const ProductCategories = () => {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:-grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]">
           {data?.data?.map((category: IProduct, index: number) => (
-            <Link
-              href={`/categories/${category._id}`}
-              key={index}
-            >
+            <Link href={`/categories/${category._id}`} key={index}>
               <div className="bg-black text-white rounded-lg overflow-hidden shadow-md">
                 <div className="p-6">
                   <span className="text-4xl font-bold text-orange-500">
