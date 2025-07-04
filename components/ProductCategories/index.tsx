@@ -2,17 +2,27 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { homePageApi } from "@/api";
+import { productsApi } from "@/api";
 import { IProduct } from "@/types";
 import defaultImg from "@/public/assets/placeholders/products.png";
+import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 
 const ProductCategories = () => {
-  const { data, isLoading } = homePageApi.useGetHomePageResource() as {
-    data: { categories: IProduct[] };
+  const { data, isLoading } = productsApi.useGetCategory() as {
+    data: { data: IProduct[] };
     isLoading: boolean;
     error: any;
   };
-  console.log(data, "data");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full justify-items-center items-center">
+          <ImagePlaceholder count={3} width={400} height={200} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-16 px-4 bg-gray-100">
@@ -21,12 +31,8 @@ const ProductCategories = () => {
           Powering Homes and Businesses with Excellence
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:-grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]">
-          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6"> */}
-          {data?.categories?.map((category, index) => (
-            <Link
-              href={`categories/${category.slug}-${category._id}`}
-              key={index}
-            >
+          {data?.data?.map((category: IProduct, index: number) => (
+            <Link href={`/categories/${category._id}`} key={index}>
               <div className="bg-black text-white rounded-lg overflow-hidden shadow-md">
                 <div className="p-6">
                   <span className="text-4xl font-bold text-orange-500">
@@ -41,8 +47,7 @@ const ProductCategories = () => {
                       className="rounded"
                       alt={category.slug}
                       style={{ objectFit: "cover" }}
-                      src={defaultImg}
-                      // src={category.primaryImage?.url}
+                      src={category.primaryImage?.url || defaultImg}
                     />
                   </div>
                   <p className="text-sm">{category.description}</p>

@@ -11,8 +11,8 @@ const ProductSection = ({
   newArrivals: IProduct[];
   loading: boolean;
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0); 
-  const [visibleCount, setVisibleCount] = useState(5); 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(5);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -103,36 +103,31 @@ const ProductSection = ({
         </div>
         {/* Desktop Grid with Load More */}
         <div className="hidden md:block">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]">
-            {loading
-              ? Array.from({ length: 3 }).map((_, idx) => (
-                  <div
-                    key={idx}
-                    className="flex justify-center items-center min-h-[300px] w-full"
-                  >
-                    <ImagePlaceholder width={400} height={300} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px] mx-4">
+            {loading ? (
+              <ImagePlaceholder count={3} width={400} height={300} />
+            ) : (
+              newArrivals
+                ?.slice(0, visibleCount)
+                .map((p: IProduct, index: number) => (
+                  <div key={index} className="w-full flex justify-center">
+                    <ProductCard
+                      slug={p?.slug}
+                      rating={4.5}
+                      name={p?.name}
+                      reviewCount={7}
+                      productId={p?._id}
+                      imageUrl={
+                        p?.primaryImage?.url
+                          ? p?.primaryImage?.url
+                          : p?.images?.find((i) => i.primary === true)?.url ||
+                            ""
+                      }
+                      isNew={p?.status === "NEW_ARRIVAL"}
+                    />
                   </div>
                 ))
-              : newArrivals
-                  ?.slice(0, visibleCount)
-                  .map((p: IProduct, index: number) => (
-                    <div key={index} className="w-full flex justify-center">
-                      <ProductCard
-                        slug={p?.slug}
-                        rating={4.5}
-                        name={p?.name}
-                        reviewCount={7}
-                        productId={p?._id}
-                        imageUrl={
-                          p?.primaryImage?.url
-                            ? p?.primaryImage?.url
-                            : p?.images?.find((i) => i.primary === true)?.url ||
-                              ""
-                        }
-                        isNew={p?.status === "NEW_ARRIVAL"}
-                      />
-                    </div>
-                  ))}
+            )}
           </div>
           {!loading && newArrivals?.length > visibleCount && (
             <div className="flex justify-center mt-6">
@@ -148,7 +143,11 @@ const ProductSection = ({
         <div className="text-left mt-6">
           <Link
             href={loading ? "#" : "/categories"}
-            className={`bg-[#F57B2C] text-white px-6 py-2 rounded transition-colors cursor-pointer hover:shadow-lg ${loading ? 'opacity-50 pointer-events-none cursor-not-allowed' : 'hover:bg-orange-600'}`}
+            className={`bg-[#F57B2C] text-white px-6 py-2 rounded transition-colors cursor-pointer hover:shadow-lg ${
+              loading
+                ? "opacity-50 pointer-events-none cursor-not-allowed"
+                : "hover:bg-orange-600"
+            }`}
             tabIndex={loading ? -1 : 0}
             aria-disabled={loading}
           >

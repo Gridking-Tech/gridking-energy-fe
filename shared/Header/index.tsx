@@ -24,10 +24,17 @@ export default function DesktopHeader({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const controls = useAnimation();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
+      if (!hasMounted) return;
       if (window.scrollY > 15) {
-        controls?.start({
+        controls.start({
           width: "100%",
           top: 0,
           borderRadius: 0,
@@ -45,7 +52,7 @@ export default function DesktopHeader({
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [controls]);
+  }, [controls, hasMounted]);
 
   const getDropdownWidth = () => {
     const itemCount = activeCategory?.length || 0;
