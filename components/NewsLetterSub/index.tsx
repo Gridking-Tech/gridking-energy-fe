@@ -17,7 +17,10 @@ const NewsletterSubscription = () => {
 
   return (
     <div
-      style={{ backgroundImage: `url(/assets/placeholders/footer-Bg.png)` }}
+      style={{
+        backgroundImage: `url(/assets/placeholders/footer-bg.png)`,
+        backgroundSize: "contain no-repeat",
+      }}
       className="text-white p-4 md:p-28 rounded-sm max-w-6xl mx-auto border-4 border-[#F47A2B]"
     >
       <h3 className="text-4xl mb-4 text-center">Subscribe To Our Newsletter</h3>

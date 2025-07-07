@@ -74,7 +74,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="max-w-sm rounded overflow-hidden hover:shadow-md"
+      className="max-w-sm w-full rounded overflow-hidden hover:shadow-md"
     >
       <Link href={`/products/${slug}-${productId}` || goTo}>
         <div
@@ -123,7 +123,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <span className="ml-2 text-sm text-gray-600">({reviewCount})</span>
           </div>
 
-          <div className="h-12">
+          <div className="flex items-center h-12">
             {isHovered && (
               <button
                 onClick={handleAddToCheckout}
