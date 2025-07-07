@@ -70,9 +70,9 @@ const ProductSection = ({
                       >
                         <ProductCard
                           slug={p?.slug}
-                          rating={4.5}
+                          rating={4.9}
                           name={p?.name}
-                          reviewCount={7}
+                          reviewCount={12}
                           productId={p?._id}
                           imageUrl={
                             p?.primaryImage?.url
@@ -113,9 +113,9 @@ const ProductSection = ({
                   <div key={index} className="w-full flex justify-center">
                     <ProductCard
                       slug={p?.slug}
-                      rating={4.5}
+                      rating={4.9}
                       name={p?.name}
-                      reviewCount={7}
+                      reviewCount={12}
                       productId={p?._id}
                       imageUrl={
                         p?.primaryImage?.url
