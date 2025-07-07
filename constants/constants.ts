@@ -1,11 +1,10 @@
-
-
 export const imagesArr = [];
 
 export const ProductsLinks = [
   {
     name: "Battery",
-    href: "/categories",
+    slug: "gel-battery",
+    href: "/categories/gel-battery",
     images: [
       "/assets/placeholders/products.png",
       "/assets/placeholders/products.png",
@@ -14,8 +13,8 @@ export const ProductsLinks = [
     subcategories: [
       {
         name: "Gel Battery",
-        href: "/categories",
-
+        slug: "gel-battery",
+        href: "/categories/gel-battery",
         images: [
           "/assets/placeholders/products.png",
 
@@ -24,7 +23,8 @@ export const ProductsLinks = [
 
       {
         name: "Lithium Battery",
-        href: "/categories",
+        slug: "lithium-battery",
+        href: "/categories/lithium-battery",
         disabled: true,
         images: [
           "/assets/placeholders/products.png",
@@ -33,22 +33,25 @@ export const ProductsLinks = [
     ],
   },
   {
-    name: "Inverters",
-    href: "/categories",
+    name: "Inverter", 
+    slug: "inverter", 
+    href: "/categories/inverter",
     images: [
       "/assets/placeholders/products.png",
     ],
     subcategories: [
       {
         name: "Hybrid Inverter",
-        href: "/categories",
+        slug: "inverter", 
+        href: "/categories/inverter", 
         images: [
           "/assets/placeholders/products.png",
         ],
       },
       {
         name: "Off-Grid Inverter",
-        href: "/categories",
+        slug: "off-grid-inverter",
+        href: "/categories/off-grid-inverter",
         disabled: true,
         images: [
           "/assets/placeholders/products.png",
@@ -58,13 +61,16 @@ export const ProductsLinks = [
   },
   {
     name: "Solar Panel",
-    href: "/categories",
+    slug: "solar-panel",
+    href: "/categories/solar-panel",
     images: [
       "/assets/placeholders/products.png",
     ],
     subcategories: [
       {
         name: "Off Grid Panels",
+        slug: "off-grid-panels",
+        href: "/categories/off-grid-panels",
         disabled: true,
       },
     ],
@@ -89,7 +95,6 @@ export const navLinks = [
   { name: "Home", href: "/" },
   { name: "Product", href: "", constant: ProductsLinks },
   { name: "About Us", href: "/about" },
-  // { name: "Blog", href: "/blog" },
 ];
 
 export const products = [
