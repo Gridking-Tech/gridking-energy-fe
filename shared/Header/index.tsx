@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "../Icons";
 import ThemeToggle from "@/components/ThemeToggle";
+import { productsApi } from "@/api";
 
 export default function DesktopHeader({
   isBannerPage = false,
@@ -93,6 +94,28 @@ export default function DesktopHeader({
     </button>
   );
 
+  const { data: categoriesData } = productsApi.useGetCategory() as {
+    data: { data: any[] };
+    isLoading: boolean;
+    error: any;
+  };
+
+  const normalize = (str: string) =>
+    str
+      ?.toString()
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+  const getCategoryIdBySlugOrName = (slugOrName: string) => {
+    if (!slugOrName) return null;
+    const norm = normalize(slugOrName);
+    return (
+      categoriesData?.data?.find(
+        (cat) => normalize(cat.slug) === norm || normalize(cat.name) === norm
+      )?._id || null
+    );
+  };
+
   return (
     <div>
       <div
@@ -101,14 +124,14 @@ export default function DesktopHeader({
         }`}
       >
         <div className="w-5/6 h-[10vh] rounded-[0.5rem] flex justify-between items-center relative">
-            <div
+          <div
             className={`text-xl font-bold cursor-pointer ${
               isBannerPage ? "text-white" : "text-black"
             } md:static md:left-0 md:top-0 md:translate-y-0 absolute left-0 top-1/2 -translate-y-1/2`}
             onClick={() => routes.push("/")}
-            >
+          >
             <Logo />
-            </div>
+          </div>
           {/* Desktop nav */}
           <div className="hidden md:block">
             <ul
@@ -180,24 +203,28 @@ export default function DesktopHeader({
               onMouseLeave={() => setIscategories(false)}
             >
               <ul className="w-full flex flex-wrap gap-8 justify-between">
-                {" "}
                 {activeCategory?.map((category: any, index: any) => (
                   <div
                     key={index}
                     className="flex flex-col items-start flex-1 min-w-[20%] space-y-2"
                   >
-                    {" "}
                     <li
                       className={`text-black text-[1.04rem] font-black mb-2 ${
                         category.disabled
                           ? "cursor-not-allowed opacity-53"
                           : "hover:text-orange-500 cursor-pointer"
                       }`}
-                      onClick={() =>
-                        routes.push(
-                          !category.routes ? category.href : `categories`
-                        )
-                      }
+                      onClick={() => {
+                        if (!category.disabled) {
+                          const catId = getCategoryIdBySlugOrName(
+                            category.slug || category.name
+                          );
+                          if (catId) {
+                            routes.push(`/categories/${catId}`);
+                            setIscategories(false);
+                          }
+                        }
+                      }}
                     >
                       {category.name}
                     </li>
@@ -210,12 +237,17 @@ export default function DesktopHeader({
                               ? "cursor-not-allowed opacity-50"
                               : "hover:bg-gray-100 cursor-pointer"
                           }`}
-                          onClick={() =>
-                            routes.push(
-                              `/categories/inverter-682d0c902d1c5c0c1a21433d`
-                              // `/categories/${category.name}/${sub.name}`
-                            )
-                          }
+                          onClick={() => {
+                            if (!sub.disabled) {
+                              const subId = getCategoryIdBySlugOrName(
+                                sub.slug || sub.name
+                              );
+                              if (subId) {
+                                routes.push(`/categories/${subId}`);
+                                setIscategories(false);
+                              }
+                            }
+                          }}
                         >
                           {sub.name}
                         </li>
@@ -290,7 +322,12 @@ export default function DesktopHeader({
                                   onClick={() => {
                                     if (!cat.disabled) {
                                       setMobileMenuOpen(false);
-                                      routes.push(cat.href);
+                                      const catId = getCategoryIdBySlugOrName(
+                                        cat.slug || cat.name
+                                      );
+                                      if (catId) {
+                                        routes.push(`/categories/${catId}`);
+                                      }
                                     }
                                   }}
                                 >
@@ -312,7 +349,15 @@ export default function DesktopHeader({
                                               onClick={() => {
                                                 if (!sub.disabled) {
                                                   setMobileMenuOpen(false);
-                                                  routes.push(cat.href);
+                                                  const subId =
+                                                    getCategoryIdBySlugOrName(
+                                                      sub.slug || sub.name
+                                                    );
+                                                  if (subId) {
+                                                    routes.push(
+                                                      `/categories/${subId}`
+                                                    );
+                                                  }
                                                 }
                                               }}
                                             >

@@ -1,12 +1,8 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/shared/ProductCard";
 import { productsApi } from "@/api";
-import { IProduct } from "@/types";
-import { retrieveIdFromTitle, retrieveTitle } from "@/lib/utils";
-import defaultImg from "@/public/assets/placeholders/products.png";
 import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 
 type CategoryWithProducts = {

@@ -41,12 +41,12 @@ const ProductCategories = () => {
                   <h3 className="text-xl font-semibold mt-2 mb-4">
                     {category.name}
                   </h3>
-                  <div className="relative w-full h-70 mb-4">
+                  <div className="w-full h-48 mb-4 overflow-hidden rounded">
                     <Image
-                      fill
-                      className="rounded"
+                      width={400}
+                      height={200}
+                      className="w-full h-full object-contain rounded"
                       alt={category.slug}
-                      style={{ objectFit: "cover" }}
                       src={category.primaryImage?.url || defaultImg}
                     />
                   </div>
