@@ -67,7 +67,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="w-full flex justify-center items-center">
-          <div className="w-full max-w-2xl">
+          <div className="w-full">
             <NewsletterSubscription />
           </div>
         </div>
