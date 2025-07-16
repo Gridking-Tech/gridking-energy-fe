@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { CountryDropdown } from "react-country-region-selector";
 import Image from "next/image";
-import solar from "../public/assets/placeholders/solarExpert.jpg";
+import solar from "../public/assets/placeholders/Solar-panel.png";
 import toast from "react-hot-toast";
 import ImagePlaceholder from "../shared/Placeholders/ImagePlaceholder";
 
@@ -59,7 +59,10 @@ export default function TalkToExpert() {
   };
 
   return (
-    <div className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-10 dark:bg-black/10 px-4 pt-6 md:px-8 md:pt-10" style={{paddingBottom: 0, marginBottom: 0}}>
+    <div
+      className="md:max-w-6xl mx-auto bg-white min-h-screen lg:mt-10 dark:bg-black/10 px-4 pt-6 md:pt-10"
+      style={{ paddingBottom: 0, marginBottom: 0 }}
+    >
       <div className="flex flex-col md:flex-row justify-between gap-6 items-center text-center md:text-left">
         <div className="md:w-1/2 pr-0 md:pr-25 leading-loose flex flex-col items-center md:items-start">
           <h2 className="text-3xl md:text-4xl gray-300 border-l-4 pl-4 text-black dark:text-white w-full md:w-auto">
@@ -74,16 +77,16 @@ export default function TalkToExpert() {
             solution — customized to your home or business.
           </p>
         </div>
-        <div className="h-[200px] w-full md:w-[300px] relative flex items-center justify-center mt-6 md:mt-0">
-          {!imgLoaded && (
-            <ImagePlaceholder width={300} height={200} />
-          )}
+        <div className="h-[400px] w-full md:w-[500px] relative flex items-center justify-center mt-6 md:mt-0">
+          {!imgLoaded && <ImagePlaceholder width={300} height={200} />}
           <Image
             src={solar}
             alt="solar panel"
             priority={true}
             fill
-            className={`rounded transition-opacity duration-300 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
+            className={`rounded transition-opacity duration-300 ${
+              imgLoaded ? "opacity-100" : "opacity-0"
+            }`}
             onLoadingComplete={() => setImgLoaded(true)}
           />
         </div>

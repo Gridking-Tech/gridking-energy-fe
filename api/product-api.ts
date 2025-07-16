@@ -21,5 +21,11 @@ export const productsApi = {
 
   useSendQuote(options: UseMutationOptions<any, any, any> = {}) {
     return api.useSendRequest("post", "/quote/order",{}, options);
-  }
+  },
+
+  useGetAppliances: () =>
+    api.useFetchRequest("APPLIANCE_LIST", "/appliance"),
+
+  useGetRecommendation: (options: UseMutationOptions<any, any, any> = {}) =>
+    api.useSendRequest("post", "/recommendation", {}, options),
 };

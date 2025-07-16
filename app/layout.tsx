@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
+import FloatingLoadCalculatorButton from "@/components/FloatingLoadCalculatorButton";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -45,6 +46,7 @@ function RootLayout({
           position="top-right"
           gutter={16}
         />
+        <FloatingLoadCalculatorButton />
         <Provider>{children}</Provider>
       </body>
     </html>
