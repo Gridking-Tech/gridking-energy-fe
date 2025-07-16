@@ -3,6 +3,13 @@ import { CloseIcon } from "@/shared/Icons";
 import { useCheckout } from "@/app/context";
 import { useRouter } from "next/navigation";
 
+interface RecommendedProduct {
+  productId: string;
+  name: string;
+  slug: string;
+  imageUrl?: string;
+}
+
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
@@ -11,42 +18,53 @@ interface IProps {
     recommendedInverterRating: string;
     recommendedBatteryCapacity: string;
     recommendedBatteryCount: string;
+    recommendedProducts?: RecommendedProduct[];
+    // Optionally, add error/loading if you want to pass them in
+    error?: string;
+    loading?: boolean;
   };
-}
-interface Product {
-  productId: string;
-  name: string;
-  slug: string;
-  imageUrl?: string;
-  quantity: number;
 }
 
 const RecommendationsModal = ({ isOpen, onClose, energyUsage }: IProps) => {
   if (!isOpen) return null;
   const { addToCheckout } = useCheckout();
-  const router = useRouter()
+  const router = useRouter();
 
   const handleGetQuote = () => {
-    const selectedProducts: Omit<Product, "quantity">[] = [
-      {
-        productId: "123",
-        name: "Product 1",
-        slug: "product-1",
-        imageUrl: "/assets/placeholders/products.png",
-      },
-      {
-        productId: "456",
-        name: "Product 2",
-        slug: "product-2",
-        imageUrl: "/assets/placeholders/products.png",
-      },
-    ];
-    addToCheckout(selectedProducts);
-
-    router.push('/checkout')
-
+    if (
+      energyUsage.recommendedProducts &&
+      energyUsage.recommendedProducts.length > 0
+    ) {
+      addToCheckout(energyUsage.recommendedProducts);
+    }
+    router.push("/checkout");
     onClose();
   };
+
+  if (energyUsage.loading) {
+    return (
+      <div className="fixed inset-0 bg-[#2C2C2E]/70 flex items-center justify-center z-50">
+        <div className="bg-[#2C2C2E]/80 rounded-[24px] w-[90%] max-w-[520px] px-8 py-10 text-white shadow-xl flex flex-col items-center">
+          <span className="loader mb-4" />
+          <p>Loading recommendations...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (energyUsage.error) {
+    return (
+      <div className="fixed inset-0 bg-[#2C2C2E]/70 flex items-center justify-center z-50">
+        <div className="bg-[#2C2C2E]/80 rounded-[24px] w-[90%] max-w-[520px] px-8 py-10 text-white shadow-xl flex flex-col items-center">
+          <p className="text-red-400 mb-4">{energyUsage.error}</p>
+          <button onClick={onClose} className="bg-gray-700 px-4 py-2 rounded">
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       onClick={onClose}
@@ -104,10 +122,42 @@ const RecommendationsModal = ({ isOpen, onClose, energyUsage }: IProps) => {
             </p>
           </div>
         </div>
+        {energyUsage.recommendedProducts &&
+          energyUsage.recommendedProducts.length > 0 && (
+            <div className="mt-8">
+              <h4 className="text-lg font-semibold mb-2 text-center">
+                Recommended Products
+              </h4>
+              <div className="flex flex-col gap-4">
+                {energyUsage.recommendedProducts.map((product) => (
+                  <div
+                    key={product.productId}
+                    className="flex items-center gap-4 bg-[#232325] rounded p-3"
+                  >
+                    <img
+                      src={
+                        product.imageUrl || "/assets/placeholders/products.png"
+                      }
+                      alt={product.name}
+                      className="w-12 h-12 object-cover rounded"
+                    />
+                    <div>
+                      <p className="font-medium">{product.name}</p>
+                      <p className="text-xs text-gray-400">{product.slug}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         <div className="mt-8 flex justify-center">
           <button
             onClick={handleGetQuote}
             className="bg-[#FF6B00] text-white text-base font-semibold px-6 py-3 rounded-md hover:bg-orange-700 transition cursor-pointer"
+            disabled={
+              !energyUsage.recommendedProducts ||
+              energyUsage.recommendedProducts.length === 0
+            }
           >
             GET QUOTE
           </button>
