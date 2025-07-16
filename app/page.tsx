@@ -32,8 +32,8 @@ export default function Homepage() {
           loading={isLoading}
         />
       </div>
-      <TalkToExpert />
       <EnergyCalculator />
+      <TalkToExpert />
     </div>
   );
 }
