@@ -82,16 +82,23 @@ const EnergyCalculator = () => {
 
       setRecommendations(result?.data || result || null);
       setIsModalOpen(true);
-    } catch (error) {
+    } catch (error: unknown) {
       setRecommendations(null);
       setIsModalOpen(false);
-      toast.error(
-        error?.response?.data?.message ||
-          error?.response?.data?.error ||
-          error?.message ||
-          error?.error ||
-          "An error occurred while calculating recommendations. Please try again later."
-      );
+      let errorMessage =
+        "An error occurred while calculating recommendations. Please try again later.";
+      if (error && typeof error === "object" && "response" in error) {
+        const err = error as any;
+        errorMessage =
+          err?.response?.data?.message ||
+          err?.response?.data?.error ||
+          err?.message ||
+          err?.error ||
+          errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
