@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import RecommendationsModal from "./components/Recommendations";
 import EmptyState from "../EmptyState";
 import { productsApi } from "@/api";
+import toast from "react-hot-toast";
 
 const EnergyCalculator = () => {
   const [totalConsumption, setTotalConsumption] = useState(0.0);
@@ -63,20 +64,34 @@ const EnergyCalculator = () => {
 
   const handleCalculate = async () => {
     setIsLoading(true);
-    setIsModalOpen(true);
     try {
       const totalKWh = selectedAppliances.reduce((sum, item) => {
         const wattage = consumptionRates[item?.name] || 0;
         return sum + (item?.quantity * wattage) / 1000;
       }, 0);
       setTotalConsumption(Number(totalKWh?.toFixed(2)));
-      const result = await recommendationMutation.mutateAsync({
-        totalPowerConsumptionKWh: totalKWh,
+      const wattagePayload = totalKWh * 1000;
+
+      console.log("Making recommendation request with payload:", {
+        totalWattage: wattagePayload,
       });
-      setRecommendations(result?.data || null);
+
+      const result = await recommendationMutation.mutateAsync({
+        totalWattage: wattagePayload,
+      });
+
+      setRecommendations(result?.data || result || null);
+      setIsModalOpen(true);
     } catch (error) {
-      console.error("Error fetching recommendations:", error);
       setRecommendations(null);
+      setIsModalOpen(false);
+      toast.error(
+        error?.response?.data?.message ||
+          error?.response?.data?.error ||
+          error?.message ||
+          error?.error ||
+          "An error occurred while calculating recommendations. Please try again later."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -232,7 +247,7 @@ const EnergyCalculator = () => {
             </div>
           </div>
         </div>
-        {isModalOpen && recommendations && (
+        {isModalOpen && (
           <RecommendationsModal
             isOpen={isModalOpen}
             onClose={() => {
@@ -241,19 +256,28 @@ const EnergyCalculator = () => {
             }}
             energyUsage={{
               totalConsumption: totalConsumption + " kWh",
-              recommendedInverterRating: recommendations.inverterRating
-                ?.recommendedWatts
-                ? recommendations.inverterRating.recommendedWatts + "W"
+              recommendedInverterRating: recommendations?.requiredKVA
+                ? recommendations.requiredKVA + " KVA"
                 : "-",
-              recommendedBatteryCapacity: recommendations.batteryRating
-                ?.totalCapacityAh
-                ? recommendations.batteryRating.totalCapacityAh + "Ah"
+              recommendedBatteryCapacity:
+                recommendations?.bestRecommendation?.summary || "-",
+              recommendedBatteryCount: recommendations
+                ?.recommendedConfigurations?.[0]?.configuration?.totalBatteries
+                ? String(
+                    recommendations.recommendedConfigurations[0].configuration
+                      .totalBatteries
+                  )
                 : "-",
-              recommendedBatteryCount: recommendations.batteryRating?.quantity
-                ? String(recommendations.batteryRating.quantity)
+              recommendedProducts: recommendations?.suitableInverters || [],
+              backupTime: recommendations?.bestRecommendation?.totalStandbyTime
+                ? recommendations.bestRecommendation.totalStandbyTime + " hours"
                 : "-",
-              recommendedProducts:
-                recommendations.inverterRating?.fallbackProducts || [],
+              systemVoltage: recommendations?.systemRequirements
+                ?.recommendedSystemVoltage
+                ? recommendations.systemRequirements.recommendedSystemVoltage +
+                  "V"
+                : "-",
+              loading: isLoading,
             }}
           />
         )}
