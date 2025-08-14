@@ -114,10 +114,10 @@ const EnergyCalculator = () => {
 
   return (
     <div id="load-calculator-section">
-      <h2 className="text-center text-[#F47A2B] text-3xl md:text-6xl dark:text-white mb-8">
-        Load Calculator{" "}
-      </h2>{" "}
-      <div className="bg-white text-gray-900 px-4 py-4 mb-35 mt-20 md:mt-0">
+      <div className="bg-[#F6F6F6] md:bg-white text-gray-900 px-4 py-6 mb-35 mt-20 md:mt-0 shadow-lg rounded-lg mx-4 md:shadow-none md:rounded-none md:mx-0">
+        <h2 className="text-center text-[#F47A2B] text-3xl md:text-6xl font-bold dark:text-white mb-8">
+          Load Calculator{" "}
+        </h2>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row">
           {/* Energy Usage Summary - always on top for mobile */}
           <div className="w-full md:w-1/2 pr-0 md:pr-8 top-8 order-1 md:order-none mb-8 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
@@ -132,9 +132,9 @@ const EnergyCalculator = () => {
               Use our easy Energy Usage Calculator to discover exactly what size
               inverter you need based on your daily energy consumption.
             </p>
-            <div className="mt-8 w-full md:w-auto">
+            <div className="mt-8 w-full md:w-auto text-center">
               <h3 className="text-3xl gray-600">Total Power Consumption</h3>
-              <p className="text-6xl font-bold text-orange-500 mt-2">
+              <p className="text-4xl font-bold text-orange-500 mt-2">
                 {totalConsumption} kW
               </p>
             </div>
