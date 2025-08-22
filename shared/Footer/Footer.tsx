@@ -19,7 +19,7 @@ const Footer = () => {
               <DarkLogo />
             </div>
             <p className="text-sm flex items-center py-1">
-              <FaPhone className="mr-2" /> +234 907 468 5973
+              <FaPhone className="mr-2" /> +234 707 468 3973
             </p>
             <p className="text-sm flex items-center py-1">
               <FaEnvelope className="mr-2" /> info@gridking.africa

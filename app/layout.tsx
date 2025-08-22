@@ -16,8 +16,49 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gridking",
-  description: "Gridking Technologies",
+  title: {
+    default: "Gridking | Clean Energy Solutions",
+    template: "%s | Gridking",
+  },
+  description:
+    "Gridking Technologies - Next-gen clean energy company focused on photovoltaic power generation and energy storage tech. Solar solutions for homes and businesses.",
+  keywords: [
+    "Gridking",
+    "solar",
+    "clean energy",
+    "photovoltaic",
+    "energy storage",
+    "renewable energy",
+    "solar panels",
+    "inverters",
+    "Nigeria",
+    "Africa",
+  ],
+  openGraph: {
+    title: "Gridking | Clean Energy Solutions",
+    description:
+      "Next-gen clean energy company focused on photovoltaic power generation and energy storage tech. Solar solutions for homes and businesses.",
+    url: "https://www.gridking.africa/",
+    siteName: "Gridking",
+    images: [
+      {
+        url: "/assets/placeholders/GD001.png",
+        width: 1200,
+        height: 630,
+        alt: "Gridking Solar Solutions",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gridking | Clean Energy Solutions",
+    description:
+      "Next-gen clean energy company focused on photovoltaic power generation and energy storage tech. Solar solutions for homes and businesses.",
+    images: ["/assets/placeholders/GD001.png"],
+  },
+  metadataBase: new URL("https://www.gridking.africa"),
 };
 
 function RootLayout({

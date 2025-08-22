@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://gridking.africa
+
+# Sitemaps
+Sitemap: https://gridking.africa/sitemap.xml
