@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaGlobe } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import SearchModals from "../Modals/SearchModals";
-import logo from "../../public/assets/placeholders/logo-gridking.png";
+import { DarkLogo } from "@/shared/Icons";
 export default function NavBarDesktop() {
   const [isCategories, setIscategories] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -61,7 +61,9 @@ export default function NavBarDesktop() {
             className="text-black text-xl font-bold cursor-pointer"
             onClick={() => routes.push("/")}
           >
-            <img src={logo.src} alt="logo" className="h-12" />
+            <span className="h-12 flex items-center">
+              <DarkLogo />
+            </span>
           </div>
           <motion.div>
             <ul className="text-black flex gap-10">
@@ -123,7 +125,9 @@ export default function NavBarDesktop() {
               className={`${getDropdownWidth()} mx-auto h-auto  absolute px-3  mt-2 bg-white z-[100] flex-col items-center shadow-lg justify-center`}
               onMouseLeave={() => setIscategories(false)}
             >
-              <ul className="w-full flex flex-wrap gap-8 justify-between"> {/* Ensure categories are evenly spaced */}
+              <ul className="w-full flex flex-wrap gap-8 justify-between">
+                {" "}
+                {/* Ensure categories are evenly spaced */}
                 {activeCategory?.map((category: any, index: any) => (
                   <div
                     key={index}
@@ -138,8 +142,12 @@ export default function NavBarDesktop() {
                           : "hover:text-orange-500 cursor-pointer"
                       }`}
                       onClick={() =>
-                        routes.push(!category.routes ? category.href : `/collections/${category.name}`)
-                      }                      
+                        routes.push(
+                          !category.routes
+                            ? category.href
+                            : `/collections/${category.name}`
+                        )
+                      }
                     >
                       {category.name}
                     </li>
