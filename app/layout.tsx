@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "Gridking",
     images: [
       {
-        url: "/assets/placeholders/GD001.png",
+        url: "/assets/placeholders/logo-gridking.png",
         width: 1200,
         height: 630,
         alt: "Gridking Solar Solutions",
@@ -56,7 +56,9 @@ export const metadata: Metadata = {
     title: "Gridking | Clean Energy Solutions",
     description:
       "Next-gen clean energy company focused on photovoltaic power generation and energy storage tech. Solar solutions for homes and businesses.",
-    images: ["/assets/placeholders/GD001.png"],
+    images: [
+      "/assets/placeholders/logo-gridking.png",
+    ],
   },
   metadataBase: new URL("https://www.gridking.africa"),
 };
