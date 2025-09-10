@@ -24,7 +24,7 @@ export const productsApi = {
   },
 
   useGetAppliances: () =>
-    api.useFetchRequest("APPLIANCE_LIST", "/appliance"),
+    api.useFetchRequest("APPLIANCE_LIST", "/appliance/no-pagination"),
 
   useGetRecommendation: (options: UseMutationOptions<any, any, any> = {}) =>
     api.useSendRequest("post", "/recommendation", {}, options),

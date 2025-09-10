@@ -117,17 +117,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </h3>
         </Link>
 
-        <div className="mt-2 flex justify-between items-center">
-          <div className="flex items-center ">
+        <div className="mt-2">
+          {/* <div className="flex items-center ">
             {renderStars()}
             <span className="ml-2 text-sm text-gray-600">({reviewCount})</span>
-          </div>
+          </div> */}
 
-          <div className="flex items-center h-12">
+          <div className="w-full">
             {isHovered && (
               <button
                 onClick={handleAddToCheckout}
-                className="text-xs cursor-pointer font-bold border-gray-500 bg-orange-500 hover:bg-orange-700 text-white p-2 rounded-sm"
+                className="w-full text-l cursor-pointer font-bold border-gray-500 bg-orange-500 hover:bg-orange-700 text-white py-3 px-4 rounded-sm"
               >
                 Add to Checkout
               </button>

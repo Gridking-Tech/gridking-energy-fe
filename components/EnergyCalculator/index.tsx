@@ -17,6 +17,16 @@ const EnergyCalculator = () => {
   const [recommendations, setRecommendations] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (recommendations) {
+      console.log("Recommendations data:", recommendations);
+      console.log(
+        "Recommended Inverter from API:",
+        recommendations?.recommendedInverter
+      );
+    }
+  }, [recommendations]);
+
   const { data: appliancesData, isLoading: isAppliancesLoading } =
     productsApi.useGetAppliances() as {
       data?: { data: { name: string; wattage: number }[] };
@@ -262,28 +272,13 @@ const EnergyCalculator = () => {
               setSelectedAppliances([]);
             }}
             energyUsage={{
-              totalConsumption: totalConsumption + " kWh",
-              recommendedInverterRating: recommendations?.requiredKVA
-                ? recommendations.requiredKVA + " KVA"
-                : "-",
-              recommendedBatteryCapacity:
-                recommendations?.bestRecommendation?.summary || "-",
-              recommendedBatteryCount: recommendations
-                ?.recommendedConfigurations?.[0]?.configuration?.totalBatteries
-                ? String(
-                    recommendations.recommendedConfigurations[0].configuration
-                      .totalBatteries
-                  )
-                : "-",
+              desiredBackupHours: recommendations?.desiredBackupHours || 0,
+              requiredKVA: recommendations?.requiredKVA || 0,
+              systemVoltage: recommendations?.systemVoltage || 0,
+              batteryDiagram: recommendations?.batteryDiagram || null,
+              recommendedBattery: recommendations?.recommendedBattery || null,
+              recommendedInverter: recommendations?.recommendedInverter || null,
               recommendedProducts: recommendations?.suitableInverters || [],
-              backupTime: recommendations?.bestRecommendation?.totalStandbyTime
-                ? recommendations.bestRecommendation.totalStandbyTime + " hours"
-                : "-",
-              systemVoltage: recommendations?.systemRequirements
-                ?.recommendedSystemVoltage
-                ? recommendations.systemRequirements.recommendedSystemVoltage +
-                  "V"
-                : "-",
               loading: isLoading,
             }}
           />
