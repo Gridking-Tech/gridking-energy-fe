@@ -95,6 +95,7 @@ export const navLinks = [
   { name: "Home", href: "/" },
   { name: "Product", href: "", constant: ProductsLinks },
   { name: "About Us", href: "/about" },
+  { name: "Downloads", href: "/download" },
 ];
 
 export const products = [
