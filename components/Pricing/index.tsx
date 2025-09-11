@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { productsApi } from "@/api";
+import { useCheckout } from "@/app/context";
 interface FormData {
   fullName: string;
   companyName: string;
@@ -18,6 +19,7 @@ interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
 const Pricing = () => {
   const router = useRouter();
+  const { clearCheckout, checkoutProducts } = useCheckout();
 
   const { mutate, isPending } = productsApi.useSendQuote({
     mutationKey: ["sendQuote"],
@@ -38,21 +40,6 @@ const Pricing = () => {
       );
     },
   });
-
-  // Get cart items from localStorage and ensure it's always an array
-  const storedCart = useMemo(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const cart = JSON.parse(
-          localStorage.getItem("checkout_products") || "[]"
-        );
-        return Array.isArray(cart) ? cart : [];
-      } catch {
-        return [];
-      }
-    }
-    return [];
-  }, []);
 
   // Get stored form data (if any)
   const storedFormData = useMemo(() => {
@@ -85,10 +72,6 @@ const Pricing = () => {
   const [saveInfo, setSaveInfo] = useState<boolean>(
     Object.keys(storedFormData || {}).length > 0
   );
-
-  useEffect(() => {
-    if (!storedCart || storedCart.length === 0) router.replace("/");
-  }, [storedCart, router]);
 
   const handleInputChange = (e: InputChangeEvent) => {
     const { name, value } = e.target;
@@ -123,7 +106,7 @@ const Pricing = () => {
 
     const { saveInfo, ...formDataToSave } = formData;
     const quotePayload = {
-      lineItems: storedCart?.map((item: any) => ({
+      lineItems: checkoutProducts?.map((item: any) => ({
         productId: item.productId,
         quantity: item.quantity,
       })),
@@ -140,20 +123,74 @@ const Pricing = () => {
     }
   };
 
-  // Calculate total items (storedCart is always an array now)
-  const totalItems = storedCart.reduce(
+  const handleClearOrder = () => {
+    clearCheckout();
+    localStorage.removeItem("checkout_products");
+    toast.success("Order cleared successfully");
+    // The component will automatically show the continue shopping content
+    // when storedCart becomes empty due to the conditional rendering
+  };
+
+  // Calculate total items
+  const totalItems = checkoutProducts.reduce(
     (sum: any, item: any) => sum + (item.quantity || 0),
     0
   );
+
+  // If no items in cart, show continue shopping message
+  if (!checkoutProducts || checkoutProducts.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center py-8 px-4">
+        <div className="max-w-lg mx-auto">
+          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 md:p-12 text-center">
+            <div className="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-orange-50 to-orange-100 rounded-full flex items-center justify-center shadow-inner">
+              <svg
+                className="w-14 h-14 text-orange-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              Your cart is empty
+            </h2>
+            <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+              Looks like you haven't added any items to your cart yet. Start
+              shopping to see our amazing solar energy products!
+            </p>
+            <div className="space-y-4">
+              <button
+                onClick={() => router.push("/categories")}
+                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-8 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                Continue Shopping
+              </button>
+              <button
+                onClick={() => router.push("/")}
+                className="w-full bg-gray-100 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-200 transition-colors cursor-pointer"
+              >
+                Back to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-8 px-2 md:px-40">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl mb-8 text-gray-800">Pricing Details</h2>
-        <form
-          onSubmit={handleFormSubmit}
-          className="flex flex-col gap-6"
-        >
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
           {/* Form Fields - always first, full width, padded */}
           <div className="w-full bg-white rounded shadow-sm p-4 md:p-0">
             <div className="mb-2">
@@ -298,45 +335,50 @@ const Pricing = () => {
           <div className="w-full bg-white rounded shadow-sm p-4 md:p-8 mt-4">
             <div>
               {/* List all products in cart */}
-              {storedCart && storedCart.length > 0 ? (
-                <div>
-                  {storedCart.map((item: any) => (
-                    <div
-                      key={item.productId}
-                      className="flex items-center mb-4 border-b pb-2"
-                    >
-                      {item.imageUrl && (
-                        <img
-                          src={item.imageUrl}
-                          alt={item.name}
-                          className="w-10 h-10 object-contain rounded mr-3"
-                        />
-                      )}
-                      <div className="flex-1">
-                        <span className="text-sm text-gray-800 font-medium">
-                          {item.name}
-                        </span>
-                      </div>
-                      <span className="text-xs text-gray-600 ml-2">
-                        Qty: {item.quantity}
+              <div>
+                {checkoutProducts.map((item: any) => (
+                  <div
+                    key={item.productId}
+                    className="flex items-center mb-4 border-b pb-2"
+                  >
+                    {item.imageUrl && (
+                      <img
+                        src={item.imageUrl}
+                        alt={item.name}
+                        className="w-10 h-10 object-contain rounded mr-3"
+                      />
+                    )}
+                    <div className="flex-1">
+                      <span className="text-sm text-gray-800 font-medium">
+                        {item.name}
                       </span>
                     </div>
-                  ))}
-                  <div className="flex justify-between text-sm font-semibold mt-4">
-                    <span>Total Items:</span>
-                    <span>{totalItems}</span>
+                    <span className="text-xs text-gray-600 ml-2">
+                      Qty: {item.quantity}
+                    </span>
                   </div>
+                ))}
+                <div className="flex justify-between text-sm font-semibold mt-4">
+                  <span>Total Items:</span>
+                  <span>{totalItems}</span>
                 </div>
-              ) : (
-                <div className="text-red-500 text-sm">No items in cart.</div>
-              )}
+                <button
+                  type="button"
+                  onClick={handleClearOrder}
+                  className="mt-4 px-4 py-2 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition-colors cursor-pointer"
+                >
+                  Clear Order
+                </button>
+              </div>
             </div>
             <button
               type="submit"
               onClick={handleFormSubmit}
               aria-label="Get Quote"
               data-testid="get-quote-button"
-              disabled={isPending || !isFormValid || storedCart.length === 0}
+              disabled={
+                isPending || !isFormValid || checkoutProducts.length === 0
+              }
               onKeyDown={handleFormSubmit}
               className="w-full mt-4 py-2 bg-[#F57B2C] text-white font-semibold rounded hover:bg-orange-600 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
