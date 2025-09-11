@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCheckout } from "@/app/context";
 import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 
@@ -29,8 +29,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const { addToCheckout } = useCheckout();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const renderStars = () => {
     const fullStars = Math.floor(rating);
@@ -74,12 +82,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="max-w-sm w-full rounded overflow-hidden hover:shadow-md"
+      className="w-full rounded overflow-hidden hover:shadow-md"
     >
       <Link href={`/products/${slug}-${productId}` || goTo}>
         <div
-          className="relative w-full bg-white pt-10"
-          style={{ aspectRatio: "3 / 3.2" }}
+          className="relative w-full bg-white"
+          style={{ aspectRatio: "4 / 5" }}
         >
           {(!imageLoaded || imageError) && (
             <ImagePlaceholder
@@ -95,7 +103,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             alt={`${slug}`}
             objectPosition="center"
             src={imageUrl as string}
-            className={`object-contain transition-opacity duration-300 ${
+            className={`object-cover transition-opacity duration-300 ${
               imageLoaded && !imageError ? "opacity-100" : "opacity-0"
             }`}
             blurDataURL="/assets/placeholders/products.png"
@@ -103,28 +111,32 @@ const ProductCard: React.FC<ProductCardProps> = ({
             onError={() => setImageError(true)}
           />
           {isNew && (
-            <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
+            <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded z-10">
               NEW
             </span>
           )}
         </div>
       </Link>
 
-      <div className="py-4 px-1">
+      <div className="py-4 px-2">
         <Link href={`/products/${slug}-${productId}` || goTo}>
-          <h3 className="text-lg font-bold text-gray-800 hover:text-[#F57B2C]">
+          <h3
+            className={`text-lg font-normal text-gray-800 hover:text-[#F57B2C] underline tracking-widest ${
+              isMobile ? "text-center" : ""
+            }`}
+          >
             {name}
           </h3>
         </Link>
 
-        <div className="mt-2">
+        <div className={`mt-2 ${isMobile ? "text-center" : ""}`}>
           {/* <div className="flex items-center ">
             {renderStars()}
             <span className="ml-2 text-sm text-gray-600">({reviewCount})</span>
           </div> */}
 
           <div className="w-full">
-            {isHovered && (
+            {(isHovered || isMobile) && (
               <button
                 onClick={handleAddToCheckout}
                 className="w-full text-l cursor-pointer font-bold border-gray-500 bg-orange-500 hover:bg-orange-700 text-white py-3 px-4 rounded-sm"

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IProduct } from "@/types";
 import ProductCard from "@/shared/ProductCard";
 import ImagePlaceholder from "./Placeholders/ImagePlaceholder";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const ProductSection = ({
   newArrivals,
@@ -15,14 +16,7 @@ const ProductSection = ({
   const [visibleCount, setVisibleCount] = useState(5);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === (newArrivals?.length || 3) - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [newArrivals?.length]);
+  // Removed auto-swipe functionality
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
@@ -30,6 +24,18 @@ const ProductSection = ({
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 5);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? (newArrivals?.length || 1) - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === (newArrivals?.length || 1) - 1 ? 0 : prevIndex + 1
+    );
   };
 
   return (
@@ -44,6 +50,25 @@ const ProductSection = ({
         {/* Mobile Carousel */}
         <div className="block md:hidden">
           <div className="relative">
+            {/* Arrow Controls */}
+            {!loading && newArrivals?.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrev}
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-200"
+                  aria-label="Previous product"
+                >
+                  <FaChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-200"
+                  aria-label="Next product"
+                >
+                  <FaChevronRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
             <div
               ref={containerRef}
               className="overflow-hidden min-h-[300px] w-full"
