@@ -5,19 +5,20 @@ import { CloseIcon } from "@/shared/Icons";
 import ImagePlaceholder from "@/shared/Placeholders/ImagePlaceholder";
 import { Product } from "@/types";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaWindowMinimize, FaWindowMaximize } from "react-icons/fa";
 
 const CheckoutItems: React.FC = () => {
-  const { checkoutProducts, updateQuantity, removeFromCheckout } =
+  const { checkoutProducts, isLoading, updateQuantity, removeFromCheckout } =
     useCheckout();
-  const [open, setOpen] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
   const router = useRouter();
-  
+  const pathname = usePathname();
 
-  if (!open || checkoutProducts.length === 0) return null;
+  // Don't render on checkout/pricing page or while loading or if no products
+  if (pathname === "/checkout" || isLoading || checkoutProducts.length === 0)
+    return null;
 
   const handleProceed = () => {
     // Save checkout products to localStorage
@@ -27,7 +28,6 @@ const CheckoutItems: React.FC = () => {
         JSON.stringify(checkoutProducts)
       );
     }
-    setOpen(false); // Close the modal
     router.push("/checkout");
     console.log("Proceeding to checkout with:", checkoutProducts);
   };
@@ -49,7 +49,7 @@ const CheckoutItems: React.FC = () => {
           Checkout Items {`(${checkoutProducts?.length})`}
         </h2>
         <button
-          className="absolute right-4 top-5 text-white text-xl hover:text-gray-200 cursor-pointer"
+          className="text-white text-xl hover:text-gray-200 cursor-pointer"
           onClick={toggleMinimize}
           aria-label={isMinimized ? "Maximize" : "Minimize"}
         >

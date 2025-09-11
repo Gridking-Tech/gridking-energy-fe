@@ -18,6 +18,7 @@ interface Product {
 
 interface CheckoutContextType {
   checkoutProducts: Product[];
+  isLoading: boolean;
   addToCheckout: (
     product: Omit<Product, "quantity"> | Omit<Product, "quantity">[]
   ) => void;
@@ -38,6 +39,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
   const STORAGE_KEY = "checkout_products";
 
   const [checkoutProducts, setCheckoutProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -50,6 +52,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
           setCheckoutProducts([]);
         }
       }
+      setIsLoading(false);
     }
   }, []);
 
@@ -145,6 +148,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
     <CheckoutContext.Provider
       value={{
         checkoutProducts,
+        isLoading,
         addToCheckout,
         updateQuantity,
         removeFromCheckout,
