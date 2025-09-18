@@ -91,7 +91,6 @@ function DownloadPage() {
                     </span>
                     <a
                       href={manual.url}
-                      target="_blank"
                       rel="noopener noreferrer nofollow"
                       download
                       className="inline-flex items-center space-x-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium text-sm"
